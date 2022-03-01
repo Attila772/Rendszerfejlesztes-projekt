@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { RootState } from "../Config/store";
-import { SliceStatus } from "../types";
+import { SliceStatus } from "../../types";
 
 interface ApplicationState {
   error: string | null;

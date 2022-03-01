@@ -1,4 +1,4 @@
-import { AUTH_TOKEN_KEY } from "../Config/constants";
+import { AUTH_TOKEN_KEY } from "../config/constants";
 
 export function tokenExists(): boolean {
   return (

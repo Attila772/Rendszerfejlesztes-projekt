@@ -1,12 +1,11 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import axios from "axios";
 import {
   GenericPageResponse,
-  GenericResponse,
   GetAccountResponse,
   HttpResponse,
   User,
   UserRequest,
-} from "../types";
+} from "../../types";
 
 const ENDPOINT = "/user";
 

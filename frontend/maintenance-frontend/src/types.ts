@@ -55,6 +55,7 @@ export type User = {
   email: string;
   password: null;
   token: string;
+  isSuperAdmin: boolean;
   // status: "ACTIVE" | "BANNED" | "NEEDS_ACTIVATION";
 };
 
