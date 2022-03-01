@@ -1,7 +1,7 @@
-import authentication from "reducers/authentication";
-import application from "reducers/application";
 import thunk, { ThunkAction } from "redux-thunk";
 import { configureStore, combineReducers, Action } from "@reduxjs/toolkit";
+import authentication from "../shared/reducers/authentication";
+import application from "../shared/reducers/application";
 
 const rootReducer = combineReducers({
   authentication,

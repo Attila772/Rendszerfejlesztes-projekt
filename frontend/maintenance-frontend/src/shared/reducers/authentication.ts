@@ -1,8 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AppThunk } from "../Config/store";
-import { getAccount, postLogout, userLogin } from "../Network/user.api";
-import { AuthenticatedUser, GetAccountResponse, SliceStatus } from "../types";
-import { getToken, removeToken, saveToken } from "../Util/authToken";
+import { AppThunk } from "../../config/store";
+import {
+  AuthenticatedUser,
+  GetAccountResponse,
+  SliceStatus,
+} from "../../types";
+import { getToken, removeToken, saveToken } from "../../Util/authToken";
+import { getAccount, postLogout, userLogin } from "../network/user.api";
 
 interface AuthenticationState {
   account: AuthenticatedUser;

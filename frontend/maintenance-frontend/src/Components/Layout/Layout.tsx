@@ -1,6 +1,5 @@
 import {
   ArrowBackIosOutlined,
-  CheckCircle,
   Home,
   MoreVert,
   Search,
@@ -23,12 +22,11 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { useSnackbar } from "notistack";
 import { MouseEvent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { RootState } from "../../Config/store";
+import { RootState } from "../../config/store";
 import {
   FunctionSearchEntry,
   functionSearchList,
@@ -36,6 +34,9 @@ import {
 import { getPageName } from "../../Util/getPageName";
 import { useHeader } from "./HeaderContext";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
+import { Permission } from "../../types";
+import { GRADIENT } from "../../config/constants";
+import SideBar from "./SideBar/SideBar";
 
 type Props = {
   children: React.ReactNode;
@@ -70,13 +71,11 @@ const Layout = ({ children }: Props) => {
   const { t } = useTranslation();
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { enqueueSnackbar } = useSnackbar();
   const { headerButtons, headerName, headerMenuItems } = useHeader();
   const theme = useTheme();
   const matchesSm = useMediaQuery(theme.breakpoints.up("sm"));
   const matchesMd = useMediaQuery(theme.breakpoints.up("md"));
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
   const [open, setOpen] = useState(false);
   const [width, setWidth] = useState(matchesMd ? 80 : 200);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
@@ -88,7 +87,7 @@ const Layout = ({ children }: Props) => {
   const [availableFunctionList, setAvailableFunctionList] =
     useState<FunctionSearchEntry[]>(functionSearchList);
 
-  const { isAuthenticated, selectedRelTenant, account } = useSelector(
+  const { isAuthenticated, account } = useSelector(
     (state: RootState) => state.authentication
   );
 
@@ -103,14 +102,14 @@ const Layout = ({ children }: Props) => {
   }, [selectedFunction]); //eslint-disable-line
 
   useEffect(() => {
-    if (account && selectedRelTenant && account.permissions) {
+    if (account && account.permissions) {
       setPermissionList(
-        account.permissions.find((permission: any) => {
-          return permission.id === selectedRelTenant.tenant.id;
+        account.permissions.find((permission: Permission) => {
+          return permission.id === account.user.id;
         })?.permissions || []
       );
     }
-  }, [selectedRelTenant, account]);
+  }, [account]);
 
   useEffect(() => {
     if (account.user) {
@@ -126,13 +125,12 @@ const Layout = ({ children }: Props) => {
     if (account.user.isSuperAdmin) {
       return true;
     } else if (
-      !functionSearchEntry.needSuperAdmin &&
-      selectedRelTenant.isTenantAdmin
+      functionSearchEntry.needSuperAdmin &&
+      account.user.isSuperAdmin
     ) {
       return true;
     } else if (
       !functionSearchEntry.needSuperAdmin &&
-      !functionSearchEntry.needTenantAdmin &&
       userPermissionCheck(functionSearchEntry)
     ) {
       return true;
@@ -152,25 +150,6 @@ const Layout = ({ children }: Props) => {
     });
     return hasPermissions;
   }
-
-  const onHomePageChange = async (pathname: string) => {
-    setLoading(true);
-    if (selectedRelTenant?.tenant?.id) {
-      try {
-        await setHomePage(pathname, selectedRelTenant.tenant.id);
-        setAnchorEl(null);
-        dispatch(fetchAccount());
-        enqueueSnackbar(t("homePage.setSuccess"), {
-          variant: "success",
-        });
-      } catch {
-        enqueueSnackbar("homePage.setError", {
-          variant: "error",
-        });
-      }
-      setLoading(false);
-    }
-  };
 
   if (!isAuthenticated) {
     return <>{children}</>;
@@ -281,8 +260,6 @@ const Layout = ({ children }: Props) => {
                   )}
                 />
               </Box>
-              {/*Értesítés felület*/}
-              {/*<Notifications />*/}
               <Tooltip title={t("layout.settings").toString()}>
                 <IconButton
                   onClick={(event: MouseEvent<HTMLButtonElement>) => {
@@ -297,26 +274,14 @@ const Layout = ({ children }: Props) => {
                 open={!!anchorEl}
                 onClose={() => setAnchorEl(null)}
               >
-                <MenuItem
-                  disabled={account.user.homePage === window.location.pathname}
-                  onClick={() =>
-                    onHomePageChange(
-                      window.location.pathname + window.location.search
-                    )
-                  }
-                >
+                <MenuItem>
                   <ListItemIcon style={{ minWidth: 48 }}>
                     {loading ? (
                       <CircularProgress style={{ width: 20, height: 20 }} />
-                    ) : account.user.homePage === window.location.pathname ? (
-                      <CheckCircle />
                     ) : (
                       <Home />
                     )}
                   </ListItemIcon>
-                  <Box>
-                    <Typography>{t("homePage.set")}</Typography>
-                  </Box>
                 </MenuItem>
                 {headerMenuItems}
               </Menu>

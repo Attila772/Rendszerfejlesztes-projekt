@@ -7,17 +7,31 @@ import { BrowserRouter } from "react-router-dom";
 import { SnackbarProvider } from "notistack";
 import PageLoading from "./Components/PageLoading";
 import ScrollToTop from "./Components/ScrollToTop";
+import { QueryClientProvider } from "react-query";
+import queryClient from "./config/query";
+import { ThemeProvider } from "@emotion/react";
+import { Provider as ReduxProvider } from "react-redux";
+import theme from "./config/constants";
+import store from "./config/store";
+import CssBaseline from "@material-ui/core/CssBaseline";
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <SnackbarProvider>
-        <Suspense fallback={<PageLoading />}>
-          <ScrollToTop />
-          <App />
-        </Suspense>
-      </SnackbarProvider>
-    </BrowserRouter>
+    <ReduxProvider store={store}>
+      <BrowserRouter>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <QueryClientProvider client={queryClient}>
+            <SnackbarProvider>
+              <Suspense fallback={<PageLoading />}>
+                <ScrollToTop />
+                <App />
+              </Suspense>
+            </SnackbarProvider>
+          </QueryClientProvider>
+        </ThemeProvider>
+      </BrowserRouter>
+    </ReduxProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

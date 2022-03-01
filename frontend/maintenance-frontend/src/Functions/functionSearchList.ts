@@ -2,7 +2,6 @@
 
 export type FunctionSearchEntry = {
   target: string;
-  needTenantAdmin: boolean;
   needSuperAdmin: boolean;
   permissions: string[];
 };
@@ -10,5 +9,5 @@ export type FunctionSearchEntry = {
 // prettier-ignore
 export const functionSearchList: FunctionSearchEntry[] = [
   // FROM App.tsx
-  { target: "", needTenantAdmin: false, needSuperAdmin: false, permissions: [] },
+  { target: "",  needSuperAdmin: false, permissions: [] },
 ];

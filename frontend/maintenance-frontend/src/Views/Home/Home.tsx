@@ -1,9 +1,9 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import { colors } from "@mui/material";
 
-function App() {
-  return <div className="App"></div>;
-}
+const Home = () => {
+  return (
+    <span style={{ backgroundColor: colors.common.black }}>aaaaaaaaaaaa</span>
+  );
+};
 
-export default App;
+export default Home;
