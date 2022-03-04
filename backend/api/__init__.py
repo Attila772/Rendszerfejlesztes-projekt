@@ -14,13 +14,21 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     db.init_app(app)
 
-    from .views import views
-    from .auth import auth
+    #from .views import views
+    #from .auth import auth
 
-    app.register_blueprint(views, url_prefix='/')
-    app.register_blueprint(auth, url_prefix='/')
+    #app.register_blueprint(views, url_prefix='/')
+    #app.register_blueprint(auth, url_prefix='/')
 
     from .model import User
+    from .model import trade
+    from .model import log
+    from .model import item
+    from .model import location
+    from .model import category
+    from .model import task
+    from .model import schedule
+    from .model import level
 
     create_db(app)
     login_manager = LoginManager()
