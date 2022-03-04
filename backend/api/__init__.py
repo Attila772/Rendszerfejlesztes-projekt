@@ -3,6 +3,9 @@ from flask_login.utils import login_required
 from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager, login_manager
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
+
 
 db = SQLAlchemy()
 DB_NAME = "database.db"
@@ -38,7 +41,16 @@ def create_app():
     @login_manager.user_loader
     def load_user(id):
         return User.query.get(int(id))
-
+    admin = Admin(app, template_mode="bootstrap4")
+    admin.add_view(ModelView(User, db.session))
+    admin.add_view(ModelView(trade, db.session))
+    admin.add_view(ModelView(log, db.session))
+    admin.add_view(ModelView(item, db.session))
+    admin.add_view(ModelView(location, db.session))
+    admin.add_view(ModelView(category, db.session))
+    admin.add_view(ModelView(task, db.session))
+    admin.add_view(ModelView(schedule, db.session))
+    admin.add_view(ModelView(level, db.session))
     return app
 
 
