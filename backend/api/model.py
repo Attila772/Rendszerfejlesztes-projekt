@@ -43,6 +43,7 @@ class location(db.Model):
 class category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(150))
+    norma_time = db.Column(db.Integer) #percekben 
     interval = db.Column(db.Integer)
     # day/ month / year => where x = int
     interval_step = db.Column(db.String(150))
@@ -63,6 +64,7 @@ class schedule(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     from_date = db.Column(db.String(150))
     length = db.Column(db.Integer)
+    state = db.Column(db.String(150))
     task = db.Column(db.Integer, db.ForeignKey('task.id'))
 
 
