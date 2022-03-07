@@ -32,7 +32,7 @@ def login():
     return jsonify({"Data": "Sikertelen login"})
 
 
-@login_required
+
 @auth.route('/sign-up', methods=["GET", "POST"])
 def sign_up():
     if request.method == "POST":
