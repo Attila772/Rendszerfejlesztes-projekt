@@ -1,5 +1,4 @@
 from re import fullmatch
-
 from flask_login.utils import login_required
 from .model import User
 from flask import Blueprint, jsonify, render_template, request, flash, redirect, url_for
@@ -19,43 +18,47 @@ def login():
         password = request.form.get('password')
         user = User.query.filter_by(email=email).first()
         if user:
-            if check_password_hash(user.password, password):
-                flash('Logged in successfully', category='succes')
+            if (user.password == password):
                 login_user(user, remember=True)
                 return jsonify({"Data": "Sikeres login"})
             else:
-                flash('Wrong password, try again', category='error')
-
+                return jsonify({"Data": "BAD_CREDENTIALS"})
         else:
-            flash('email doesn\'t exist', category='error')
+            return jsonify({"Data": "USER_NOT_FOUND"})
 
-    return jsonify({"Data": "Sikertelen login"})
+    return jsonify({"Data": "BAD_CREDENTIALS"})
 
-
+    """USER
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(150), unique=True)
+    password = db.Column(db.String(150))
+    trade = db.Column(db.Integer, db.ForeignKey('trade.id'))
+    level = db.Column(db.Integer, db.ForeignKey('level.id'))
+    logs = db.relationship('log')
+    schedule = db.relationship('schedule')
+    """
 
 @auth.route('/sign-up', methods=["GET", "POST"])
 def sign_up():
     if request.method == "POST":
         email = request.form.get('email')
-        firstName = request.form.get('firstName')
         pass1 = request.form.get('password1')
         pass2 = request.form.get('password2')
         user = User.query.filter_by(email=email).first()
+        trade = request.form.get('trade')
+        level = request.form.get('level')
         if user:
-            flash('User already exists', category='error')
+             return jsonify({"Data": "van mar ilyen user"})
         elif not re.fullmatch(regex, email):
-            flash("Email invalid", category="error")
-        elif len(firstName) < 2:
-            flash("Firstname should be at least 3 characters long", category="error")
+             return jsonify({"Data": "email nem valid"})
         elif pass1 != pass2:
-            flash("Passwords don\'t match u dumdum", category="error")
+             return jsonify({"Data": "jelszavak nem ugyanazok"})
         elif len(pass1) < 7:
-            flash("Password must be at least 7 characters long", category="error")
+             return jsonify({"Data": "jelszo nincs 7 karakter"})
         else:
-            new_user = User(email=email, first_name=firstName,
-                            password=generate_password_hash(pass1, method='sha256'))
+            new_user = User(email=email, trade=trade,level=level,
+                            password=pass1)
             db.session.add(new_user)
             db.session.commit()
             login_user(user, remember=True)
-            flash("Account succesfully created", category="success")
-            return redirect(url_for('views.home'))
+            return jsonify({"Data": "Sikeres regisztráció"})

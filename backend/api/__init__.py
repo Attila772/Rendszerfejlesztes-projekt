@@ -41,6 +41,7 @@ def create_app():
     @login_manager.user_loader
     def load_user(id):
         return User.query.get(int(id))
+    
     admin = Admin(app, template_mode="bootstrap4")
     admin.add_view(ModelView(User, db.session))
     admin.add_view(ModelView(trade, db.session))
@@ -51,6 +52,7 @@ def create_app():
     admin.add_view(ModelView(task, db.session))
     admin.add_view(ModelView(schedule, db.session))
     admin.add_view(ModelView(level, db.session))
+    
     return app
 
 
