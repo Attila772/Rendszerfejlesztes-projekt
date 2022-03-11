@@ -20,13 +20,21 @@ def login():
         if user:
             if (user.password == password):
                 login_user(user, remember=True)
-                return jsonify({"Data": "Sikeres login"})
+                response = jsonify({"Data": "Sikeres login"})
+                response.headers.add('Access-Control-Allow-Origin', '*')
+                return response
             else:
-                return jsonify({"Data": "BAD_CREDENTIALS"})
+                response = jsonify({"Data": "BAD_CREDENTIALS"})
+                response.headers.add('Access-Control-Allow-Origin', '*')
+                return response
         else:
-            return jsonify({"Data": "USER_NOT_FOUND"})
+            response =  jsonify({"Data": "USER_NOT_FOUND"})
+            response.headers.add('Access-Control-Allow-Origin', '*')
+            return response
 
-    return jsonify({"Data": "BAD_CREDENTIALS"})
+    response =  jsonify({"Data": "BAD_CREDENTIALS"})
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
     """USER
     id = db.Column(db.Integer, primary_key=True)
@@ -48,17 +56,27 @@ def sign_up():
         trade = request.form.get('trade')
         level = request.form.get('level')
         if user:
-             return jsonify({"Data": "van mar ilyen user"})
+             response = jsonify({"Data": "van mar ilyen user"})
+             response.headers.add('Access-Control-Allow-Origin', '*')
+             return response
         elif not re.fullmatch(regex, email):
-             return jsonify({"Data": "email nem valid"})
+             response =  jsonify({"Data": "email nem valid"})
+             response.headers.add('Access-Control-Allow-Origin', '*')
+             return response
         elif pass1 != pass2:
-             return jsonify({"Data": "jelszavak nem ugyanazok"})
+             response =  jsonify({"Data": "jelszavak nem ugyanazok"})
+             response.headers.add('Access-Control-Allow-Origin', '*')
+             return response
         elif len(pass1) < 7:
-             return jsonify({"Data": "jelszo nincs 7 karakter"})
+             response =  jsonify({"Data": "jelszo nincs 7 karakter"})
+             response.headers.add('Access-Control-Allow-Origin', '*')
+             return response
         else:
             new_user = User(email=email, trade=trade,level=level,
                             password=pass1)
             db.session.add(new_user)
             db.session.commit()
             login_user(user, remember=True)
-            return jsonify({"Data": "Sikeres regisztráció"})
+            response =  jsonify({"Data": "Sikeres regisztráció"})
+            response.headers.add('Access-Control-Allow-Origin', '*')
+            return response
