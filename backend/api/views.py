@@ -2,7 +2,7 @@ from multiprocessing.sharedctypes import Value
 from re import fullmatch
 from unicodedata import name
 from flask_login.utils import login_required
-from .model import User,level
+from .model import User,level,trade
 from flask import Blueprint, jsonify, render_template, request, flash, redirect, url_for
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
@@ -34,4 +34,30 @@ def route():
         db.session.commit()
     pass
 
-
+@views.route('/trade', methods=['GET','POST','PUT','DELETE'])
+def route():
+    if request.method == 'POST':
+        trade_name = request.get_json()['trade_name']
+        new_trade=trade(name=trade_name)
+        db.session.add(new_trade)
+        db.session.commit()
+        return jsonify({'Data':'Sikeres'})
+    elif request.method == 'GET':
+        trades = trade.query.filter_by()
+        response_dict = {}
+        for _trade in trades:
+            response_dict[_trade.id] = _trade.name
+        response = jsonify({'Trades': response_dict})
+        return jsonify({'Data':'Sikeres'})
+    elif request.method == 'DELETE':
+        id = request.get_json()['id']
+        _trade = trade.query.filter_by(id = id).first()
+        db.session.delete(_trade)
+        db.session.commit()
+        return jsonify({'Data':'Sikeres'})
+    elif request.method == 'PUT':
+        id = request.get_json()['id']
+        trade.query.filter_by(id = id).first().name=request.get_json()['trade_name']
+        db.session.commit()
+        return jsonify({'Data':'Sikeres'})
+    pass
