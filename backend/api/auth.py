@@ -59,10 +59,6 @@ def sign_up():
              response = jsonify({"Data": "van mar ilyen user"})
              response.headers.add('Access-Control-Allow-Origin', '*')
              return response
-        elif not re.fullmatch(regex, email):
-             response =  jsonify({"Data": "email nem valid"})
-             response.headers.add('Access-Control-Allow-Origin', '*')
-             return response
         elif pass1 != pass2:
              response =  jsonify({"Data": "jelszavak nem ugyanazok"})
              response.headers.add('Access-Control-Allow-Origin', '*')
