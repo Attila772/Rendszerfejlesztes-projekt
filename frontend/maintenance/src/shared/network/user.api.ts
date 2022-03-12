@@ -21,3 +21,12 @@ export const registerUser = async (userRequest: RegisterUserRequest) => {
   const response = await fetch("http://127.0.0.1:5000/sign-up", requestOptions);
   return response.json();
 };
+
+export const listEmployees = async () => {
+  const requestOptions = {
+    method: "GET",
+    headers: { "Content-type": "application/json" },
+  };
+  const response = await fetch("http://127.0.0.1:5000/users", requestOptions);
+  return response.json();
+};

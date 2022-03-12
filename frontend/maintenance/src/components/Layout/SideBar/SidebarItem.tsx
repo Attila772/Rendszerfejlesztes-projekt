@@ -1,5 +1,5 @@
 import { Box, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { COLORS } from "../../../shared/common/constants";
 import NavLink from "../NavLink";
 

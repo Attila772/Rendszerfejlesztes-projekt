@@ -63,3 +63,5 @@ export const COLORS = window.location.hostname.includes("rajosszikviz")
 
 export const GRADIENT = `linear-gradient(45deg, ${COLORS.main} 0%, ${COLORS.mainLight} 100%)`;
 export const GRADIENT_ORANGE = `linear-gradient(45deg, ${COLORS.orange} 0%, ${COLORS.orangeLight} 30%)`;
+
+export const BOX_SHADOW = `${COLORS.shadowLight} 0px 4px 6px -1px, ${COLORS.shadowLight} 0px 2px 4px -1px`;

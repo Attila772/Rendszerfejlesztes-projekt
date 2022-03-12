@@ -1,6 +1,13 @@
 import { Box, colors, Drawer, List } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { ExitToAppOutlined } from "@mui/icons-material";
+import {
+  Difference,
+  ExitToAppOutlined,
+  History,
+  LocationOn,
+  Star,
+  Sync,
+} from "@mui/icons-material";
 import HomeIcon from "@mui/icons-material/Home";
 import { Dispatch, SetStateAction } from "react";
 import { GRADIENT } from "../../../shared/common/constants";
@@ -59,30 +66,65 @@ const SideBar = ({ open, setOpen, width, removeToken }: Props) => {
           <List style={{ padding: 12 }} onClick={() => setOpen(false)}>
             <SidebarItem
               to={`/dashboard`}
-              text={"Home"}
+              text={"Főoldal"}
               icon={<HomeIcon />}
               activeMenuItem={["/dashboard"]}
               width={width}
             />
             <SidebarItem
               to={`/employees`}
-              text={"Employees"}
+              text={"Dolgozók"}
               icon={<PersonOutlineIcon />}
               activeMenuItem={["/employees"]}
               width={width}
             />
             <SidebarItem
               to={`/issues`}
-              text={"Issues"}
+              text={"Feladatok"}
               icon={<AssignmentIndIcon />}
               activeMenuItem={["/issues"]}
               width={width}
             />
             <SidebarItem
               to={`/tools`}
-              text={"Tools"}
+              text={"Eszközök"}
               icon={<BuildIcon />}
               activeMenuItem={["/tools"]}
+              width={width}
+            />
+            <SidebarItem
+              to={`/categories`}
+              text={"Kategóriák"}
+              icon={<Difference />}
+              activeMenuItem={["/categories"]}
+              width={width}
+            />
+            <SidebarItem
+              to={`/intervals`}
+              text={"Intervallumok"}
+              icon={<Sync />}
+              activeMenuItem={["/intervals"]}
+              width={width}
+            />
+            <SidebarItem
+              to={`/locations`}
+              text={"Helyszínek"}
+              icon={<LocationOn />}
+              activeMenuItem={["/locations"]}
+              width={width}
+            />
+            <SidebarItem
+              to={`/logs`}
+              text={"Logok"}
+              icon={<History />}
+              activeMenuItem={["/logs"]}
+              width={width}
+            />
+            <SidebarItem
+              to={`/qualifications`}
+              text={"Képesítések"}
+              icon={<Star />}
+              activeMenuItem={["/qualifications"]}
               width={width}
             />
           </List>
