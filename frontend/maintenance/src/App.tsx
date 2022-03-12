@@ -13,9 +13,9 @@ const Tools = lazy(() => import("./views/Tools"));
 function App() {
   const { token, setToken, removeToken } = useToken();
 
-  if (!token) {
+  /*if (!token) {
     return <Login setToken={setToken} />;
-  }
+  }*/
 
   return (
     <>
