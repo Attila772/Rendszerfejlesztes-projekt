@@ -13,7 +13,7 @@ views = Blueprint('auth', __name__)
 @views.route('/role', methods=['GET','POST','PUT','DELETE'])
 def route():
     if request.method == 'POST':
-        role_name = request.form['role_name']
+        role_name = request.get_json()['role_name']
         new_role = level(name= role_name, value = 0)
         db.session.add(new_role)
         db.session.commit()
@@ -24,12 +24,14 @@ def route():
             response_dict[role.id] = role.name
         response = jsonify({'Roles': response_dict})
     elif request.method == 'DELETE':
-        id = request.form['id']
+        id = request.get_json()['id']
         role = level.query.filter_by(id = id).first()
         db.session.delete(role)
         db.session.commit()
     elif request.method =='PUT':
-        id = request.form['id']
+        id = request.get_json()['id']
+        level.query.filter_by(id = id).first().name = request.get_json()['name']
+        db.session.commit()
     pass
 
 

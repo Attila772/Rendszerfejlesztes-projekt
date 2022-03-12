@@ -14,8 +14,8 @@ auth = Blueprint('auth', __name__)
 @auth.route('/login', methods=["GET", "POST"])
 def login():
     if request.method == 'POST':
-        email = request.form.get('email')
-        password = request.form.get('password')
+        email = request.get_json()['email']
+        password = request.get_json()['password']
         user = User.query.filter_by(email=email).first()
         if user:
             if (user.password == password):
@@ -49,12 +49,11 @@ def login():
 @auth.route('/sign-up', methods=["GET", "POST"])
 def sign_up():
     if request.method == "POST":
-        email = request.form.get('email')
-        pass1 = request.form.get('password1')
-        pass2 = request.form.get('password2')
+        email = request.get_json()['email']
+        pass1 = request.get_json()['password1']
         user = User.query.filter_by(email=email).first()
-        trade = request.form.get('trade')
-        level = request.form.get('level')
+        trade = request.get_json()['trade']
+        level = request.get_json()['level']
         if user:
              response = jsonify({"Data": "van mar ilyen user"})
              response.headers.add('Access-Control-Allow-Origin', '*')
@@ -64,7 +63,7 @@ def sign_up():
                             password=pass1)
             db.session.add(new_user)
             db.session.commit()
-            login_user(user, remember=True)
+            login_user(new_user, remember=True)
             response =  jsonify({"Data": "Sikeres regisztráció"})
             response.headers.add('Access-Control-Allow-Origin', '*')
             return response
