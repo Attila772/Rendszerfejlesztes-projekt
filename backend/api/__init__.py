@@ -5,6 +5,7 @@ from os import path
 from flask_login import LoginManager, login_manager
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
+from flask_cors import CORS
 
 
 db = SQLAlchemy()
@@ -13,6 +14,7 @@ DB_NAME = "database.db"
 
 def create_app():
     app = Flask(__name__)
+    CORS(app)
     app.config['SECRET_KEY'] = 'titkositottkulcsaaaaaa'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     db.init_app(app)
