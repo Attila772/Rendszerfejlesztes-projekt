@@ -2,7 +2,7 @@ from multiprocessing.sharedctypes import Value
 from re import fullmatch
 from unicodedata import name
 from flask_login.utils import login_required
-from .model import User,level,trade,location,category
+from .model import User,level,trade,location,category,item
 from flask import Blueprint, jsonify, render_template, request, flash, redirect, url_for
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
@@ -136,6 +136,45 @@ def route():
         category.query.filter_by(id = id).first().descript=request.get_json()['descript']
         category.query.filter_by(id = id).first().qualifications=request.get_json()['qualifications']
         category.query.filter_by(id = id).first().parent_id=request.get_json()['parent_id']
+        db.session.commit()
+        return jsonify({'Data':'Sikeres'})
+    pass
+
+@views.route('/item', methods=['GET','POST','PUT','DELETE'])
+def route():
+    if request.method == 'POST':
+        item_name = request.get_json()['name']
+        item_descript = request.get_json()['descript']
+        item_category = request.get_json()['category']
+        item_location= request.get_json()['location']
+        new_item=item(name=item_name,
+                      descript=item_descript, 
+                      category= item_category,
+                      location=item_location)
+        db.session.add(new_item)
+        db.session.commit()
+        return jsonify({'Data':'Sikeres'})
+    elif request.method == 'GET':
+        items = item.query.filter_by()
+        response_dict = {}
+        for _item in items:
+            response_dict[_item.id]={'name': _item.name,
+                                     'descript': _item.descript,
+                                     'category': _item.category,
+                                     'location': _item.location}
+        return jsonify({'Data': response_dict})
+    elif request.method == 'DELETE':
+        id = request.get_json()['id']
+        _item = item.query.filter_by(id = id).first()
+        db.session.delete(_item)
+        db.session.commit()
+        return jsonify({'Data':'Sikeres'})
+    elif request.method == 'PUT':
+        id = request.get_json()['id']
+        item.query.filter_by(id = id).first().name=request.get_json()['name']
+        item.query.filter_by(id = id).first().descript=request.get_json()['descript']
+        item.query.filter_by(id = id).first().category=request.get_json()['category']
+        item.query.filter_by(id = id).first().location=request.get_json()['location']
         db.session.commit()
         return jsonify({'Data':'Sikeres'})
     pass
