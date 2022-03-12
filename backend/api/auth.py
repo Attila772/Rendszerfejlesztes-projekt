@@ -59,14 +59,6 @@ def sign_up():
              response = jsonify({"Data": "van mar ilyen user"})
              response.headers.add('Access-Control-Allow-Origin', '*')
              return response
-        elif pass1 != pass2:
-             response =  jsonify({"Data": "jelszavak nem ugyanazok"})
-             response.headers.add('Access-Control-Allow-Origin', '*')
-             return response
-        elif len(pass1) < 7:
-             response =  jsonify({"Data": "jelszo nincs 7 karakter"})
-             response.headers.add('Access-Control-Allow-Origin', '*')
-             return response
         else:
             new_user = User(email=email, trade=trade,level=level,
                             password=pass1)
