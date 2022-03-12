@@ -50,7 +50,7 @@ def login():
 def sign_up():
     if request.method == "POST":
         email = request.get_json()['email']
-        pass1 = request.get_json()['password1']
+        pass1 = request.get_json()['password']
         user = User.query.filter_by(email=email).first()
         trade = request.get_json()['trade']
         level = request.get_json()['level']
