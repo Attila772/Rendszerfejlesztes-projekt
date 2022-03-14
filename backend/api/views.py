@@ -41,7 +41,7 @@ def route():
 def _location():
     if request.method == 'POST':
         name = request.get_json()['building']
-        room = request.get_json()['rooms']
+        room = request.get_json()['room']
         new_loc = location(building= name, rooms = room)
         db.session.add(new_loc)
         db.session.commit()
