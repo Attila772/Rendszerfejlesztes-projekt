@@ -30,7 +30,6 @@ function App() {
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <Layout removeToken={removeToken}>
             <Routes>
-              <Route path="/" element={<Dashboard />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/employees" element={<Employees />} />
               <Route path="/issues" element={<Issues />} />
