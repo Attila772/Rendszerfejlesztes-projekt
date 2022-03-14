@@ -7,17 +7,15 @@ const Dashboard = () => {
   const { t } = useTranslation();
   return (
     <h2
-    /* onClick={async () => {
+      onClick={async () => {
         const response = await registerUser({
           email: "asd@gmail.com",
-          password1: "asd123",
-          password2: "asd123",
+          password: "asd123",
           level: "1",
           trade: "",
         } as RegisterUserRequest).catch((error) => console.log(error));
         console.log(response);
       }}
-*/
     >
       {t("drawer.dashboard")}
     </h2>
