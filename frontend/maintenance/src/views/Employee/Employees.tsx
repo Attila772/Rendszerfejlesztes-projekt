@@ -1,23 +1,16 @@
-import { Box, Button, Container } from "@material-ui/core";
-import { GridColDef } from "@mui/x-data-grid";
+import { Box, Button, Container, IconButton, Tooltip } from "@material-ui/core";
+import { Assignment, Delete, Edit } from "@mui/icons-material";
+import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import React, { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { useHeader } from "../../components/Layout/HeaderContext";
 import SingleQueryTable from "../../components/PageableTable/SingleQueryTable";
-import { listEmployees } from "../../shared/network/user.api";
-
-const columns: GridColDef[] = [
-  {
-    field: "email",
-    headerName: "Email cím",
-    sortable: false,
-    disableColumnMenu: true,
-    flex: 1,
-  },
-];
+import { deleteEmployee, listEmployees } from "../../shared/network/user.api";
 
 const Employees = () => {
+  const { t } = useTranslation();
   const [page, setPage] = React.useState(0);
   const { setHeaderButtons } = useHeader();
 
@@ -39,8 +32,68 @@ const Employees = () => {
     };
   }, []);
 
+  const columns: GridColDef[] = [
+    {
+      field: "email",
+      headerName: t("common.table.email"),
+      sortable: false,
+      disableColumnMenu: true,
+      flex: 1,
+    },
+    {
+      field: "level",
+      headerName: t("common.table.level"),
+      sortable: false,
+      disableColumnMenu: true,
+      flex: 1,
+    },
+    {
+      field: " ",
+      headerName: t("common.table.actions"),
+      sortable: false,
+      disableColumnMenu: true,
+      flex: 1,
+      renderCell: ({ row }: GridRenderCellParams) => (
+        <Box display="flex" justifyContent="flex-end" width="100%">
+          <Tooltip title={t("issues.issueDetails").toString()}>
+            <IconButton
+              component={Link}
+              to={`/employee-details?id=${row.id}`}
+              size="small"
+              color="primary"
+              style={{ margin: "0 8px" }}
+            >
+              <Assignment color="primary" />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title={t("issues.modifyIssue").toString()}>
+            <IconButton
+              component={Link}
+              to={`/employee-modify?id=${row.id}`}
+              size="small"
+              color="primary"
+              style={{ margin: "0 8px" }}
+            >
+              <Edit color="primary" />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title={t("issues.modifyIssue").toString()}>
+            <IconButton
+              onClick={() => deleteEmployee(row.id)}
+              size="small"
+              color="primary"
+              style={{ margin: "0 8px" }}
+            >
+              <Delete color="primary" />
+            </IconButton>
+          </Tooltip>
+        </Box>
+      ),
+    },
+  ];
+
   return (
-    <Container maxWidth="xs">
+    <Container maxWidth="sm">
       <SingleQueryTable
         query={employeeQuery}
         columns={columns}

@@ -72,59 +72,64 @@ const SideBar = ({ open, setOpen, width, removeToken }: Props) => {
               width={width}
             />
             <SidebarItem
-              to={`/employees`}
+              to={`/employee`}
               text={"Dolgozók"}
               icon={<PersonOutlineIcon />}
-              activeMenuItem={["/employees"]}
+              activeMenuItem={[
+                "/employee",
+                "/employee-create",
+                "employee-details",
+                "employee-modify",
+              ]}
               width={width}
             />
             <SidebarItem
-              to={`/issues`}
+              to={`/issue`}
               text={"Feladatok"}
               icon={<AssignmentIndIcon />}
-              activeMenuItem={["/issues"]}
+              activeMenuItem={["/issue"]}
               width={width}
             />
             <SidebarItem
-              to={`/tools`}
+              to={`/tool`}
               text={"Eszközök"}
               icon={<BuildIcon />}
-              activeMenuItem={["/tools"]}
+              activeMenuItem={["/tool"]}
               width={width}
             />
             <SidebarItem
-              to={`/categories`}
+              to={`/category`}
               text={"Kategóriák"}
               icon={<Difference />}
-              activeMenuItem={["/categories"]}
+              activeMenuItem={["/category"]}
               width={width}
             />
             <SidebarItem
-              to={`/intervals`}
+              to={`/interval`}
               text={"Intervallumok"}
               icon={<Sync />}
-              activeMenuItem={["/intervals"]}
+              activeMenuItem={["/interval"]}
               width={width}
             />
             <SidebarItem
-              to={`/locations`}
+              to={`/location`}
               text={"Helyszínek"}
               icon={<LocationOn />}
-              activeMenuItem={["/locations"]}
+              activeMenuItem={["/location"]}
               width={width}
             />
             <SidebarItem
-              to={`/logs`}
+              to={`/log`}
               text={"Logok"}
               icon={<History />}
-              activeMenuItem={["/logs"]}
+              activeMenuItem={["/log"]}
               width={width}
             />
             <SidebarItem
-              to={`/qualifications`}
+              to={`/qualification`}
               text={"Képesítések"}
               icon={<Star />}
-              activeMenuItem={["/qualifications"]}
+              activeMenuItem={["/qualification"]}
               width={width}
             />
           </List>

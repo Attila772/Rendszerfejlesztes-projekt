@@ -1,3 +1,5 @@
+import { DiagnosticCategory } from "typescript";
+
 export type ResponseStatus =
   | "OK"
   | "INVALID_INPUT"
@@ -68,5 +70,67 @@ export type User = {
   password: string;
   trade: string;
   level: string;
+  roles?: any[];
+  qualifications?: any[];
+};
+
+export type Role = {
+  id: number;
+  name: string;
   permissions?: any[];
+};
+
+export type Permission = {
+  id: number;
+  name: string;
+};
+
+export type Interval = {
+  id: number;
+  unit: string;
+};
+
+export type Category = {
+  id: number;
+  isExceptional: boolean;
+  name: string;
+  normaTimeInHours: number;
+  interval?: Interval;
+  parentCategory?: any;
+  description?: string;
+};
+
+export type Log = {
+  id: number;
+  status: string;
+  dateTime: string;
+  user?: User;
+};
+
+export type Issue = {
+  id: number;
+  name: string;
+  category: Category;
+  assignedUser: User;
+  priority: number;
+  eventLog?: Log[];
+};
+
+export type qualification = {
+  id: number;
+  name: string;
+};
+
+export type Tool = {
+  id: number;
+  name: string;
+  category: Category;
+  description?: string;
+  location?: Location;
+};
+
+export type Location = {
+  id: number;
+  building: string;
+  room?: string;
 };

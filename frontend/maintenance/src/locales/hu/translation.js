@@ -1,6 +1,11 @@
 export const TRANSLATIONS_HU = {
   notFound: "Az oldal nem található!",
   common: {
+    table: {
+      email: "E-mail cím",
+      level: "Jogosultsági szint",
+      actions: "Műveletek",
+    },
     button: {
       create: "Létrehozás",
       modify: "Módosítás",
@@ -13,7 +18,14 @@ export const TRANSLATIONS_HU = {
   },
   drawer: {
     dashboard: "Főoldal",
-    employees: "Dolgozók",
+    employee: "Dolgozók",
+    issue: "Feladatok",
+    tool: "Eszközök",
+    category: "Kategóriák",
+    interval: "Intervallumok",
+    location: "Helyszínek",
+    log: "Logok",
+    qualification: "Képesítések"
   },
   employee: {
     formLabels: {
@@ -30,6 +42,11 @@ export const TRANSLATIONS_HU = {
     createFailure: {
       notMatchingPasswords:
         "Sikertelen dolgozó hozzáadás. A jelszavak nem egyeznek.",
+    },
+    actions: {
+      createTitle: "Dolgozó létrehozása",
+      modifyTitle: "Dolgozó módosítása",
+      detailsTitle: "Dologzó részletei",
     },
   },
 };

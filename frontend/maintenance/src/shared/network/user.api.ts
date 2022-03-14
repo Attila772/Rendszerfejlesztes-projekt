@@ -14,7 +14,7 @@ export const listEmployees = async () => {
     method: "GET",
     headers: { "Content-type": "application/json" },
   };
-  const response = await fetch(`${SERVER_ADDRESS}/user`, requestOptions);
+  const response = await fetch(`${SERVER_ADDRESS}/sign-up`, requestOptions);
   return response.json();
 };
 
@@ -41,14 +41,11 @@ export const modifyEmployee = async (user: User) => {
   return response.json();
 };
 
-export const deleteEmployee = async (user: User) => {
+export const deleteEmployee = async (id: string | number) => {
   const requestOptions = {
     method: "DELETE",
     headers: { "Content-type": "application/json" },
-    body: JSON.stringify({
-      ...user,
-      password: sha512(user.password),
-    }),
+    body: JSON.stringify({ id: id }),
   };
   const response = await fetch(`${SERVER_ADDRESS}/user`, requestOptions);
   return response.json();

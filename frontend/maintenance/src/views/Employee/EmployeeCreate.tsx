@@ -1,9 +1,10 @@
 import { Box, CircularProgress, Container } from "@material-ui/core";
 import { useSnackbar } from "notistack";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { useHeader } from "../../components/Layout/HeaderContext";
 import { SliceStatus } from "../../components/types";
 import { registerUser } from "../../shared/network/user.api";
 import EmployeeForm from "./EmployeeForm";
@@ -22,6 +23,7 @@ const EmployeeCreate = () => {
   const form = useForm<EmployeeFormValues>();
   const { enqueueSnackbar } = useSnackbar();
   const [status, setStatus] = useState<SliceStatus>("idle");
+  const { setHeaderName } = useHeader();
 
   const onSubmit = async (values: EmployeeFormValues) => {
     try {
@@ -45,6 +47,13 @@ const EmployeeCreate = () => {
       setStatus("failure");
     }
   };
+
+  useEffect(() => {
+    setHeaderName(t("employee.actions.createTitle"));
+    return () => {
+      setHeaderName(null);
+    };
+  }, []);
 
   return (
     <Container maxWidth="xs">

@@ -1,28 +1,29 @@
 import { Box, CircularProgress, Container } from "@material-ui/core";
 import { useSnackbar } from "notistack";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "react-query";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useHeader } from "../../components/Layout/HeaderContext";
 import { SliceStatus } from "../../components/types";
 import { getEmployeeById, modifyEmployee } from "../../shared/network/user.api";
 import { EmployeeFormValues } from "./EmployeeCreate";
 import EmployeeForm from "./EmployeeForm";
 
-type Props = {
-  id: string;
-};
-
-const EmployeeModify = ({ id }: Props) => {
+const EmployeeModify = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const form = useForm<EmployeeFormValues>();
   const { enqueueSnackbar } = useSnackbar();
   const [status, setStatus] = useState<SliceStatus>("idle");
+  const location = useLocation();
+  const query = new URLSearchParams(location.search);
+  const id = query.get("id");
+  const { setHeaderName } = useHeader();
 
   const employeeQuery = useQuery(["getEmployeeByIdQuery", id], async () => {
-    const { data } = await getEmployeeById(id);
+    const { data } = await getEmployeeById(id ? id : "");
     return data;
   });
   const employee = employeeQuery.data;
@@ -34,7 +35,7 @@ const EmployeeModify = ({ id }: Props) => {
         await modifyEmployee({
           ...values,
           password: values.password1,
-          id: Number.parseInt(id),
+          id: Number.parseInt(id ? id : ""),
         });
       } else {
         throw new Error("NOT_MATCHING_PASSWORDS");
@@ -53,6 +54,13 @@ const EmployeeModify = ({ id }: Props) => {
       setStatus("failure");
     }
   };
+
+  useEffect(() => {
+    setHeaderName(t("employee.actions.modifyTitle"));
+    return () => {
+      setHeaderName(null);
+    };
+  }, []);
 
   return (
     <Container maxWidth="xs">
