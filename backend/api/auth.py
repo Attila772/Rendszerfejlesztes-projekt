@@ -67,3 +67,12 @@ def sign_up():
             response =  jsonify({"Data": "Sikeres regisztráció"})
             response.headers.add('Access-Control-Allow-Origin', '*')
             return response
+    if request.method == "GET":
+        users = User.query.filter_by()
+        response_dict = {}
+        for user in users:
+            response_dict[user.id] = {'email': user.email, 'password': user.password,'trade':user.trade,'level': user.level}
+        response = jsonify({"Data": response_dict})
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
+    
