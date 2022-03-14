@@ -61,3 +61,12 @@ export type Page<T> = {
   number: number;
   empty: boolean;
 };
+
+export type User = {
+  id: number;
+  email: string;
+  password: string;
+  trade: string;
+  level: string;
+  permissions?: any[];
+};

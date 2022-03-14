@@ -1,21 +1,17 @@
 import {
   Box,
-  CircularProgress,
   colors,
   IconButton,
-  ListItemIcon,
   makeStyles,
-  Menu,
-  MenuItem,
   Tooltip,
   Typography,
 } from "@material-ui/core";
-import { ArrowBackIosOutlined, CheckCircle, Home } from "@mui/icons-material";
+import { ArrowBackIosOutlined } from "@mui/icons-material";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useHeader } from "./HeaderContext";
 import SideBar from "./SideBar/SideBar";
-import { useTranslation } from "react-i18next";
 
 type Props = {
   children: React.ReactNode;
@@ -77,7 +73,6 @@ const Layout = ({ children, removeToken }: Props) => {
           justifyContent="space-between"
           alignItems="center"
           flexWrap="wrap"
-          width="100%"
           padding={"24px 24px 24px calc(220px + 24px)"}
         >
           <Box display="flex" alignItems="center" gridGap={14}>
@@ -88,7 +83,7 @@ const Layout = ({ children, removeToken }: Props) => {
                 </IconButton>
               </Tooltip>
             )}
-            <Box display="flex" alignItems="center" width={"100%"}>
+            <Box display="flex" alignItems="center">
               <Typography variant="h3">{headerName || title}</Typography>
             </Box>
           </Box>
@@ -100,7 +95,7 @@ const Layout = ({ children, removeToken }: Props) => {
           className={classes.content}
           style={{
             marginLeft: 220,
-            width: "100%",
+            width: "calc(100% - 220px)",
           }}
         >
           {children}

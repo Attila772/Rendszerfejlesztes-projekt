@@ -11,6 +11,7 @@ import Locations from "./views/Location/Locations";
 import Logs from "./views/Log/Logs";
 import Qualifications from "./views/Qualification/Qualifications";
 import DateFnsUtils from "@date-io/date-fns";
+import EmployeeCreate from "./views/Employee/EmployeeCreate";
 
 const Dashboard = lazy(() => import("./views/Dashboard"));
 const Employees = lazy(() => import("./views/Employee/Employees"));
@@ -33,6 +34,7 @@ function App() {
               <Route path="/" element={<Dashboard />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/employees" element={<Employees />} />
+              <Route path="/employee-create" element={<EmployeeCreate />} />
               <Route path="/issues" element={<Issues />} />
               <Route path="/tools" element={<Tools />} />
               <Route path="/categories" element={<Categories />} />

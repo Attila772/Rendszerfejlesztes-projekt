@@ -21,7 +21,7 @@ const Locations = () => {
   const [page, setPage] = React.useState(0);
   const { setHeaderButtons } = useHeader();
 
-  const employeeQuery = useQuery(["locations", page], async () => {
+  const locationQuery = useQuery(["locations", page], async () => {
     const { data } = await listLocations();
     return data;
   });
@@ -29,7 +29,7 @@ const Locations = () => {
   useEffect(() => {
     setHeaderButtons(
       <Box display="flex" gridGap={12}>
-        <Button component={Link} to="/employee-create">
+        <Button component={Link} to="/location-create">
           {"Helyszín hozzáadása"}
         </Button>
       </Box>
@@ -42,7 +42,7 @@ const Locations = () => {
   return (
     <Container maxWidth="xs">
       <SingleQueryTable
-        query={employeeQuery}
+        query={locationQuery}
         columns={columns}
         page={page}
         setPage={setPage}
