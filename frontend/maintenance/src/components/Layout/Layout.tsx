@@ -78,7 +78,7 @@ const Layout = ({ children, removeToken }: Props) => {
           alignItems="center"
           flexWrap="wrap"
           width="100%"
-          padding={"24px 24px 24px calc(200px + 24px)"}
+          padding={"24px 24px 24px calc(220px + 24px)"}
         >
           <Box display="flex" alignItems="center" gridGap={14}>
             {window.location.pathname !== "/" && (
@@ -96,15 +96,15 @@ const Layout = ({ children, removeToken }: Props) => {
             <Box>{headerButtons}</Box>
           </Box>
         </Box>
-      </Box>
-      <Box
-        className={classes.content}
-        style={{
-          marginLeft: 220,
-          width: "100%",
-        }}
-      >
-        {children}
+        <Box
+          className={classes.content}
+          style={{
+            marginLeft: 220,
+            width: "100%",
+          }}
+        >
+          {children}
+        </Box>
       </Box>
     </Box>
   );
