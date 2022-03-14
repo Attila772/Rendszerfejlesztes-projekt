@@ -8,10 +8,10 @@ from . import db
 from flask_login import login_user, login_required, logout_user, current_user
 
 
-views = Blueprint('auth', __name__)
+views = Blueprint('views', __name__)
 
 @views.route('/role', methods=['GET','POST','PUT','DELETE'])
-def route():
+def role():
     if request.method == 'POST':
         role_name = request.get_json()['role_name']
         new_role = level(name= role_name, value = 0)
@@ -38,7 +38,7 @@ def route():
     pass
 
 @views.route('/location', methods=['GET', 'POST','PUT','DELETE'])
-def _location():
+def location_():
     if request.method == 'POST':
         name = request.get_json()['building']
         room = request.get_json()['room']
@@ -67,7 +67,7 @@ def _location():
     pass
 
 @views.route('/trade', methods=['GET','POST','PUT','DELETE'])
-def route():
+def trade_():
     if request.method == 'POST':
         trade_name = request.get_json()['name']
         new_trade=trade(name=trade_name)
@@ -94,7 +94,7 @@ def route():
     pass
 
 @views.route('/category', methods=['GET','POST','PUT','DELETE'])
-def route():
+def category_():
     if request.method == 'POST':
         category_name = request.get_json()['name']
         category_norma_time = request.get_json()['norma_time']
@@ -141,7 +141,7 @@ def route():
     pass
 
 @views.route('/item', methods=['GET','POST','PUT','DELETE'])
-def route():
+def item_():
     if request.method == 'POST':
         item_name = request.get_json()['name']
         item_descript = request.get_json()['descript']
