@@ -1,3 +1,7 @@
+import { createTheme } from "@material-ui/core";
+
+export const SERVER_ADDRESS = "http://127.0.0.1:5000";
+
 const DEFAULT_COLORS = {
   main: "#000000",
   mainLight: "#4B0082",
@@ -65,3 +69,81 @@ export const GRADIENT = `linear-gradient(45deg, ${COLORS.main} 0%, ${COLORS.main
 export const GRADIENT_ORANGE = `linear-gradient(45deg, ${COLORS.orange} 0%, ${COLORS.orangeLight} 30%)`;
 
 export const BOX_SHADOW = `${COLORS.shadowLight} 0px 4px 6px -1px, ${COLORS.shadowLight} 0px 2px 4px -1px`;
+
+export const EMAIL_REGEX =
+  /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: COLORS.mainLight,
+    },
+    secondary: {
+      main: COLORS.lightGrey,
+    },
+  },
+  overrides: {
+    MuiCssBaseline: {
+      "@global": {
+        html: {
+          WebkitFontSmoothing: "auto",
+        },
+        a: {
+          color: COLORS.main,
+        },
+      },
+    },
+    MuiFormControlLabel: {
+      labelPlacementStart: {
+        marginLeft: 0,
+        marginRight: 0,
+      },
+    },
+    MuiFormControl: {
+      marginDense: {
+        marginTop: 0,
+        marginBottom: 0,
+      },
+    },
+    MuiPaper: {
+      rounded: {
+        borderRadius: 8,
+      },
+    },
+    MuiButton: {
+      root: {
+        boxShadow: "unset",
+        minWidth: "max-content",
+        borderRadius: 8,
+      },
+      label: {
+        whiteSpace: "nowrap",
+      },
+    },
+    MuiCard: {
+      root: {
+        boxShadow: BOX_SHADOW,
+        border: `1px solid ${COLORS.mainGrey}`,
+      },
+    },
+    MuiOutlinedInput: {
+      root: {
+        borderRadius: 8,
+      },
+    },
+  },
+  props: {
+    MuiTextField: {
+      margin: "none",
+      fullWidth: true,
+      variant: "outlined",
+      size: "small",
+    },
+    MuiButton: {
+      variant: "contained",
+      color: "primary",
+    },
+  },
+});
+
+export default theme;
