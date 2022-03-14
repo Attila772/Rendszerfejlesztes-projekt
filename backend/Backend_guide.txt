@@ -1,0 +1,29 @@
+kell : python 3
+
+terminálban cd ebbe a mappába (cd C:\{Elérési útvonal}\Rendszerfejlesztes-projekt\backend )
+
+> python -m venv venv  //létrehozza a virtuális környezetet, csak legelső alkalommal kell lefuttatni, fontos hogy backend mappában legyen 
+
+ha lefutott:
+
+> venv/scripts/activate
+
+ha sikerül igy fog kinézni: 
+
+     (venv) PS C:\{Elérési útvonal}\Rendszerfejlesztes-projekt\backend>
+
+Ha nem sikerül (esélyesen ezzel az error-al: cannot be loaded because the execution of scripts is disabled on this system) :
+> Set-ExecutionPolicy Unrestricted -Force
+
+ha sikerült aktiválni:
+
+> pip install -r requirements.txt  //ez tarthat egy darabig, habár nincs sok requirement, ezt is csak legelőször kell futtatni
+> python app.py
+
+és papíron fut a szerver.
+
+
+Miután az alap dolgok települtek annyiból áll a futtatás legközelebb hogy aktiválni kell a venv-et, és indítani a szervert terminálban backend mappából
+
+> venv/scripts/activate
+> python app.py
