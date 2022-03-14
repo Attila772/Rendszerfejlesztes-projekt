@@ -1,0 +1,13 @@
+megnyitod vs code-ban az itt található mappát
+
+ami szükséges:
+-Node.js: https://nodejs.org/en/download/
+	
+
+első indítás(vs code terminal):
+npm install --global yarn -> ez teszi fel a yarn-t, ami a frontendet kezeli
+
+
+vs code termináljában ezeket kell beírni(minden indítás előtt be kell írni mindkettőt):
+yarn -> és enter, ez szedi le mindíg az újjab dependecyket
+yarn start -> ez indítja el a frontendet
