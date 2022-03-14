@@ -9,9 +9,8 @@ const Dashboard = () => {
     <h2
       onClick={async () => {
         const response = await registerUser({
-          email: "asd1@gmail.com",
-          password1: "asd1234",
-          password2: "asd1234",
+          email: "asd@gmail.com",
+          password: "asd123",
           level: "1",
           trade: "",
         } as RegisterUserRequest).catch((error) => console.log(error));
