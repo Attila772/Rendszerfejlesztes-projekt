@@ -12,6 +12,8 @@ import Logs from "./views/Log/Logs";
 import Qualifications from "./views/Qualification/Qualifications";
 import DateFnsUtils from "@date-io/date-fns";
 import EmployeeCreate from "./views/Employee/EmployeeCreate";
+import EmployeeModify from "./views/Employee/EmployeeModify";
+import EmployeeDetails from "./views/Employee/EmployeeDetails";
 
 const Dashboard = lazy(() => import("./views/Dashboard"));
 const Employees = lazy(() => import("./views/Employee/Employees"));
@@ -33,15 +35,25 @@ function App() {
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/employees" element={<Employees />} />
+              {/* EMPLOYEE */}
+              <Route path="/employee" element={<Employees />} />
+              <Route path="/employee-details" element={<EmployeeDetails />} />
+              <Route path="/employee-modify" element={<EmployeeModify />} />
               <Route path="/employee-create" element={<EmployeeCreate />} />
-              <Route path="/issues" element={<Issues />} />
-              <Route path="/tools" element={<Tools />} />
-              <Route path="/categories" element={<Categories />} />
-              <Route path="/intervals" element={<Intervals />} />
-              <Route path="/locations" element={<Locations />} />
-              <Route path="/logs" element={<Logs />} />
-              <Route path="/qualifications" element={<Qualifications />} />
+              {/* ISSUE */}
+              <Route path="/issue" element={<Issues />} />
+              {/* TOOL */}
+              <Route path="/tool" element={<Tools />} />
+              {/* CATEGORY */}
+              <Route path="/category" element={<Categories />} />
+              {/* INTERVAL */}
+              <Route path="/interval" element={<Intervals />} />
+              {/* LOCATION */}
+              <Route path="/location" element={<Locations />} />
+              {/* LOG */}
+              <Route path="/log" element={<Logs />} />
+              {/* QUALIFICATION */}
+              <Route path="/qualification" element={<Qualifications />} />
             </Routes>
           </Layout>
         </MuiPickersUtilsProvider>
