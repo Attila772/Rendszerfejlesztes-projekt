@@ -12,6 +12,8 @@ import ScrollToTop from "./components/ScrollToTop";
 import { I18nextProvider } from "react-i18next";
 import i18next from "i18next";
 import "./i18n";
+import { ThemeProvider } from "@material-ui/core";
+import theme from "./shared/common/constants";
 
 i18next.init({
   interpolation: { escapeValue: false },
@@ -20,16 +22,18 @@ i18next.init({
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <QueryClientProvider client={queryClient}>
-        <SnackbarProvider>
-          <Suspense fallback={<LayoutLoading />}>
-            <I18nextProvider i18n={i18next}>
-              <ScrollToTop />
-              <App />
-            </I18nextProvider>
-          </Suspense>
-        </SnackbarProvider>
-      </QueryClientProvider>
+      <ThemeProvider theme={theme}>
+        <QueryClientProvider client={queryClient}>
+          <SnackbarProvider>
+            <Suspense fallback={<LayoutLoading />}>
+              <I18nextProvider i18n={i18next}>
+                <ScrollToTop />
+                <App />
+              </I18nextProvider>
+            </Suspense>
+          </SnackbarProvider>
+        </QueryClientProvider>
+      </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
