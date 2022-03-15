@@ -1,7 +1,8 @@
 import { Box, Button, Container, IconButton, Tooltip } from "@material-ui/core";
 import { Assignment, Delete, Edit } from "@mui/icons-material";
 import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
-import React, { useEffect } from "react";
+import { useSnackbar } from "notistack";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
@@ -14,6 +15,8 @@ const Employees = () => {
   const { t } = useTranslation();
   const [page, setPage] = React.useState(0);
   const { setHeaderButtons } = useHeader();
+  const { enqueueSnackbar } = useSnackbar();
+  const [toggleRefetch, setToggleRefetch] = useState(false);
 
   const employeeQuery = useQuery(["employees", page], async () => {
     const data = await listEmployees();
@@ -56,7 +59,7 @@ const Employees = () => {
       flex: 1,
       renderCell: ({ row }: GridRenderCellParams) => (
         <Box display="flex" justifyContent="flex-end" width="100%">
-          <Tooltip title={t("button.modifyAction.employee").toString()}>
+          <Tooltip title={t("common.button.modifyAction.employee").toString()}>
             <IconButton
               component={Link}
               to={`/employee-modify?id=${row.id}`}
@@ -67,9 +70,15 @@ const Employees = () => {
               <Edit style={{ color: COLORS.mainLight }} />
             </IconButton>
           </Tooltip>
-          <Tooltip title={t("button.deleteAction.employee").toString()}>
+          <Tooltip title={t("common.button.deleteAction.employee").toString()}>
             <IconButton
-              onClick={() => deleteEmployee(row.id)}
+              onClick={() => {
+                deleteEmployee(row.id);
+                enqueueSnackbar(t("employee.deleteSuccess.title"), {
+                  variant: "success",
+                });
+                setToggleRefetch(!toggleRefetch);
+              }}
               size="small"
               color="primary"
               style={{ margin: "0 8px", color: COLORS.mainLight }}

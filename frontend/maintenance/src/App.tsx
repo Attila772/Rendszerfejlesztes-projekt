@@ -21,6 +21,9 @@ const Locations = lazy(() => import("./views/Location/Locations"));
 const Intervals = lazy(() => import("./views/Interval/Intervals"));
 const Categories = lazy(() => import("./views/Category/Categories"));
 const LocationCreate = lazy(() => import("./views/Location/LocationCreate"));
+const PriviligeLevels = lazy(
+  () => import("./views/PriviligeLevels/PriviligeLevels")
+);
 
 function App() {
   const { token, setToken, removeToken } = useToken();
@@ -55,6 +58,8 @@ function App() {
               <Route path="/log" element={<Logs />} />
               {/* QUALIFICATION */}
               <Route path="/qualification" element={<Qualifications />} />
+              {/* PRIVILIGE LEVELS */}
+              <Route path="/privilige-level" element={<PriviligeLevels />} />
             </Routes>
           </Layout>
         </MuiPickersUtilsProvider>

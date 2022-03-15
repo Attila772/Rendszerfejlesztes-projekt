@@ -53,6 +53,9 @@ export const TRANSLATIONS_HU = {
       notMatchingPasswords:
         "Sikertelen dolgozó hozzáadás. A jelszavak nem egyeznek.",
     },
+    deleteSuccess: {
+      title: "Sikeres dolgozó törlés.",
+    },
     actions: {
       createTitle: "Dolgozó létrehozása",
       modifyTitle: "Dolgozó módosítása",
@@ -69,6 +72,12 @@ export const TRANSLATIONS_HU = {
       createTitle: "Helyszín létrehozása",
       modifyTitle: "Helyszín módosítása",
       detailsTitle: "Helyszín részletei",
+    },
+    createSuccess: {
+      title: "Sikeres helyszín törlés.",
+    },
+    deleteSuccess: {
+      title: "Sikeres helyszín törlés.",
     },
   },
 };
