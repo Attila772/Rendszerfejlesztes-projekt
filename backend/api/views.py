@@ -25,7 +25,7 @@ def role():
         response_dict = {}
         for role in roles:
             response_dict[role.id] = role.name
-        response = jsonify({'Roles': response_dict})
+        response = jsonify({'Data': response_dict})
         response.headers.add('Access-Control-Allow-Origin', '*')
         return response
     elif request.method == 'DELETE':
@@ -60,8 +60,8 @@ def location_():
         locations = location.query.filter_by()
         response_dict = {}
         for _location in locations:
-            response_dict[_location.id] = [_location.building,_location.rooms]
-        response = jsonify({'Locations': response_dict})
+            response_dict[_location.id] = {'building':_location.building,'room':_location.rooms}
+        response = jsonify({'Data': response_dict})
         response.headers.add('Access-Control-Allow-Origin', '*')
         return response
     elif request.method == 'DELETE':
