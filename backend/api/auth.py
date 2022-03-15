@@ -75,4 +75,20 @@ def sign_up():
         response = jsonify({"Data": response_dict})
         response.headers.add('Access-Control-Allow-Origin', '*')
         return response
-    
+    if request.method == "PUT":
+        user = User.query.filter_by(id = request.get_json()['id']).first()
+        user.email = request.get_json()['email']
+        user.password = request.get_json()['email']
+        user.trade = request.get_json()['trade']
+        user.level = request.get_json()['level']
+        db.session.commit()
+        response =  jsonify({"Data": "Sikeres regisztráció"})
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
+    if request.method == "DELETE":
+        user = User.query.filter_by(id = request.get_json()['id'])
+        db.session.delete(user)
+        db.session.commit()
+        response =  jsonify({"Data": "Sikeres regisztráció"})
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
