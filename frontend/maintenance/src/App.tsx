@@ -5,20 +5,22 @@ import "./App.css";
 import { HeaderProvider } from "./components/Layout/HeaderContext";
 import Layout from "./components/Layout/Layout";
 import useToken from "./shared/network/login.api";
-import Categories from "./views/Category/Categories";
-import Intervals from "./views/Interval/Intervals";
-import Locations from "./views/Location/Locations";
-import Logs from "./views/Log/Logs";
-import Qualifications from "./views/Qualification/Qualifications";
 import DateFnsUtils from "@date-io/date-fns";
-import EmployeeCreate from "./views/Employee/EmployeeCreate";
-import EmployeeModify from "./views/Employee/EmployeeModify";
-import EmployeeDetails from "./views/Employee/EmployeeDetails";
 
 const Dashboard = lazy(() => import("./views/Dashboard"));
 const Employees = lazy(() => import("./views/Employee/Employees"));
 const Issues = lazy(() => import("./views/Issue/Issues"));
 const Tools = lazy(() => import("./views/Tool/Tools"));
+const EmployeeModify = lazy(() => import("./views/Employee/EmployeeModify"));
+const EmployeeCreate = lazy(() => import("./views/Employee/EmployeeCreate"));
+const Qualifications = lazy(
+  () => import("./views/Qualification/Qualifications")
+);
+const Logs = lazy(() => import("./views/Log/Logs"));
+const Locations = lazy(() => import("./views/Location/Locations"));
+const Intervals = lazy(() => import("./views/Interval/Intervals"));
+const Categories = lazy(() => import("./views/Category/Categories"));
+const LocationCreate = lazy(() => import("./views/Location/LocationCreate"));
 
 function App() {
   const { token, setToken, removeToken } = useToken();
@@ -36,7 +38,6 @@ function App() {
               <Route path="/dashboard" element={<Dashboard />} />
               {/* EMPLOYEE */}
               <Route path="/employee" element={<Employees />} />
-              <Route path="/employee-details" element={<EmployeeDetails />} />
               <Route path="/employee-modify" element={<EmployeeModify />} />
               <Route path="/employee-create" element={<EmployeeCreate />} />
               {/* ISSUE */}
@@ -49,6 +50,7 @@ function App() {
               <Route path="/interval" element={<Intervals />} />
               {/* LOCATION */}
               <Route path="/location" element={<Locations />} />
+              <Route path="/location-create" element={<LocationCreate />} />
               {/* LOG */}
               <Route path="/log" element={<Logs />} />
               {/* QUALIFICATION */}

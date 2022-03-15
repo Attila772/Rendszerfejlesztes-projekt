@@ -10,6 +10,7 @@ import { UseQueryResult } from "react-query";
 import { COLORS } from "../../shared/common/constants";
 import { GenericListResponse } from "../types";
 import { huHU } from "./huHU";
+import { GridRowIdGetter } from "@mui/x-data-grid/models/gridRows";
 
 type Props = {
   columns: GridColDef[];
@@ -20,6 +21,7 @@ type Props = {
     params: GridCellParams,
     event: MuiEvent<SyntheticEvent<Element, Event>>
   ) => void;
+  getRowId?: GridRowIdGetter;
 };
 
 const useStyles = makeStyles({
@@ -39,6 +41,7 @@ const SingleQueryTable = ({
   page,
   setPage,
   onCellClick,
+  getRowId,
 }: Props) => {
   const classes = useStyles();
 
@@ -49,11 +52,17 @@ const SingleQueryTable = ({
       localeText={huHU}
       loading={query.isFetching}
       error={query.isError ? true : undefined}
-      rows={query.data?.items || []}
+      rows={
+        query.data?.Data
+          ? Object.keys(query.data?.Data)?.map(
+              (key: any) => query.data?.Data[key]
+            )
+          : []
+      }
       columns={columns}
       page={page}
       pageSize={10}
-      rowCount={query.data?.items?.length || 0}
+      rowCount={query.data?.Data?.length || 0}
       rowsPerPageOptions={[10, 20, 50, 100]}
       pagination
       paginationMode="client"
@@ -61,6 +70,7 @@ const SingleQueryTable = ({
       disableColumnMenu
       disableSelectionOnClick
       onCellClick={onCellClick}
+      getRowId={getRowId}
     />
   );
 };

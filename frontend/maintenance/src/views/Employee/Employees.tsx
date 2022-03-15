@@ -7,6 +7,7 @@ import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { useHeader } from "../../components/Layout/HeaderContext";
 import SingleQueryTable from "../../components/PageableTable/SingleQueryTable";
+import { COLORS } from "../../shared/common/constants";
 import { deleteEmployee, listEmployees } from "../../shared/network/user.api";
 
 const Employees = () => {
@@ -15,7 +16,7 @@ const Employees = () => {
   const { setHeaderButtons } = useHeader();
 
   const employeeQuery = useQuery(["employees", page], async () => {
-    const { data } = await listEmployees();
+    const data = await listEmployees();
     return data;
   });
 
@@ -55,18 +56,7 @@ const Employees = () => {
       flex: 1,
       renderCell: ({ row }: GridRenderCellParams) => (
         <Box display="flex" justifyContent="flex-end" width="100%">
-          <Tooltip title={t("issues.issueDetails").toString()}>
-            <IconButton
-              component={Link}
-              to={`/employee-details?id=${row.id}`}
-              size="small"
-              color="primary"
-              style={{ margin: "0 8px" }}
-            >
-              <Assignment color="primary" />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title={t("issues.modifyIssue").toString()}>
+          <Tooltip title={t("button.modifyAction.employee").toString()}>
             <IconButton
               component={Link}
               to={`/employee-modify?id=${row.id}`}
@@ -74,24 +64,23 @@ const Employees = () => {
               color="primary"
               style={{ margin: "0 8px" }}
             >
-              <Edit color="primary" />
+              <Edit style={{ color: COLORS.mainLight }} />
             </IconButton>
           </Tooltip>
-          <Tooltip title={t("issues.modifyIssue").toString()}>
+          <Tooltip title={t("button.deleteAction.employee").toString()}>
             <IconButton
               onClick={() => deleteEmployee(row.id)}
               size="small"
               color="primary"
-              style={{ margin: "0 8px" }}
+              style={{ margin: "0 8px", color: COLORS.mainLight }}
             >
-              <Delete color="primary" />
+              <Delete style={{ color: COLORS.mainLight }} />
             </IconButton>
           </Tooltip>
         </Box>
       ),
     },
   ];
-
   return (
     <Container maxWidth="sm">
       <SingleQueryTable
@@ -99,6 +88,7 @@ const Employees = () => {
         columns={columns}
         page={page}
         setPage={setPage}
+        getRowId={(object: any) => object.email}
       />
     </Container>
   );

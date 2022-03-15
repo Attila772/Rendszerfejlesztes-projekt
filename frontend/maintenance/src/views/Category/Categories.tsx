@@ -5,7 +5,7 @@ import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { useHeader } from "../../components/Layout/HeaderContext";
 import SingleQueryTable from "../../components/PageableTable/SingleQueryTable";
-import { listEmployees } from "../../shared/network/user.api";
+import { listCategories } from "../../shared/network/category.api";
 
 const columns: GridColDef[] = [
   {
@@ -22,7 +22,7 @@ const Categories = () => {
   const { setHeaderButtons } = useHeader();
 
   const categoryQuery = useQuery(["categories", page], async () => {
-    const { data } = await listEmployees();
+    const { data } = await listCategories();
     return data;
   });
 

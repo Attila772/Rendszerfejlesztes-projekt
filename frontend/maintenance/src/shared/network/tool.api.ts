@@ -5,6 +5,6 @@ export const listTools = async () => {
     method: "GET",
     headers: { "Content-type": "application/json" },
   };
-  const response = await fetch(`${SERVER_ADDRESS}/tool`, requestOptions);
+  const response = await fetch(`${SERVER_ADDRESS}/item`, requestOptions);
   return response.json();
 };
