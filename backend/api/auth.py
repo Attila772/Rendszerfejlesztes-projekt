@@ -71,7 +71,7 @@ def sign_up():
         users = User.query.filter_by()
         response_dict = {}
         for user in users:
-            response_dict[user.id] = {'email': user.email, 'password': user.password,'trade':user.trade,'level': user.level}
+            response_dict[user.id] = {'id':user.id,'email': user.email, 'password': user.password,'trade':user.trade,'level': user.level}
         response = jsonify({"Data": response_dict})
         response.headers.add('Access-Control-Allow-Origin', '*')
         return response
