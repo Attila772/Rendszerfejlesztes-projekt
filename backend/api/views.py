@@ -24,7 +24,7 @@ def role():
         roles = level.query.filter_by()
         response_dict = {}
         for role in roles:
-            response_dict[role.id] = role.name
+            response_dict[role.id] = {'id':role.id,'name':role.name}
         response = jsonify({'Data': response_dict})
         response.headers.add('Access-Control-Allow-Origin', '*')
         return response
@@ -60,7 +60,7 @@ def location_():
         locations = location.query.filter_by()
         response_dict = {}
         for _location in locations:
-            response_dict[_location.id] = {'building':_location.building,'room':_location.rooms}
+            response_dict[_location.id] = {'id':_location.id,'building':_location.building,'room':_location.rooms}
         response = jsonify({'Data': response_dict})
         response.headers.add('Access-Control-Allow-Origin', '*')
         return response
@@ -96,7 +96,7 @@ def trade_():
         trades = trade.query.filter_by()
         response_dict = {}
         for _trade in trades:
-            response_dict[_trade.id] = _trade.name
+            response_dict[_trade.id] = {'id':_trade.id,'name':_trade.name}
         response = jsonify({'Data': response_dict}) 
         response.headers.add('Access-Control-Allow-Origin', '*')
         return response
@@ -141,7 +141,8 @@ def category_():
         categories = category.query.filter_by()
         response_dict = {}
         for _category in categories:
-            response_dict[_category.id]={'name': _category.name,
+            response_dict[_category.id]={'id': _category.id,
+                                         'name': _category.name,
                                          'norma_time': _category.norma_time,
                                          'interval': _category.interval,
                                          'descript':_category.descript,
@@ -192,7 +193,8 @@ def item_():
         items = item.query.filter_by()
         response_dict = {}
         for _item in items:
-            response_dict[_item.id]={'name': _item.name,
+            response_dict[_item.id]={'id': _item.id,
+                                     'name': _item.name,
                                      'descript': _item.descript,
                                      'category': _item.category,
                                      'location': _item.location}
