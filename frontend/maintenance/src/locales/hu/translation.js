@@ -5,11 +5,21 @@ export const TRANSLATIONS_HU = {
       email: "E-mail cím",
       level: "Jogosultsági szint",
       actions: "Műveletek",
+      building: "Épület",
+      room: "Helység",
     },
     button: {
       create: "Létrehozás",
       modify: "Módosítás",
       cancel: "Mégse",
+      modifyAction: {
+        employee: "Dolgozó módosítása",
+        location: "Helyszín módosítása",
+      },
+      deleteAction: {
+        employee: "Dolgozó törlése",
+        location: "Helyszín törlése",
+      },
     },
   },
   validation: {
@@ -25,7 +35,7 @@ export const TRANSLATIONS_HU = {
     interval: "Intervallumok",
     location: "Helyszínek",
     log: "Logok",
-    qualification: "Képesítések"
+    qualification: "Képesítések",
   },
   employee: {
     formLabels: {
@@ -47,6 +57,18 @@ export const TRANSLATIONS_HU = {
       createTitle: "Dolgozó létrehozása",
       modifyTitle: "Dolgozó módosítása",
       detailsTitle: "Dologzó részletei",
+    },
+  },
+  location: {
+    formLabels: {
+      title: "Helyszín adatai",
+      building: "Épület",
+      room: "Helység",
+    },
+    actions: {
+      createTitle: "Helyszín létrehozása",
+      modifyTitle: "Helyszín módosítása",
+      detailsTitle: "Helyszín részletei",
     },
   },
 };

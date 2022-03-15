@@ -81,6 +81,12 @@ const theme = createTheme({
     secondary: {
       main: COLORS.lightGrey,
     },
+    error: {
+      main: COLORS.red,
+    },
+    success: {
+      main: COLORS.green,
+    },
   },
   overrides: {
     MuiCssBaseline: {
@@ -91,6 +97,19 @@ const theme = createTheme({
         a: {
           color: COLORS.main,
         },
+        svg: {
+          color: COLORS.mainLight,
+        },
+      },
+    },
+    MuiSvgIcon: {
+      root: {
+        backgroundColor: COLORS.mainLight,
+        color: COLORS.mainLight,
+      },
+      colorPrimary: {
+        backgroundColor: COLORS.mainLight,
+        color: COLORS.mainLight,
       },
     },
     MuiFormControlLabel: {
@@ -142,6 +161,12 @@ const theme = createTheme({
     MuiButton: {
       variant: "contained",
       color: "primary",
+    },
+    MuiIconButton: {
+      color: "primary",
+    },
+    MuiSvgIcon: {
+      color: "inherit",
     },
   },
 });

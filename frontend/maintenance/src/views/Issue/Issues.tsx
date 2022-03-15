@@ -5,7 +5,7 @@ import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { useHeader } from "../../components/Layout/HeaderContext";
 import SingleQueryTable from "../../components/PageableTable/SingleQueryTable";
-import { listEmployees } from "../../shared/network/user.api";
+import { listIssues } from "../../shared/network/issue.api";
 
 const columns: GridColDef[] = [
   {
@@ -22,7 +22,7 @@ const Issues = () => {
   const { setHeaderButtons } = useHeader();
 
   const issueQuery = useQuery(["issues", page], async () => {
-    const { data } = await listEmployees();
+    const { data } = await listIssues();
     return data;
   });
 

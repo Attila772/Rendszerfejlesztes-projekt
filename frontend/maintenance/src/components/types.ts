@@ -40,7 +40,7 @@ export type GenericResponse<T> = {
 } & HttpResponse;
 
 export type GenericListResponse<T> = {
-  items: T[];
+  Data: T[];
 } & HttpResponse;
 
 export type GenericPageResponse<T> = {
