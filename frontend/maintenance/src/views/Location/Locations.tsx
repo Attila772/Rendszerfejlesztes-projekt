@@ -33,7 +33,7 @@ const Locations = () => {
     setHeaderButtons(
       <Box display="flex" gridGap={12}>
         <Button component={Link} to="/location-create">
-          {"Helyszín hozzáadása"}
+          {t("common.button.createAction.location")}
         </Button>
       </Box>
     );

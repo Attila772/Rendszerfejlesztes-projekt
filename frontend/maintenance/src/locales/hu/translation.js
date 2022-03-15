@@ -12,6 +12,10 @@ export const TRANSLATIONS_HU = {
       create: "Létrehozás",
       modify: "Módosítás",
       cancel: "Mégse",
+      createAction: {
+        employee: "Dolgozó hozzáadása",
+        location: "Helyszín hozzáadása",
+      },
       modifyAction: {
         employee: "Dolgozó módosítása",
         location: "Helyszín módosítása",

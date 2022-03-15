@@ -27,7 +27,7 @@ const Employees = () => {
     setHeaderButtons(
       <Box display="flex" gridGap={12}>
         <Button component={Link} to="/employee-create">
-          {"Dolgozó hozzáadása"}
+          {t("common.button.createAction.employee")}
         </Button>
       </Box>
     );
@@ -97,7 +97,6 @@ const Employees = () => {
         columns={columns}
         page={page}
         setPage={setPage}
-        getRowId={(object: any) => object.email}
       />
     </Container>
   );
