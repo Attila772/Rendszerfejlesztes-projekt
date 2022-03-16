@@ -42,6 +42,7 @@ export const TRANSLATIONS_HU = {
     location: "Helyszínek",
     log: "Logok",
     qualification: "Képesítések",
+    priviligelevel: 'Hozzáférési szintek',
   },
   employee: {
     formLabels: {

@@ -14,17 +14,13 @@ const Issues = lazy(() => import("./views/Issue/Issues"));
 const Tools = lazy(() => import("./views/Tool/Tools"));
 const EmployeeModify = lazy(() => import("./views/Employee/EmployeeModify"));
 const EmployeeCreate = lazy(() => import("./views/Employee/EmployeeCreate"));
-const Qualifications = lazy(
-  () => import("./views/Qualification/Qualifications")
-);
+const Qualifications = lazy(() => import("./views/Qualification/Qualifications"));
 const Logs = lazy(() => import("./views/Log/Logs"));
 const Locations = lazy(() => import("./views/Location/Locations"));
 const Intervals = lazy(() => import("./views/Interval/Intervals"));
 const Categories = lazy(() => import("./views/Category/Categories"));
 const LocationCreate = lazy(() => import("./views/Location/LocationCreate"));
-const PriviligeLevels = lazy(
-  () => import("./views/PriviligeLevels/PriviligeLevels")
-);
+const PriviligeLevels = lazy(() => import("./views/PriviligeLevels/PriviligeLevels"));
 
 function App() {
   const { token, setToken, removeToken } = useToken();
@@ -60,11 +56,8 @@ function App() {
               {/* QUALIFICATION */}
               <Route path="/qualification" element={<Qualifications />} />
               {/* PRIVILIGE LEVELS */}
-              <Route path="/privilige-level" element={<PriviligeLevels />} />
-              <Route
-                path="/privilige-level-create"
-                element={<PriviligeLevelCreate />}
-              />
+              <Route path="/priviligelevel" element={<PriviligeLevels />} />
+              <Route path="/priviligelevel-create" element={<PriviligeLevelCreate />} />
             </Routes>
           </Layout>
         </MuiPickersUtilsProvider>

@@ -149,7 +149,7 @@ const SideBar = ({ open, setOpen, width, removeToken }: Props) => {
               width={width}
             />
             <SidebarItem
-              to={`/privilige-level`}
+              to={`/priviligelevel`}
               text={"Hozzáfárási szintek"}
               icon={<LockOpen />}
               activeMenuItem={[

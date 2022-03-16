@@ -9,11 +9,7 @@ import { Link } from "react-router-dom";
 import { useHeader } from "../../components/Layout/HeaderContext";
 import SingleQueryTable from "../../components/PageableTable/SingleQueryTable";
 import { COLORS } from "../../shared/common/constants";
-import {
-  deletePriviligeLevel,
-  listPriviligeLevels,
-} from "../../shared/network/privilige-level.api";
-import { deleteEmployee } from "../../shared/network/user.api";
+import { deletePriviligeLevel, listPriviligeLevels, } from "../../shared/network/privilige-level.api";
 
 const PriviligeLevels = () => {
   const { t } = useTranslation();
@@ -23,7 +19,7 @@ const PriviligeLevels = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   const priviligeLevelQuery = useQuery(
-    ["logs", page, toggleRefetch],
+    ["priviligelevel", page, toggleRefetch],
     async () => {
       const { data } = await listPriviligeLevels();
       return data;
@@ -33,7 +29,7 @@ const PriviligeLevels = () => {
   useEffect(() => {
     setHeaderButtons(
       <Box display="flex" gridGap={12}>
-        <Button component={Link} to="/privilige-level-create">
+        <Button component={Link} to="/priviligelevel-create">
           {t("common.button.createAction.priviligeLevel")}
         </Button>
       </Box>
