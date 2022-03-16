@@ -13,15 +13,18 @@ import { deleteEmployee, listEmployees } from "../../shared/network/user.api";
 
 const Employees = () => {
   const { t } = useTranslation();
-  const [page, setPage] = React.useState(0);
+  const [page, setPage] = useState(0);
   const { setHeaderButtons } = useHeader();
   const { enqueueSnackbar } = useSnackbar();
   const [toggleRefetch, setToggleRefetch] = useState(false);
 
-  const employeeQuery = useQuery(["employees", page], async () => {
-    const data = await listEmployees();
-    return data;
-  });
+  const employeeQuery = useQuery(
+    ["employees", page, toggleRefetch],
+    async () => {
+      const data = await listEmployees();
+      return data;
+    }
+  );
 
   useEffect(() => {
     setHeaderButtons(
@@ -90,6 +93,7 @@ const Employees = () => {
       ),
     },
   ];
+
   return (
     <Container maxWidth="sm">
       <SingleQueryTable

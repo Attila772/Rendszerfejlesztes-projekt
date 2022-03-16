@@ -15,6 +15,7 @@ export const TRANSLATIONS_HU = {
       createAction: {
         employee: "Dolgozó hozzáadása",
         location: "Helyszín hozzáadása",
+        priviligeLevel: "Hozzáférési szint hozáadása",
       },
       modifyAction: {
         employee: "Dolgozó módosítása",
@@ -23,6 +24,7 @@ export const TRANSLATIONS_HU = {
       deleteAction: {
         employee: "Dolgozó törlése",
         location: "Helyszín törlése",
+        priviligeLevel: "Hozzáférési szint törlése",
       },
     },
   },

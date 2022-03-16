@@ -116,7 +116,7 @@ export type Issue = {
   eventLog?: Log[];
 };
 
-export type qualification = {
+export type Qualification = {
   id: number;
   name: string;
 };

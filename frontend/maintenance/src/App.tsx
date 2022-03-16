@@ -6,6 +6,7 @@ import { HeaderProvider } from "./components/Layout/HeaderContext";
 import Layout from "./components/Layout/Layout";
 import useToken from "./shared/network/login.api";
 import DateFnsUtils from "@date-io/date-fns";
+import PriviligeLevelCreate from "./views/PriviligeLevels/PriviligeLevelCreate";
 
 const Dashboard = lazy(() => import("./views/Dashboard"));
 const Employees = lazy(() => import("./views/Employee/Employees"));
@@ -60,6 +61,10 @@ function App() {
               <Route path="/qualification" element={<Qualifications />} />
               {/* PRIVILIGE LEVELS */}
               <Route path="/privilige-level" element={<PriviligeLevels />} />
+              <Route
+                path="/privilige-level-create"
+                element={<PriviligeLevelCreate />}
+              />
             </Routes>
           </Layout>
         </MuiPickersUtilsProvider>
