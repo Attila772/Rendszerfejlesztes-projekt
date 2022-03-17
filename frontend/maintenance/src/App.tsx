@@ -7,6 +7,7 @@ import Layout from "./components/Layout/Layout";
 import useToken from "./shared/network/login.api";
 import DateFnsUtils from "@date-io/date-fns";
 import PriviligeLevelCreate from "./views/PriviligeLevels/PriviligeLevelCreate";
+import ToolCreate from "./views/Tool/ToolCreate";
 
 const Dashboard = lazy(() => import("./views/Dashboard"));
 const Employees = lazy(() => import("./views/Employee/Employees"));
@@ -44,6 +45,7 @@ function App() {
               <Route path="/issue" element={<Issues />} />
               {/* TOOL */}
               <Route path="/tool" element={<Tools />} />
+              <Route path="/tool-create" element={<ToolCreate />} />
               {/* CATEGORY */}
               <Route path="/category" element={<Categories />} />
               {/* INTERVAL */}

@@ -7,6 +7,10 @@ export const TRANSLATIONS_HU = {
       actions: "Műveletek",
       building: "Épület",
       room: "Helység",
+      name: "Név",
+      category: "Kategória",
+      description: "Leírás",
+      location: "Elhelyezkedés",
     },
     button: {
       create: "Létrehozás",
@@ -16,15 +20,19 @@ export const TRANSLATIONS_HU = {
         employee: "Dolgozó hozzáadása",
         location: "Helyszín hozzáadása",
         priviligeLevel: "Hozzáférési szint hozáadása",
+        tool: "Eszköz hozzáadása",
       },
       modifyAction: {
         employee: "Dolgozó módosítása",
         location: "Helyszín módosítása",
+        priviligeLevel: "Hozzáférési szint módosítása",
+        tool: "Eszköz módosítása",
       },
       deleteAction: {
         employee: "Dolgozó törlése",
         location: "Helyszín törlése",
         priviligeLevel: "Hozzáférési szint törlése",
+        tool: "Eszköz törlése",
       },
     },
   },
@@ -101,5 +109,23 @@ export const TRANSLATIONS_HU = {
     deleteSuccess: {
       title: "Sikeres hozzáférési szint törlés.",
     },
-  }
+  },
+  tool:{
+    formLabels: {
+      title: "Eszköz adatai",
+      name: "Eszköz neve",
+      category: "Eszköz kategóriája",
+      description: "Eszköz leírása",
+      location: "Eszköz elhelyezkedése"
+    },
+    actions: {
+      createTitle: "Eszköz létrehozása",
+    },
+    createSuccess: {
+      title: "Sikeres eszköz létrehozás.",
+    },
+    deleteSuccess: {
+      title: "Sikeres eszköz törlés.",
+    },
+  },
 };

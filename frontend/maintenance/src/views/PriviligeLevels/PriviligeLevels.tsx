@@ -42,7 +42,7 @@ const PriviligeLevels = () => {
   const columns: GridColDef[] = [
     {
       field: "name",
-      headerName: "Név",
+      headerName: t("common.table.name"),
       sortable: false,
       disableColumnMenu: true,
       flex: 1,
@@ -60,7 +60,7 @@ const PriviligeLevels = () => {
           >
             <IconButton
               component={Link}
-              to={`/privilige-level-modify?id=${row.id}`}
+              to={`/priviligelevel-modify?id=${row.id}`}
               size="small"
               color="primary"
               style={{ margin: "0 8px" }}
