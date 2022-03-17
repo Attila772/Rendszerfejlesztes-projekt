@@ -21,18 +21,21 @@ export const TRANSLATIONS_HU = {
         location: "Helyszín hozzáadása",
         priviligeLevel: "Hozzáférési szint hozáadása",
         tool: "Eszköz hozzáadása",
+        qualification: "Képesítés hozzáadása",
       },
       modifyAction: {
         employee: "Dolgozó módosítása",
         location: "Helyszín módosítása",
         priviligeLevel: "Hozzáférési szint módosítása",
         tool: "Eszköz módosítása",
+        qualification: "Képesítés módosítása",
       },
       deleteAction: {
         employee: "Dolgozó törlése",
         location: "Helyszín törlése",
         priviligeLevel: "Hozzáférési szint törlése",
         tool: "Eszköz törlése",
+        qualification: "Képesítés törlése",
       },
     },
   },
@@ -126,6 +129,21 @@ export const TRANSLATIONS_HU = {
     },
     deleteSuccess: {
       title: "Sikeres eszköz törlés.",
+    },
+  },
+  qualification: {
+    formLabels: {
+      title: "Képesítés adatai",
+      name: "Képesítés neve",
+    },
+    actions: {
+      createTitle: "Képesítés létrehozása",
+    },
+    createSuccess: {
+      title: "Sikeres képesítés létrehozás.",
+    },
+    deleteSuccess: {
+      title: "Sikeres képesítés törlés.",
     },
   },
 };

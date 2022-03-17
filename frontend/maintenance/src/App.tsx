@@ -8,6 +8,7 @@ import useToken from "./shared/network/login.api";
 import DateFnsUtils from "@date-io/date-fns";
 import PriviligeLevelCreate from "./views/PriviligeLevels/PriviligeLevelCreate";
 import ToolCreate from "./views/Tool/ToolCreate";
+import QualificationCreate from "./views/Qualification/QualificationCreate";
 
 const Dashboard = lazy(() => import("./views/Dashboard"));
 const Employees = lazy(() => import("./views/Employee/Employees"));
@@ -57,6 +58,7 @@ function App() {
               <Route path="/log" element={<Logs />} />
               {/* QUALIFICATION */}
               <Route path="/qualification" element={<Qualifications />} />
+              <Route path="/qualification-create" element={<QualificationCreate />} />
               {/* PRIVILIGE LEVELS */}
               <Route path="/priviligelevel" element={<PriviligeLevels />} />
               <Route path="/priviligelevel-create" element={<PriviligeLevelCreate />} />

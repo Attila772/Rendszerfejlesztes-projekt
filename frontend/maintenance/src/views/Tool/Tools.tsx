@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import { useHeader } from "../../components/Layout/HeaderContext";
 import SingleQueryTable from "../../components/PageableTable/SingleQueryTable";
 import { COLORS } from "../../shared/common/constants";
-import { listTools } from "../../shared/network/tool.api";
+import { deleteTool, listTools } from "../../shared/network/tool.api";
 
 
 const Tools = () => {
@@ -92,7 +92,7 @@ const Tools = () => {
           >
             <IconButton
               onClick={() => {
-                //deleteTool(row.id);
+                deleteTool(row.id);
                 enqueueSnackbar(t("tool.deleteSuccess.title"), {
                   variant: "success",
                 });
