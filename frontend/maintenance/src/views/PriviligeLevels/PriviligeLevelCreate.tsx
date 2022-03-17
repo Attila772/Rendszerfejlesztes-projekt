@@ -1,6 +1,6 @@
 import { Box, CircularProgress, Container } from "@material-ui/core";
 import { useSnackbar } from "notistack";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
@@ -26,7 +26,7 @@ const PriviligeLevelCreate = () => {
       setStatus("pending");
       await createPriviligeLevel({ ...values });
       navigate(-1);
-      enqueueSnackbar(t("employee.createSuccess.title"), {
+      enqueueSnackbar(t("priviligeLevel.createSuccess.title"), {
         variant: "success",
       });
       setStatus("success");
@@ -41,7 +41,7 @@ const PriviligeLevelCreate = () => {
   };
 
   useEffect(() => {
-    setHeaderName(t("employee.actions.createTitle"));
+    setHeaderName(t("priviligeLevel.actions.createTitle"));
     return () => {
       setHeaderName(null);
     };

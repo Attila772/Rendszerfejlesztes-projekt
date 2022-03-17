@@ -87,4 +87,19 @@ export const TRANSLATIONS_HU = {
       title: "Sikeres helyszín törlés.",
     },
   },
+  priviligeLevel: {
+    formLabels: {
+      title: "Hozzáférési szint adatai",
+      name: "Hozzáférési szint neve",
+    },
+    actions: {
+      createTitle: "Hozzáférési szint létrehozása",
+    },
+    createSuccess: {
+      title: "Sikeres hozzáférési szint létrehozás.",
+    },
+    deleteSuccess: {
+      title: "Sikeres hozzáférési szint törlés.",
+    },
+  }
 };
