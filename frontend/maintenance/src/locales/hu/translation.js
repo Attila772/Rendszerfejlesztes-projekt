@@ -11,6 +11,10 @@ export const TRANSLATIONS_HU = {
       category: "Kategória",
       description: "Leírás",
       location: "Elhelyezkedés",
+      isExceptional: "Kivételes-e",
+      normaTimeInHours: "Norma idő",
+      interval: "Intervallum",
+      parentCategory: "'Szülő' kategória",
     },
     button: {
       create: "Létrehozás",
@@ -22,6 +26,7 @@ export const TRANSLATIONS_HU = {
         priviligeLevel: "Hozzáférési szint hozáadása",
         tool: "Eszköz hozzáadása",
         qualification: "Képesítés hozzáadása",
+        category: "Kategória hozzáadása",
       },
       modifyAction: {
         employee: "Dolgozó módosítása",
@@ -29,6 +34,7 @@ export const TRANSLATIONS_HU = {
         priviligeLevel: "Hozzáférési szint módosítása",
         tool: "Eszköz módosítása",
         qualification: "Képesítés módosítása",
+        category: "Kategória módosítása",
       },
       deleteAction: {
         employee: "Dolgozó törlése",
@@ -36,6 +42,7 @@ export const TRANSLATIONS_HU = {
         priviligeLevel: "Hozzáférési szint törlése",
         tool: "Eszköz törlése",
         qualification: "Képesítés törlése",
+        category: "Kategória törlése",
       },
     },
   },
@@ -101,7 +108,7 @@ export const TRANSLATIONS_HU = {
   priviligeLevel: {
     formLabels: {
       title: "Hozzáférési szint adatai",
-      name: "Hozzáférési szint neve",
+      name: "Neve",
     },
     actions: {
       createTitle: "Hozzáférési szint létrehozása",
@@ -116,10 +123,10 @@ export const TRANSLATIONS_HU = {
   tool:{
     formLabels: {
       title: "Eszköz adatai",
-      name: "Eszköz neve",
-      category: "Eszköz kategóriája",
-      description: "Eszköz leírása",
-      location: "Eszköz elhelyezkedése"
+      name: "Neve",
+      category: "Kategóriája",
+      description: "Leírása",
+      location: "Elhelyezkedése"
     },
     actions: {
       createTitle: "Eszköz létrehozása",
@@ -134,7 +141,7 @@ export const TRANSLATIONS_HU = {
   qualification: {
     formLabels: {
       title: "Képesítés adatai",
-      name: "Képesítés neve",
+      name: "Neve",
     },
     actions: {
       createTitle: "Képesítés létrehozása",
@@ -144,6 +151,26 @@ export const TRANSLATIONS_HU = {
     },
     deleteSuccess: {
       title: "Sikeres képesítés törlés.",
+    },
+  },
+  category: {
+    formLabels: {
+      title: "Kategória adatai",
+      name: "Neve",
+      isExceptional: "Kivételes-e",
+      normaTimeInHours: "Norma ideje",
+      interval: "Intervallumja",
+      parentCategory: "'Szülő' kategória-e",
+      description : "Leírása",
+    },
+    actions: {
+      createTitle: "Kategória létrehozása",
+    },
+    createSuccess: {
+      title: "Sikeres kategória létrehozás.",
+    },
+    deleteSuccess: {
+      title: "Sikeres kategória törlés.",
     },
   },
 };

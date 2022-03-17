@@ -92,8 +92,8 @@ export type Interval = {
 
 export type Category = {
   id: number;
-  isExceptional: boolean;
   name: string;
+  isExceptional: boolean;
   normaTimeInHours: number;
   interval?: Interval;
   parentCategory?: any;

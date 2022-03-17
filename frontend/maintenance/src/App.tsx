@@ -9,6 +9,7 @@ import DateFnsUtils from "@date-io/date-fns";
 import PriviligeLevelCreate from "./views/PriviligeLevels/PriviligeLevelCreate";
 import ToolCreate from "./views/Tool/ToolCreate";
 import QualificationCreate from "./views/Qualification/QualificationCreate";
+import CategoryCreate from "./views/Category/CategoryCreate";
 
 const Dashboard = lazy(() => import("./views/Dashboard"));
 const Employees = lazy(() => import("./views/Employee/Employees"));
@@ -49,6 +50,7 @@ function App() {
               <Route path="/tool-create" element={<ToolCreate />} />
               {/* CATEGORY */}
               <Route path="/category" element={<Categories />} />
+              <Route path="/category-create" element={<CategoryCreate />} />
               {/* INTERVAL */}
               <Route path="/interval" element={<Intervals />} />
               {/* LOCATION */}

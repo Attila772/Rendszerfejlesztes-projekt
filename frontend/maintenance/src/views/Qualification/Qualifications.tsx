@@ -27,7 +27,7 @@ const Qualifications = () => {
     setHeaderButtons(
       <Box display="flex" gridGap={12}>
         <Button component={Link} to="/qualification-create">
-        {t("common.button.createAction.qualification")}
+          {t("common.button.createAction.qualification")}
         </Button>
       </Box>
     );

@@ -3,22 +3,22 @@ import { Controller, UseFormReturn } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import FormCard from "../../components/FormCard";
-import { Tool } from "../../components/types";
-import { ToolFormValues } from "./ToolCreate";
+import { Category } from "../../components/types";
+import { CategoryFormValues } from "./CategoryCreate";
 
 type Props = {
-  form: UseFormReturn<ToolFormValues, any>;
-  tool?: Tool;
+  form: UseFormReturn<CategoryFormValues, any>;
+  category?: Category;
 };
 
-const ToolForm = ({ form, tool }: Props) => {
+const CategoryForm = ({ form, category }: Props) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
   return (
     <Container maxWidth="xs">
       <FormCard
-        title={t("tool.formLabels.title")}
+        title={t("category.formLabels.title")}
         buttons={
           <>
             <Button
@@ -29,7 +29,7 @@ const ToolForm = ({ form, tool }: Props) => {
               {t("common.button.cancel")}
             </Button>
             <Button variant="contained" type="submit">
-              {tool ? t("common.button.modify") : t("common.button.create")}
+              {category ? t("common.button.modify") : t("common.button.create")}
             </Button>
           </>
         }
@@ -39,12 +39,12 @@ const ToolForm = ({ form, tool }: Props) => {
             <Controller
               control={form.control}
               name="name"
-              defaultValue={tool?.name || ""}
+              defaultValue={category?.name || ""}
               rules={{ required: t("validation.required").toString() }}
               render={({ field, fieldState }) => (
                 <TextField
                   {...field}
-                  label={t("tool.formLabels.name")}
+                  label={t("category.formLabels.name")}
                   InputLabelProps={{ required: true }}
                   error={!!fieldState.error}
                   helperText={fieldState.error?.message}
@@ -55,16 +55,59 @@ const ToolForm = ({ form, tool }: Props) => {
           <Grid item xs={6}>
             <Controller
               control={form.control}
-              name="category.name"
-              defaultValue={tool?.category.name || ""}
+              name="isExceptional"
+              defaultValue={category?.isExceptional || undefined}
               rules={{ required: t("validation.required").toString() }}
               render={({ field, fieldState }) => (
                 <TextField
                   {...field}
-                  label={t("tool.formLabels.category")}
+                  label={t("category.formLabels.isExceptional")}
                   InputLabelProps={{ required: true }}
                   error={!!fieldState.error}
                   helperText={fieldState.error?.message}
+                />
+              )}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <Controller
+              control={form.control}
+              name="normaTimeInHours"
+              defaultValue={category?.normaTimeInHours || undefined}
+              rules={{ required: t("validation.required").toString() }}
+              render={({ field, fieldState }) => (
+                <TextField
+                  {...field}
+                  label={t("category.formLabels.normaTimeInHours")}
+                  InputLabelProps={{ required: true }}
+                  error={!!fieldState.error}
+                  helperText={fieldState.error?.message}
+                />
+              )}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <Controller
+              control={form.control}
+              name="interval.unit"
+              defaultValue={category?.interval?.unit || ""}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  label={t("category.formLabels.interval")}
+                />
+              )}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <Controller
+              control={form.control}
+              name="parentCategory"
+              defaultValue={category?.parentCategory || ""}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  label={t("category.formLabels.parentCategory")}
                 />
               )}
             />
@@ -73,24 +116,11 @@ const ToolForm = ({ form, tool }: Props) => {
             <Controller
               control={form.control}
               name="description"
-              defaultValue={tool?.description || ""}
+              defaultValue={category?.description || ""}
               render={({ field }) => (
                 <TextField
                   {...field}
-                  label={t("tool.formLabels.description")}
-                />
-              )}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <Controller
-              control={form.control}
-              name="location.room"
-              defaultValue={tool?.location?.room || ""}
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  label={t("tool.formLabels.location")}
+                  label={t("category.formLabels.description")}
                 />
               )}
             />
@@ -101,4 +131,4 @@ const ToolForm = ({ form, tool }: Props) => {
   );
 };
 
-export default ToolForm;
+export default CategoryForm;
