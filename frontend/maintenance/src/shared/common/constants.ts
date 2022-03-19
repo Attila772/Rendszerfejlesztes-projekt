@@ -102,16 +102,6 @@ const theme = createTheme({
         },
       },
     },
-    MuiSvgIcon: {
-      root: {
-        backgroundColor: COLORS.mainLight,
-        color: COLORS.mainLight,
-      },
-      colorPrimary: {
-        backgroundColor: COLORS.mainLight,
-        color: COLORS.mainLight,
-      },
-    },
     MuiFormControlLabel: {
       labelPlacementStart: {
         marginLeft: 0,
@@ -122,6 +112,53 @@ const theme = createTheme({
       marginDense: {
         marginTop: 0,
         marginBottom: 0,
+      },
+    },
+    MuiTypography: {
+      h1: {
+        fontFamily: "Montserrat",
+        fontSize: "30px",
+        fontWeight: "bold",
+      },
+      h2: {
+        fontFamily: "Montserrat",
+        fontSize: "22px",
+        fontWeight: "bold",
+      },
+      h3: {
+        fontFamily: "Montserrat",
+        fontSize: "16px",
+        fontWeight: "bold",
+      },
+      h6: {
+        fontFamily: "Montserrat",
+        fontWeight: "bold",
+      },
+      body1: {
+        fontFamily: "Roboto",
+        fontSize: "0.875rem",
+      },
+      body2: {
+        fontFamily: "Roboto",
+        fontWeight: "bold",
+        fontSize: "0.875rem",
+      },
+    },
+    MuiSvgIcon: {
+      root: {
+        backgroundColor: COLORS.mainLight,
+        color: COLORS.mainLight,
+      },
+      colorPrimary: {
+        backgroundColor: COLORS.mainLight,
+        color: COLORS.mainLight,
+      },
+    },
+    MuiOutlinedInput: {
+      root: {
+        borderRadius: 8,
+        padding: 0,
+        height: "2.5rem",
       },
     },
     MuiPaper: {
@@ -143,11 +180,6 @@ const theme = createTheme({
       root: {
         boxShadow: BOX_SHADOW,
         border: `1px solid ${COLORS.mainGrey}`,
-      },
-    },
-    MuiOutlinedInput: {
-      root: {
-        borderRadius: 8,
       },
     },
   },

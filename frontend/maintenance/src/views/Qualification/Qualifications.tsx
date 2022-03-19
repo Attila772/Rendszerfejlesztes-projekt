@@ -9,7 +9,10 @@ import { Link } from "react-router-dom";
 import { useHeader } from "../../components/Layout/HeaderContext";
 import SingleQueryTable from "../../components/PageableTable/SingleQueryTable";
 import { COLORS } from "../../shared/common/constants";
-import { deleteQualification, listQualifications } from "../../shared/network/qualification.api";
+import {
+  deleteQualification,
+  listQualifications,
+} from "../../shared/network/qualification.api";
 
 const Qualifications = () => {
   const { t } = useTranslation();
@@ -18,10 +21,13 @@ const Qualifications = () => {
   const [toggleRefetch, setToggleRefetch] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
 
-  const qualificationQuery = useQuery(["qualifications", page, toggleRefetch], async () => {
-    const { data } = await listQualifications();
-    return data;
-  });
+  const qualificationQuery = useQuery(
+    ["qualifications", page, toggleRefetch],
+    async () => {
+      const { data } = await listQualifications();
+      return data;
+    }
+  );
 
   useEffect(() => {
     setHeaderButtons(

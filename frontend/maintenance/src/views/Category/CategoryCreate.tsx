@@ -53,7 +53,7 @@ const CategoryCreate = () => {
   }, []);
 
   return (
-    <Container maxWidth="xs">
+    <Container maxWidth="sm">
       {status === "pending" ? (
         <Box
           display="flex"

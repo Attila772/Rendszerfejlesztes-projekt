@@ -3,9 +3,9 @@ import { SERVER_ADDRESS } from "../common/constants";
 
 export type CreateToolRequest = {
   name: string;
-  category: Category;
+  category: Category | null;
   description?: string;
-  location?: Location;
+  location?: Location | null;
 };
 
 export const listTools = async () => {
@@ -17,9 +17,7 @@ export const listTools = async () => {
   return response.json();
 };
 
-export const createTool = async (
-  toolRequest: CreateToolRequest
-) => {
+export const createTool = async (toolRequest: CreateToolRequest) => {
   const requestOptions = {
     method: "POST",
     headers: { "Content-type": "application/json" },

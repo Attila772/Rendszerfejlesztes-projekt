@@ -1,6 +1,7 @@
 export const TRANSLATIONS_HU = {
   notFound: "Az oldal nem található!",
   common: {
+    select: { choose: "Kérem válasszon" },
     table: {
       email: "E-mail cím",
       level: "Jogosultsági szint",
@@ -60,7 +61,7 @@ export const TRANSLATIONS_HU = {
     location: "Helyszínek",
     log: "Logok",
     qualification: "Képesítések",
-    priviligelevel: 'Hozzáférési szintek',
+    priviligelevel: "Hozzáférési szintek",
   },
   employee: {
     formLabels: {
@@ -120,13 +121,13 @@ export const TRANSLATIONS_HU = {
       title: "Sikeres hozzáférési szint törlés.",
     },
   },
-  tool:{
+  tool: {
     formLabels: {
       title: "Eszköz adatai",
       name: "Neve",
       category: "Kategóriája",
       description: "Leírása",
-      location: "Elhelyezkedése"
+      location: { title: "Elhelyezkedés", building: "Épület", room: "Helység" },
     },
     actions: {
       createTitle: "Eszköz létrehozása",
@@ -156,12 +157,12 @@ export const TRANSLATIONS_HU = {
   category: {
     formLabels: {
       title: "Kategória adatai",
-      name: "Neve",
-      isExceptional: "Kivételes-e",
+      name: "Név",
+      isExceptional: "Rendkívüli",
       normaTimeInHours: "Norma ideje",
-      interval: "Intervallumja",
-      parentCategory: "'Szülő' kategória-e",
-      description : "Leírása",
+      interval: "Intervallum",
+      parentCategory: "'Szülő' kategória",
+      description: "Leírás",
     },
     actions: {
       createTitle: "Kategória létrehozása",

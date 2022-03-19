@@ -1,4 +1,13 @@
-import { Button, Container, Grid, TextField } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  Container,
+  FormControlLabel,
+  FormGroup,
+  Grid,
+  Switch,
+  TextField,
+} from "@material-ui/core";
 import { Controller, UseFormReturn } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
@@ -16,9 +25,36 @@ const CategoryForm = ({ form, category }: Props) => {
   const navigate = useNavigate();
 
   return (
-    <Container maxWidth="xs">
+    <Container maxWidth="sm">
       <FormCard
-        title={t("category.formLabels.title")}
+        title={
+          <Box display="flex" justifyContent="space-between">
+            <Box>{t("category.formLabels.title")}</Box>
+            <Box>
+              <Controller
+                name="isExceptional"
+                control={form.control}
+                defaultValue={category?.isExceptional}
+                render={({ field: { onChange, value, ref }, fieldState }) => (
+                  <FormControlLabel
+                    label={t("category.formLabels.isExceptional")}
+                    labelPlacement="start"
+                    control={
+                      <Switch
+                        onChange={(e, checked) => {
+                          onChange(checked);
+                        }}
+                        checked={value}
+                        inputRef={ref}
+                        color="primary"
+                      />
+                    }
+                  />
+                )}
+              />
+            </Box>
+          </Box>
+        }
         buttons={
           <>
             <Button
@@ -45,23 +81,6 @@ const CategoryForm = ({ form, category }: Props) => {
                 <TextField
                   {...field}
                   label={t("category.formLabels.name")}
-                  InputLabelProps={{ required: true }}
-                  error={!!fieldState.error}
-                  helperText={fieldState.error?.message}
-                />
-              )}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <Controller
-              control={form.control}
-              name="isExceptional"
-              defaultValue={category?.isExceptional || undefined}
-              rules={{ required: t("validation.required").toString() }}
-              render={({ field, fieldState }) => (
-                <TextField
-                  {...field}
-                  label={t("category.formLabels.isExceptional")}
                   InputLabelProps={{ required: true }}
                   error={!!fieldState.error}
                   helperText={fieldState.error?.message}
