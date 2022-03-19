@@ -125,7 +125,7 @@ export const TRANSLATIONS_HU = {
     formLabels: {
       title: "Eszköz adatai",
       name: "Neve",
-      category: "Kategóriája",
+      category: "Kategória",
       description: "Leírása",
       location: { title: "Elhelyezkedés", building: "Épület", room: "Helység" },
     },
@@ -161,7 +161,7 @@ export const TRANSLATIONS_HU = {
       isExceptional: "Rendkívüli",
       normaTimeInHours: "Norma ideje",
       interval: "Intervallum",
-      parentCategory: "'Szülő' kategória",
+      parentCategory: "Szülő kategória",
       description: "Leírás",
     },
     actions: {

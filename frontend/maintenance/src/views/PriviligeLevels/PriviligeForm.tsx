@@ -29,7 +29,9 @@ const PriviligeForm = ({ form, priviligeLevel }: Props) => {
               {t("common.button.cancel")}
             </Button>
             <Button variant="contained" type="submit">
-              {priviligeLevel ? t("common.button.modify") : t("common.button.create")}
+              {priviligeLevel
+                ? t("common.button.modify")
+                : t("common.button.create")}
             </Button>
           </>
         }
@@ -38,7 +40,7 @@ const PriviligeForm = ({ form, priviligeLevel }: Props) => {
           <Grid item xs={8}>
             <Controller
               control={form.control}
-              name="level"
+              name="name"
               defaultValue={priviligeLevel?.name || ""}
               rules={{ required: t("validation.required").toString() }}
               render={({ field, fieldState }) => (

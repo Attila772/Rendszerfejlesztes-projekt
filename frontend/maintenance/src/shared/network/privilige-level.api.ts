@@ -1,7 +1,7 @@
 import { SERVER_ADDRESS } from "../common/constants";
 
 export type CreatePriviligeRequest = {
-  level: string;
+  name: string;
 };
 
 export const listPriviligeLevels = async () => {

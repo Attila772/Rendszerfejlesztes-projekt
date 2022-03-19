@@ -3,18 +3,22 @@ import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { useHeader } from "../../components/Layout/HeaderContext";
-import { Interval, SliceStatus } from "../../components/types";
-import { createCategory } from "../../shared/network/category.api";
+import { Category, SliceStatus } from "../../components/types";
+import {
+  createCategory,
+  listCategories,
+} from "../../shared/network/category.api";
 import CategoryForm from "./CategoryForm";
 
 export type CategoryFormValues = {
   name: string;
   isExceptional: boolean;
   normaTimeInHours: number;
-  interval?: Interval;
-  parentCategory?: any;
+  intervalInDays?: string;
+  parentCategory?: Category | null;
   description?: string;
 };
 
@@ -26,10 +30,23 @@ const CategoryCreate = () => {
   const [status, setStatus] = useState<SliceStatus>("idle");
   const { setHeaderName } = useHeader();
 
+  const categoryQuery = useQuery(["categoriesForToolForm"], async () => {
+    const { data } = await listCategories();
+    return data;
+  });
+  const categories = categoryQuery.data?.Data
+    ? Object.keys(categoryQuery.data?.Data)?.map(
+        (key: any) => categoryQuery.data?.Data[key]
+      )
+    : [];
+
   const onSubmit = async (values: CategoryFormValues) => {
     try {
       setStatus("pending");
-      await createCategory({ ...values });
+      await createCategory({
+        ...values,
+        isExceptional: values.isExceptional || false,
+      });
       navigate(-1);
       enqueueSnackbar(t("category.createSuccess.title"), {
         variant: "success",
@@ -66,7 +83,7 @@ const CategoryCreate = () => {
       ) : (
         <FormProvider {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <CategoryForm form={form} />
+            <CategoryForm form={form} categories={categories} />
           </form>
         </FormProvider>
       )}

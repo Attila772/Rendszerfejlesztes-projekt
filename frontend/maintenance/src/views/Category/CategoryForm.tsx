@@ -3,11 +3,11 @@ import {
   Button,
   Container,
   FormControlLabel,
-  FormGroup,
   Grid,
   Switch,
   TextField,
 } from "@material-ui/core";
+import { Autocomplete } from "@mui/material";
 import { Controller, UseFormReturn } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
@@ -18,9 +18,10 @@ import { CategoryFormValues } from "./CategoryCreate";
 type Props = {
   form: UseFormReturn<CategoryFormValues, any>;
   category?: Category;
+  categories?: Category[];
 };
 
-const CategoryForm = ({ form, category }: Props) => {
+const CategoryForm = ({ form, category, categories }: Props) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -108,8 +109,8 @@ const CategoryForm = ({ form, category }: Props) => {
           <Grid item xs={6}>
             <Controller
               control={form.control}
-              name="interval.unit"
-              defaultValue={category?.interval?.unit || ""}
+              name="intervalInDays"
+              defaultValue={category?.intervalInDays || ""}
               render={({ field }) => (
                 <TextField
                   {...field}
@@ -122,11 +123,23 @@ const CategoryForm = ({ form, category }: Props) => {
             <Controller
               control={form.control}
               name="parentCategory"
-              defaultValue={category?.parentCategory || ""}
-              render={({ field }) => (
-                <TextField
+              defaultValue={category?.parentCategory || null}
+              render={({ field, fieldState }) => (
+                <Autocomplete
                   {...field}
-                  label={t("category.formLabels.parentCategory")}
+                  onChange={(_, value) => field.onChange(value)}
+                  getOptionLabel={(option: Category) => option.name}
+                  options={categories || []}
+                  sx={{ width: "100%" }}
+                  renderInput={(params: any) => (
+                    <TextField
+                      {...params}
+                      style={{ height: 40 }}
+                      label={t("category.formLabels.parentCategory")}
+                      error={!!fieldState.error}
+                      helperText={fieldState.error?.message}
+                    />
+                  )}
                 />
               )}
             />

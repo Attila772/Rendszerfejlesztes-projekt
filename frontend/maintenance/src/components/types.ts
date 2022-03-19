@@ -85,17 +85,12 @@ export type Permission = {
   name: string;
 };
 
-export type Interval = {
-  id: number;
-  unit: string;
-};
-
 export type Category = {
   id: number;
   name: string;
   isExceptional: boolean;
   normaTimeInHours: number;
-  interval?: Interval;
+  intervalInDays?: string;
   parentCategory?: any;
   description?: string;
 };

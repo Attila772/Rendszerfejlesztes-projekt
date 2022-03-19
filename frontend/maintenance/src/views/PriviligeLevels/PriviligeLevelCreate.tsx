@@ -10,7 +10,7 @@ import { createPriviligeLevel } from "../../shared/network/privilige-level.api";
 import PriviligeForm from "./PriviligeForm";
 
 export type PriviligeLevelFormValues = {
-  level: string;
+  name: string;
 };
 
 const PriviligeLevelCreate = () => {

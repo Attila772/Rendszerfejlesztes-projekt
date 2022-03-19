@@ -114,36 +114,6 @@ const theme = createTheme({
         marginBottom: 0,
       },
     },
-    MuiTypography: {
-      h1: {
-        fontFamily: "Montserrat",
-        fontSize: "30px",
-        fontWeight: "bold",
-      },
-      h2: {
-        fontFamily: "Montserrat",
-        fontSize: "22px",
-        fontWeight: "bold",
-      },
-      h3: {
-        fontFamily: "Montserrat",
-        fontSize: "16px",
-        fontWeight: "bold",
-      },
-      h6: {
-        fontFamily: "Montserrat",
-        fontWeight: "bold",
-      },
-      body1: {
-        fontFamily: "Roboto",
-        fontSize: "0.875rem",
-      },
-      body2: {
-        fontFamily: "Roboto",
-        fontWeight: "bold",
-        fontSize: "0.875rem",
-      },
-    },
     MuiSvgIcon: {
       root: {
         backgroundColor: COLORS.mainLight,

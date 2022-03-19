@@ -17,13 +17,16 @@ const Issues = lazy(() => import("./views/Issue/Issues"));
 const Tools = lazy(() => import("./views/Tool/Tools"));
 const EmployeeModify = lazy(() => import("./views/Employee/EmployeeModify"));
 const EmployeeCreate = lazy(() => import("./views/Employee/EmployeeCreate"));
-const Qualifications = lazy(() => import("./views/Qualification/Qualifications"));
+const Qualifications = lazy(
+  () => import("./views/Qualification/Qualifications")
+);
 const Logs = lazy(() => import("./views/Log/Logs"));
 const Locations = lazy(() => import("./views/Location/Locations"));
-const Intervals = lazy(() => import("./views/Interval/Intervals"));
 const Categories = lazy(() => import("./views/Category/Categories"));
 const LocationCreate = lazy(() => import("./views/Location/LocationCreate"));
-const PriviligeLevels = lazy(() => import("./views/PriviligeLevels/PriviligeLevels"));
+const PriviligeLevels = lazy(
+  () => import("./views/PriviligeLevels/PriviligeLevels")
+);
 
 function App() {
   const { token, setToken, removeToken } = useToken();
@@ -51,8 +54,6 @@ function App() {
               {/* CATEGORY */}
               <Route path="/category" element={<Categories />} />
               <Route path="/category-create" element={<CategoryCreate />} />
-              {/* INTERVAL */}
-              <Route path="/interval" element={<Intervals />} />
               {/* LOCATION */}
               <Route path="/location" element={<Locations />} />
               <Route path="/location-create" element={<LocationCreate />} />
@@ -60,10 +61,16 @@ function App() {
               <Route path="/log" element={<Logs />} />
               {/* QUALIFICATION */}
               <Route path="/qualification" element={<Qualifications />} />
-              <Route path="/qualification-create" element={<QualificationCreate />} />
+              <Route
+                path="/qualification-create"
+                element={<QualificationCreate />}
+              />
               {/* PRIVILIGE LEVELS */}
               <Route path="/priviligelevel" element={<PriviligeLevels />} />
-              <Route path="/priviligelevel-create" element={<PriviligeLevelCreate />} />
+              <Route
+                path="/priviligelevel-create"
+                element={<PriviligeLevelCreate />}
+              />
             </Routes>
           </Layout>
         </MuiPickersUtilsProvider>

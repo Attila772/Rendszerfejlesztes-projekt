@@ -109,17 +109,6 @@ const SideBar = ({ open, setOpen, width, removeToken }: Props) => {
               width={width}
             />
             <SidebarItem
-              to={`/interval`}
-              text={"Intervallumok"}
-              icon={<Sync />}
-              activeMenuItem={[
-                "/interval",
-                "/interval-create",
-                "/interval-modify",
-              ]}
-              width={width}
-            />
-            <SidebarItem
               to={`/location`}
               text={"Helyszínek"}
               icon={<LocationOn />}

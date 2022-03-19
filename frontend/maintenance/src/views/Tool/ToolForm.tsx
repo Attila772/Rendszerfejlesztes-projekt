@@ -1,14 +1,5 @@
-import {
-  Button,
-  Container,
-  Grid,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-} from "@material-ui/core";
+import { Button, Container, Grid, TextField } from "@material-ui/core";
 import { Autocomplete } from "@mui/material";
-import { useState } from "react";
 import { Controller, UseFormReturn } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
@@ -26,8 +17,6 @@ type Props = {
 const ToolForm = ({ form, tool, locations, categories }: Props) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [location, setLocation] = useState<Location | null>(null);
-  const [category, setCategory] = useState<Category | null>(null);
 
   return (
     <Container maxWidth="xs">
@@ -96,7 +85,7 @@ const ToolForm = ({ form, tool, locations, categories }: Props) => {
                     <TextField
                       {...params}
                       style={{ height: 40 }}
-                      label={t("tool.formLabels.location.title")}
+                      label={t("tool.formLabels.category")}
                       error={!!fieldState.error}
                       helperText={fieldState.error?.message}
                       InputLabelProps={{ required: true }}

@@ -1,12 +1,12 @@
-import { Interval } from "../../components/types";
+import { Category } from "../../components/types";
 import { SERVER_ADDRESS } from "../common/constants";
 
 export type CreateCategoryRequest = {
   name: string;
   isExceptional: boolean;
   normaTimeInHours: number;
-  interval?: Interval;
-  parentCategory?: any;
+  intervalInDays?: string;
+  parentCategory?: Category | null;
   description?: string;
 };
 
