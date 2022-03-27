@@ -10,6 +10,7 @@ import PriviligeLevelCreate from "./views/PriviligeLevels/PriviligeLevelCreate";
 import ToolCreate from "./views/Tool/ToolCreate";
 import QualificationCreate from "./views/Qualification/QualificationCreate";
 import CategoryCreate from "./views/Category/CategoryCreate";
+import Login from "./components/Login/Login";
 
 const Dashboard = lazy(() => import("./views/Dashboard"));
 const Employees = lazy(() => import("./views/Employee/Employees"));

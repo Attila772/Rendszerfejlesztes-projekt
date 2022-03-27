@@ -26,7 +26,12 @@ export const createCategory = async (
     method: "POST",
     headers: { "Content-type": "application/json" },
     body: JSON.stringify({
-      ...categoryRequest,
+      name: categoryRequest.name,
+      norma_time: categoryRequest.normaTimeInHours,
+      interval: categoryRequest.intervalInDays,
+      descript: categoryRequest.description,
+      qualification: undefined,
+      parent_id: categoryRequest.parentCategory?.id,
     }),
   };
   const response = await fetch(`${SERVER_ADDRESS}/category`, requestOptions);

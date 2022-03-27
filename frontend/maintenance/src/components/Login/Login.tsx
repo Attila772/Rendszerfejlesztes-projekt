@@ -4,33 +4,34 @@ import { Controller, useForm } from "react-hook-form";
 import { COLORS, GRADIENT } from "../../shared/common/constants";
 
 type Props = {
-  setToken: React.Dispatch<React.SetStateAction<undefined>>;
+  setToken: any; //React.Dispatch<React.SetStateAction<undefined>>;
 };
 
 export type LoginFormValues = {
-  username: string;
+  email: string;
   password: string;
 };
 
-async function loginUser(credentials: any) {
-  return fetch("http://localhost:8080/login", {
+async function loginUser(credentials: LoginFormValues) {
+  /* return fetch("http://localhost:8080/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(credentials),
-  }).then((data) => data.json());
+  }).then((data) => data.json());*/
 }
 
 const Login = ({ setToken }: Props) => {
   const { handleSubmit, control } = useForm<LoginFormValues>();
 
   const onSubmit = async (values: LoginFormValues) => {
-    const token = await loginUser({
+    /*const token = await loginUser({
       username: values.username,
       password: values.password,
     });
-    setToken(token);
+    */
+    setToken(values);
   };
 
   return (
@@ -72,7 +73,7 @@ const Login = ({ setToken }: Props) => {
         <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
           <Controller
             control={control}
-            name="username"
+            name="email"
             defaultValue={""}
             rules={{
               required: true,
