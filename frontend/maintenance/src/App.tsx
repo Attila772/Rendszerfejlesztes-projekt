@@ -17,9 +17,6 @@ const Dashboard = lazy(() => import("./views/Dashboard"));
 const Employees = lazy(() => import("./views/Employee/Employees"));
 const EmployeeModify = lazy(() => import("./views/Employee/EmployeeModify"));
 const EmployeeCreate = lazy(() => import("./views/Employee/EmployeeCreate"));
-<<<<<<< HEAD
-const Qualifications = lazy(() => import("./views/Qualification/Qualifications"));
-=======
 const Issues = lazy(() => import("./views/Issue/Issues"));
 const IssueModify = lazy(() => import("./views/Issue/IssueModify"));
 const IssueCreate = lazy(() => import("./views/Issue/IssueCreate"));
@@ -32,7 +29,6 @@ const Qualifications = lazy(
 const QualificationCreate = lazy(
   () => import("./views/Qualification/QualificationCreate")
 );
->>>>>>> 434cada32b3f337a364d50d854e7b10d74c2cbe8
 const Logs = lazy(() => import("./views/Log/Logs"));
 const Locations = lazy(() => import("./views/Location/Locations"));
 const Categories = lazy(() => import("./views/Category/Categories"));

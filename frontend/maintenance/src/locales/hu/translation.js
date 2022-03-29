@@ -200,7 +200,6 @@ export const TRANSLATIONS_HU = {
       title: "Sikeres kategória törlés.",
     },
   },
-<<<<<<< HEAD
   log: {
     formLabels: {
       title: "Log adatai",
@@ -223,8 +222,8 @@ export const TRANSLATIONS_HU = {
     },
     modifyFailure: {
       notGoodStatus: "Sikertelen log módosítás. Rosszul megadott státusz.",
-=======
-
+    },
+},
   issue: {
     formLabels: {
       title: "Feladat adatai",
@@ -247,7 +246,6 @@ export const TRANSLATIONS_HU = {
       createTitle: "Feladat létrehozása",
       modifyTitle: "Feladat módosítása",
       detailsTitle: "Feladat részletei",
->>>>>>> 434cada32b3f337a364d50d854e7b10d74c2cbe8
     },
   },
 };
