@@ -174,4 +174,29 @@ export const TRANSLATIONS_HU = {
       title: "Sikeres kategória törlés.",
     },
   },
+
+  issue: {
+    formLabels: {
+      title: "Feladat adatai",
+      name: "Név",
+      category: "Kategória",
+      assignedUser: "Hozzárendelt felhasználó",
+      priority: "Prioritás",
+      logs: "Logok",
+    },
+    actions: {
+      createTitle: "Feladat létrehozása",
+    },
+    createSuccess: {
+      title: "Sikeres feladat létrehozás.",
+    },
+    deleteSuccess: {
+      title: "Sikeres feladat törlés.",
+    },
+    actions: {
+      createTitle: "Feladat létrehozása",
+      modifyTitle: "Feladat módosítása",
+      detailsTitle: "Feladat részletei",
+    },
+  },
 };

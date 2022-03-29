@@ -38,6 +38,16 @@ export const createCategory = async (
   return response.json();
 };
 
+export const modifyCategory = async (category: Category) => {
+  const requestOptions = {
+    method: "PUT",
+    headers: { "Content-type": "application/json" },
+    body: JSON.stringify({ ...category }),
+  };
+  const response = await fetch(`${SERVER_ADDRESS}/category`, requestOptions);
+  return response.json();
+};
+
 export const deleteCategory = async (id: string | number) => {
   const requestOptions = {
     method: "DELETE",
@@ -45,5 +55,19 @@ export const deleteCategory = async (id: string | number) => {
     body: JSON.stringify({ id: id }),
   };
   const response = await fetch(`${SERVER_ADDRESS}/category`, requestOptions);
+  return response.json();
+};
+
+//get-by-id
+export const getCategoryById = async (id: string) => {
+  const requestOptions = {
+    method: "POST",
+    headers: { "Content-type": "application/json" },
+    body: JSON.stringify({ id: id }),
+  };
+  const response = await fetch(
+    `${SERVER_ADDRESS}/category-by-id`,
+    requestOptions
+  );
   return response.json();
 };
