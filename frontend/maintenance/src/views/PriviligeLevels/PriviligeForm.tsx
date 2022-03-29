@@ -37,7 +37,7 @@ const PriviligeForm = ({ form, priviligeLevel }: Props) => {
         }
       >
         <Grid container spacing={2}>
-          <Grid item xs={8}>
+          <Grid item xs={12}>
             <Controller
               control={form.control}
               name="name"
