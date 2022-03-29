@@ -87,6 +87,12 @@ export const TRANSLATIONS_HU = {
       modifyTitle: "Dolgozó módosítása",
       detailsTitle: "Dologzó részletei",
     },
+    modifySuccess: {
+      title: "Sikeres dolgozó módosítása",
+    },
+    modifyFailure: {
+      notMatchingPasswords: "Sikertelen dolgozó módosítás. A jelszavak nem egyeznek.",
+    },
   },
   location: {
     formLabels: {
@@ -105,6 +111,12 @@ export const TRANSLATIONS_HU = {
     deleteSuccess: {
       title: "Sikeres helyszín törlés.",
     },
+    modifySuccess: {
+      title: "Sikeres helyszín módosítása",
+    },
+    modifyFailure: {
+      notGoodBuilding: "Sikertelen helyszín módosítás. Rosszul megadott épület.",
+    },
   },
   priviligeLevel: {
     formLabels: {
@@ -113,12 +125,19 @@ export const TRANSLATIONS_HU = {
     },
     actions: {
       createTitle: "Hozzáférési szint létrehozása",
+      modifyTitle: "Hozzáférési szint módosítása",
     },
     createSuccess: {
       title: "Sikeres hozzáférési szint létrehozás.",
     },
     deleteSuccess: {
       title: "Sikeres hozzáférési szint törlés.",
+    },
+    modifySuccess: {
+      title: "Sikeres hozzáférési szint módosítása",
+    },
+    modifyFailure: {
+      notGoodName: "Sikertelen hozzáférési szint módosítás. Rosszul megadott név.",
     },
   },
   tool: {
@@ -146,12 +165,19 @@ export const TRANSLATIONS_HU = {
     },
     actions: {
       createTitle: "Képesítés létrehozása",
+      modifyTitle: "Képesítés módosítása",
     },
     createSuccess: {
       title: "Sikeres képesítés létrehozás.",
     },
     deleteSuccess: {
       title: "Sikeres képesítés törlés.",
+    },
+    modifySuccess: {
+      title: "Sikeres képesítés módosítása",
+    },
+    modifyFailure: {
+      notGoodName: "Sikertelen képesítés módosítás. Rosszul megadott név.",
     },
   },
   category: {
@@ -172,6 +198,56 @@ export const TRANSLATIONS_HU = {
     },
     deleteSuccess: {
       title: "Sikeres kategória törlés.",
+    },
+  },
+<<<<<<< HEAD
+  log: {
+    formLabels: {
+      title: "Log adatai",
+      status: "Státusz",
+      dateTime: "Idő",
+      user: "Felhasználó email címe",
+    },
+    actions: {
+      createTitle: "Log létrehozása",
+      modifyTitle: "Log módosítása",
+    },
+    createSuccess: {
+      title: "Sikeres log létrehozás.",
+    },
+    deleteSuccess: {
+      title: "Sikeres log törlés.",
+    },
+    modifySuccess: {
+      title: "Sikeres log módosítása",
+    },
+    modifyFailure: {
+      notGoodStatus: "Sikertelen log módosítás. Rosszul megadott státusz.",
+=======
+
+  issue: {
+    formLabels: {
+      title: "Feladat adatai",
+      name: "Név",
+      category: "Kategória",
+      assignedUser: "Hozzárendelt felhasználó",
+      priority: "Prioritás",
+      logs: "Logok",
+    },
+    actions: {
+      createTitle: "Feladat létrehozása",
+    },
+    createSuccess: {
+      title: "Sikeres feladat létrehozás.",
+    },
+    deleteSuccess: {
+      title: "Sikeres feladat törlés.",
+    },
+    actions: {
+      createTitle: "Feladat létrehozása",
+      modifyTitle: "Feladat módosítása",
+      detailsTitle: "Feladat részletei",
+>>>>>>> 434cada32b3f337a364d50d854e7b10d74c2cbe8
     },
   },
 };
