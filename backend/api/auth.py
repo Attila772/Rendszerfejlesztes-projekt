@@ -20,7 +20,8 @@ def login():
         if user:
             if (user.password == password):
                 login_user(user, remember=True)
-                response = jsonify({"Data": "Sikeres login"})
+                temp_dict = {"id":current_user.id,"email":current_user.email,"trade":current_user.trade,"level":current_user.level}
+                response = jsonify({"Data": temp_dict})
                 response.headers.add('Access-Control-Allow-Origin', '*')
                 return response
             else:
