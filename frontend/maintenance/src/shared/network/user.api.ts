@@ -47,7 +47,7 @@ export const deleteEmployee = async (id: string | number) => {
     headers: { "Content-type": "application/json" },
     body: JSON.stringify({ id: id }),
   };
-  const response = await fetch(`${SERVER_ADDRESS}/user`, requestOptions);
+  const response = await fetch(`${SERVER_ADDRESS}/sign-up`, requestOptions);
   return response.json();
 };
 

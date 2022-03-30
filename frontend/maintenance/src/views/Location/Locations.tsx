@@ -1,7 +1,8 @@
 import { Box, Button, Container, IconButton, Tooltip } from "@material-ui/core";
 import { Delete, Edit } from "@mui/icons-material";
 import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
-import React, { useEffect } from "react";
+import { useSnackbar } from "notistack";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
@@ -17,17 +18,22 @@ const Locations = () => {
   const { t } = useTranslation();
   const [page, setPage] = React.useState(0);
   const { setHeaderButtons } = useHeader();
+  const { enqueueSnackbar } = useSnackbar();
+  const [toggleRefetch, setToggleRefetch] = useState(false);
 
-  const locationQuery = useQuery(["locations", page], async () => {
-    const { data } = await listLocations();
-    return data;
-  });
+  const locationQuery = useQuery(
+    ["locations", page, toggleRefetch],
+    async () => {
+      const data = await listLocations();
+      return data;
+    }
+  );
 
   useEffect(() => {
     setHeaderButtons(
       <Box display="flex" gridGap={12}>
         <Button component={Link} to="/location-create">
-          {"Helyszín hozzáadása"}
+          {t("common.button.createAction.location")}
         </Button>
       </Box>
     );
@@ -59,7 +65,7 @@ const Locations = () => {
       flex: 1,
       renderCell: ({ row }: GridRenderCellParams) => (
         <Box display="flex" justifyContent="flex-end" width="100%">
-          <Tooltip title={t("button.modifyAction.location").toString()}>
+          <Tooltip title={t("common.button.modifyAction.location").toString()}>
             <IconButton
               component={Link}
               to={`/location-modify?id=${row.id}`}
@@ -70,9 +76,15 @@ const Locations = () => {
               <Edit style={{ color: COLORS.mainLight }} />
             </IconButton>
           </Tooltip>
-          <Tooltip title={t("button.deleteAction.location").toString()}>
+          <Tooltip title={t("common.button.deleteAction.location").toString()}>
             <IconButton
-              onClick={() => deleteLocation(row.id)}
+              onClick={() => {
+                deleteLocation(row.id);
+                enqueueSnackbar(t("location.deleteSuccess.title"), {
+                  variant: "success",
+                });
+                setToggleRefetch(!toggleRefetch);
+              }}
               size="small"
               color="primary"
               style={{ margin: "0 8px", color: COLORS.mainLight }}

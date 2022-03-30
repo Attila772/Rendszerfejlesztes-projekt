@@ -5,6 +5,7 @@ import {
   ExitToAppOutlined,
   History,
   LocationOn,
+  LockOpen,
   Star,
   Sync,
 } from "@mui/icons-material";
@@ -68,7 +69,7 @@ const SideBar = ({ open, setOpen, width, removeToken }: Props) => {
               to={`/dashboard`}
               text={"Főoldal"}
               icon={<HomeIcon />}
-              activeMenuItem={["/dashboard"]}
+              activeMenuItem={["/dashboard", "/"]}
               width={width}
             />
             <SidebarItem
@@ -78,7 +79,6 @@ const SideBar = ({ open, setOpen, width, removeToken }: Props) => {
               activeMenuItem={[
                 "/employee",
                 "/employee-create",
-                "employee-details",
                 "employee-modify",
               ]}
               width={width}
@@ -87,49 +87,65 @@ const SideBar = ({ open, setOpen, width, removeToken }: Props) => {
               to={`/issue`}
               text={"Feladatok"}
               icon={<AssignmentIndIcon />}
-              activeMenuItem={["/issue"]}
+              activeMenuItem={["/issue", "/issue-create", "/issue-modify"]}
               width={width}
             />
             <SidebarItem
               to={`/tool`}
               text={"Eszközök"}
               icon={<BuildIcon />}
-              activeMenuItem={["/tool"]}
+              activeMenuItem={["/tool", "/tool-create", "/tool-modify"]}
               width={width}
             />
             <SidebarItem
               to={`/category`}
               text={"Kategóriák"}
               icon={<Difference />}
-              activeMenuItem={["/category"]}
-              width={width}
-            />
-            <SidebarItem
-              to={`/interval`}
-              text={"Intervallumok"}
-              icon={<Sync />}
-              activeMenuItem={["/interval"]}
+              activeMenuItem={[
+                "/category",
+                "/category-create",
+                "/category-modify",
+              ]}
               width={width}
             />
             <SidebarItem
               to={`/location`}
               text={"Helyszínek"}
               icon={<LocationOn />}
-              activeMenuItem={["/location"]}
+              activeMenuItem={[
+                "/location",
+                "/location-create",
+                "/location-modify",
+              ]}
               width={width}
             />
             <SidebarItem
               to={`/log`}
               text={"Logok"}
               icon={<History />}
-              activeMenuItem={["/log"]}
+              activeMenuItem={["/log", "/log-create", "/log-modify"]}
               width={width}
             />
             <SidebarItem
               to={`/qualification`}
               text={"Képesítések"}
               icon={<Star />}
-              activeMenuItem={["/qualification"]}
+              activeMenuItem={[
+                "/qualification",
+                "/qualification-create",
+                "/qualification-modify",
+              ]}
+              width={width}
+            />
+            <SidebarItem
+              to={`/priviligelevel`}
+              text={"Hozzáfárási szintek"}
+              icon={<LockOpen />}
+              activeMenuItem={[
+                "/privilige-level",
+                "/privilige-level-create",
+                "/privilige-level-modify",
+              ]}
               width={width}
             />
           </List>

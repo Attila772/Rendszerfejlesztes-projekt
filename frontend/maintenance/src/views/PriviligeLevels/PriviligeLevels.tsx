@@ -9,26 +9,28 @@ import { Link } from "react-router-dom";
 import { useHeader } from "../../components/Layout/HeaderContext";
 import SingleQueryTable from "../../components/PageableTable/SingleQueryTable";
 import { COLORS } from "../../shared/common/constants";
-import { deleteTool, listTools } from "../../shared/network/tool.api";
+import { deletePriviligeLevel, listPriviligeLevels, } from "../../shared/network/privilige-level.api";
 
-
-const Tools = () => {
+const PriviligeLevels = () => {
   const { t } = useTranslation();
   const [page, setPage] = React.useState(0);
   const { setHeaderButtons } = useHeader();
   const [toggleRefetch, setToggleRefetch] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
 
-  const toolQuery = useQuery(["tools", page, toggleRefetch], async () => {
-    const { data } = await listTools();
-    return data;
-  });
+  const priviligeLevelQuery = useQuery(
+    ["priviligelevel", page, toggleRefetch],
+    async () => {
+      const { data } = await listPriviligeLevels();
+      return data;
+    }
+  );
 
   useEffect(() => {
     setHeaderButtons(
       <Box display="flex" gridGap={12}>
-        <Button component={Link} to="/tool-create">
-          {t("common.button.createAction.tool")}
+        <Button component={Link} to="/priviligelevel-create">
+          {t("common.button.createAction.priviligeLevel")}
         </Button>
       </Box>
     );
@@ -46,27 +48,6 @@ const Tools = () => {
       flex: 1,
     },
     {
-      field: "category",
-      headerName: t("common.table.category"),
-      sortable: false,
-      disableColumnMenu: true,
-      flex: 1,
-    },
-    {
-      field: "description",
-      headerName: t("common.table.description"),
-      sortable: false,
-      disableColumnMenu: true,
-      flex: 1,
-    },
-    {
-      field: "location",
-      headerName: t("common.table.location"),
-      sortable: false,
-      disableColumnMenu: true,
-      flex: 1,
-    },
-    {
       field: " ",
       headerName: t("common.table.actions"),
       sortable: false,
@@ -75,11 +56,11 @@ const Tools = () => {
       renderCell: ({ row }: GridRenderCellParams) => (
         <Box display="flex" justifyContent="flex-end" width="100%">
           <Tooltip
-            title={t("common.button.modifyAction.tool").toString()}
+            title={t("common.button.modifyAction.priviligeLevel").toString()}
           >
             <IconButton
               component={Link}
-              to={`/tool-modify?id=${row.id}`}
+              to={`/priviligelevel-modify?id=${row.id}`}
               size="small"
               color="primary"
               style={{ margin: "0 8px" }}
@@ -88,12 +69,12 @@ const Tools = () => {
             </IconButton>
           </Tooltip>
           <Tooltip
-            title={t("common.button.deleteAction.tool").toString()}
+            title={t("common.button.deleteAction.priviligeLevel").toString()}
           >
             <IconButton
               onClick={() => {
-                deleteTool(row.id);
-                enqueueSnackbar(t("tool.deleteSuccess.title"), {
+                deletePriviligeLevel(row.id);
+                enqueueSnackbar(t("priviligeLevel.deleteSuccess.title"), {
                   variant: "success",
                 });
                 setToggleRefetch(!toggleRefetch);
@@ -111,9 +92,9 @@ const Tools = () => {
   ];
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="xs">
       <SingleQueryTable
-        query={toolQuery}
+        query={priviligeLevelQuery}
         columns={columns}
         page={page}
         setPage={setPage}
@@ -122,4 +103,4 @@ const Tools = () => {
   );
 };
 
-export default Tools;
+export default PriviligeLevels;

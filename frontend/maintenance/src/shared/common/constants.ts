@@ -102,16 +102,6 @@ const theme = createTheme({
         },
       },
     },
-    MuiSvgIcon: {
-      root: {
-        backgroundColor: COLORS.mainLight,
-        color: COLORS.mainLight,
-      },
-      colorPrimary: {
-        backgroundColor: COLORS.mainLight,
-        color: COLORS.mainLight,
-      },
-    },
     MuiFormControlLabel: {
       labelPlacementStart: {
         marginLeft: 0,
@@ -122,6 +112,23 @@ const theme = createTheme({
       marginDense: {
         marginTop: 0,
         marginBottom: 0,
+      },
+    },
+    MuiSvgIcon: {
+      root: {
+        backgroundColor: COLORS.mainLight,
+        color: COLORS.mainLight,
+      },
+      colorPrimary: {
+        backgroundColor: COLORS.mainLight,
+        color: COLORS.mainLight,
+      },
+    },
+    MuiOutlinedInput: {
+      root: {
+        borderRadius: 8,
+        padding: 0,
+        height: "2.5rem",
       },
     },
     MuiPaper: {
@@ -143,11 +150,6 @@ const theme = createTheme({
       root: {
         boxShadow: BOX_SHADOW,
         border: `1px solid ${COLORS.mainGrey}`,
-      },
-    },
-    MuiOutlinedInput: {
-      root: {
-        borderRadius: 8,
       },
     },
   },
