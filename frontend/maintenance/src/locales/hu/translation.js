@@ -106,7 +106,7 @@ export const TRANSLATIONS_HU = {
       detailsTitle: "Helyszín részletei",
     },
     createSuccess: {
-      title: "Sikeres helyszín törlés.",
+      title: "Sikeres helyszín létrehozás.",
     },
     deleteSuccess: {
       title: "Sikeres helyszín törlés.",
