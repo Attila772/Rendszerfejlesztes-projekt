@@ -16,6 +16,8 @@ import SidebarItem from "./SidebarItem";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import BuildIcon from "@mui/icons-material/Build";
+import { hasAuthority } from "../../../shared/common/authorization";
+import { AuthenticatedUser } from "../../../shared/common/rolePermissions";
 
 type Props = {
   open: boolean;
@@ -23,6 +25,7 @@ type Props = {
   width: number;
   setWidth: Dispatch<SetStateAction<number>>;
   removeToken: any;
+  token: any;
 };
 
 const useStyles = makeStyles({
@@ -45,8 +48,9 @@ const useStyles = makeStyles({
   },
 });
 
-const SideBar = ({ open, setOpen, width, removeToken }: Props) => {
+const SideBar = ({ open, setOpen, width, removeToken, token }: Props) => {
   const classes = useStyles();
+  const authenticatedUser = token;
 
   return (
     <>

@@ -35,7 +35,9 @@ const Categories = lazy(() => import("./views/Category/Categories"));
 const CategoryCreate = lazy(() => import("./views/Category/CategoryCreate"));
 const CategoryModify = lazy(() => import("./views/Category/CategoryModify"));
 const LocationCreate = lazy(() => import("./views/Location/LocationCreate"));
-const PriviligeLevels = lazy(() => import("./views/PriviligeLevels/PriviligeLevels"));
+const PriviligeLevels = lazy(
+  () => import("./views/PriviligeLevels/PriviligeLevels")
+);
 
 function App() {
   const { token, setToken, removeToken } = useToken();
@@ -48,7 +50,7 @@ function App() {
     <>
       <HeaderProvider>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <Layout removeToken={removeToken}>
+          <Layout removeToken={removeToken} token={token}>
             <Routes>
               <Route path="/dashboard" element={<Dashboard />} />
               {/* EMPLOYEE */}
@@ -76,12 +78,24 @@ function App() {
               <Route path="/log-create" element={<LogCreate />} />
               {/* QUALIFICATION */}
               <Route path="/qualification" element={<Qualifications />} />
-              <Route path="/qualification-create" element={<QualificationCreate />} />
-              <Route path="/qualification-modify" element={<QualificationModify />} />
+              <Route
+                path="/qualification-create"
+                element={<QualificationCreate />}
+              />
+              <Route
+                path="/qualification-modify"
+                element={<QualificationModify />}
+              />
               {/* PRIVILIGE LEVELS */}
               <Route path="/priviligelevel" element={<PriviligeLevels />} />
-              <Route path="/priviligelevel-create" element={<PriviligeLevelCreate />} />
-              <Route path="/priviligelevel-modify" element={<PriviligeLevelModify />} />
+              <Route
+                path="/priviligelevel-create"
+                element={<PriviligeLevelCreate />}
+              />
+              <Route
+                path="/priviligelevel-modify"
+                element={<PriviligeLevelModify />}
+              />
             </Routes>
           </Layout>
         </MuiPickersUtilsProvider>

@@ -24,7 +24,6 @@ export default function useToken() {
   const getToken = () => {
     const tokenString = localStorage?.getItem("userToken");
     if (tokenString && tokenString !== "undefined") {
-      console.log(tokenString);
       const userToken = JSON.parse(tokenString);
       return userToken?.token;
     } else {
@@ -35,10 +34,10 @@ export default function useToken() {
   const [token, setToken] = useState(getToken());
 
   const saveToken = async (loginRequest: LoginRequest) => {
-    const { data: userToken } = await login(loginRequest);
-    console.log(userToken);
+    const loginResponse = await login(loginRequest);
+    const userToken = loginResponse.Data;
     localStorage.setItem("userToken", JSON.stringify(userToken));
-    setToken(userToken.token);
+    setToken(userToken);
   };
 
   const deleteToken = () => {
