@@ -10,10 +10,7 @@ export const listQualifications = async () => {
     method: "GET",
     headers: { "Content-type": "application/json" },
   };
-  const response = await fetch(
-    `${SERVER_ADDRESS}/qualification`,
-    requestOptions
-  );
+  const response = await fetch(`${SERVER_ADDRESS}/trade`, requestOptions);
   return response.json();
 };
 
@@ -27,7 +24,7 @@ export const createQualification = async (
       ...qualificationRequest,
     }),
   };
-  const response = await fetch(`${SERVER_ADDRESS}/qualification`, requestOptions);
+  const response = await fetch(`${SERVER_ADDRESS}/trade`, requestOptions);
   return response.json();
 };
 
@@ -37,7 +34,7 @@ export const modifyQualification = async (qualification: Qualification) => {
     headers: { "Content-type": "application/json" },
     body: JSON.stringify({ ...qualification }),
   };
-  const response = await fetch(`${SERVER_ADDRESS}/qualification`, requestOptions);
+  const response = await fetch(`${SERVER_ADDRESS}/trade`, requestOptions);
   return response.json();
 };
 
@@ -47,7 +44,7 @@ export const deleteQualification = async (id: string | number) => {
     headers: { "Content-type": "application/json" },
     body: JSON.stringify({ id: id }),
   };
-  const response = await fetch(`${SERVER_ADDRESS}/qualification`, requestOptions);
+  const response = await fetch(`${SERVER_ADDRESS}/trade`, requestOptions);
   return response.json();
 };
 
@@ -58,9 +55,6 @@ export const getQualificationById = async (id: string) => {
     headers: { "Content-type": "application/json" },
     body: JSON.stringify({ id: id }),
   };
-  const response = await fetch(
-    `${SERVER_ADDRESS}/qualification-by-id`,
-    requestOptions
-  );
+  const response = await fetch(`${SERVER_ADDRESS}/trade-by-id`, requestOptions);
   return response.json();
 };

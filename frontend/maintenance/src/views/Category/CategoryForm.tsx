@@ -7,21 +7,29 @@ import {
   Switch,
   TextField,
 } from "@material-ui/core";
+import { valueToPercent } from "@mui/base";
 import { Autocomplete } from "@mui/material";
 import { Controller, UseFormReturn } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import FormCard from "../../components/FormCard";
-import { Category } from "../../components/types";
+import { Category, Qualification } from "../../components/types";
+import { MAINTENANCE_INTERVALS } from "../../shared/common/constants";
 import { CategoryFormValues } from "./CategoryCreate";
 
 type Props = {
   form: UseFormReturn<CategoryFormValues, any>;
   category?: Category;
   categories?: Category[];
+  qualifications?: Qualification[];
 };
 
-const CategoryForm = ({ form, category, categories }: Props) => {
+const CategoryForm = ({
+  form,
+  category,
+  categories,
+  qualifications,
+}: Props) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -35,11 +43,13 @@ const CategoryForm = ({ form, category, categories }: Props) => {
               <Controller
                 name="isExceptional"
                 control={form.control}
-                defaultValue={category?.isExceptional}
+                defaultValue={category?.isExceptional || true}
                 render={({ field: { onChange, value, ref }, fieldState }) => (
                   <FormControlLabel
                     label={t("category.formLabels.isExceptional")}
                     labelPlacement="start"
+                    defaultChecked
+                    disabled
                     control={
                       <Switch
                         onChange={(e, checked) => {
@@ -72,6 +82,36 @@ const CategoryForm = ({ form, category, categories }: Props) => {
         }
       >
         <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Controller
+              control={form.control}
+              name="qualification"
+              defaultValue={category?.qualification || null}
+              rules={{ required: t("validation.required").toString() }}
+              render={({ field, fieldState }) => (
+                <Autocomplete
+                  {...field}
+                  onChange={(_, value) => field.onChange(value)}
+                  getOptionLabel={(option: Qualification) => option.name}
+                  isOptionEqualToValue={(option: Qualification, value) =>
+                    option.id === value.id
+                  }
+                  options={qualifications || []}
+                  sx={{ width: "100%" }}
+                  renderInput={(params: any) => (
+                    <TextField
+                      {...params}
+                      style={{ height: 40 }}
+                      label={t("category.formLabels.qualification")}
+                      error={!!fieldState.error}
+                      helperText={fieldState.error?.message}
+                      InputLabelProps={{ required: true }}
+                    />
+                  )}
+                />
+              )}
+            />
+          </Grid>
           <Grid item xs={6}>
             <Controller
               control={form.control}
@@ -93,7 +133,7 @@ const CategoryForm = ({ form, category, categories }: Props) => {
             <Controller
               control={form.control}
               name="normaTimeInHours"
-              defaultValue={category?.normaTimeInHours || undefined}
+              defaultValue={category?.normaTimeInHours || ""}
               rules={{ required: t("validation.required").toString() }}
               render={({ field, fieldState }) => (
                 <TextField
@@ -110,11 +150,38 @@ const CategoryForm = ({ form, category, categories }: Props) => {
             <Controller
               control={form.control}
               name="intervalInDays"
-              defaultValue={category?.intervalInDays || ""}
-              render={({ field }) => (
-                <TextField
+              defaultValue={category?.intervalInDays || null}
+              rules={{
+                required: {
+                  value: form.getValues("parentCategory") ? false : true,
+                  message: t("validation.required"),
+                },
+              }}
+              render={({ field, fieldState }) => (
+                <Autocomplete
                   {...field}
-                  label={t("category.formLabels.interval")}
+                  onChange={(_, value) => field.onChange(value)}
+                  getOptionLabel={(option: string) =>
+                    MAINTENANCE_INTERVALS
+                      ? t(`common.interval.${option}`)
+                      : t("common.select.choose")
+                  }
+                  options={MAINTENANCE_INTERVALS || []}
+                  sx={{ width: "100%" }}
+                  renderInput={(params: any) => (
+                    <TextField
+                      {...params}
+                      style={{ height: 40 }}
+                      label={t("category.formLabels.interval")}
+                      InputLabelProps={{
+                        required: form.getValues("parentCategory")
+                          ? false
+                          : true,
+                      }}
+                      error={!!fieldState.error}
+                      helperText={fieldState.error?.message}
+                    />
+                  )}
                 />
               )}
             />
@@ -129,6 +196,9 @@ const CategoryForm = ({ form, category, categories }: Props) => {
                   {...field}
                   onChange={(_, value) => field.onChange(value)}
                   getOptionLabel={(option: Category) => option.name}
+                  isOptionEqualToValue={(option: Category, value) =>
+                    option.id === value.id
+                  }
                   options={categories || []}
                   sx={{ width: "100%" }}
                   renderInput={(params: any) => (

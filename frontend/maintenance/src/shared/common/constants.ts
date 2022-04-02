@@ -2,6 +2,14 @@ import { createTheme } from "@material-ui/core";
 
 export const SERVER_ADDRESS = "http://127.0.0.1:5000";
 
+export const MAINTENANCE_INTERVALS = [
+  "WEEK",
+  "MONTH",
+  "QUARTER_YEAR",
+  "HALF_YEAR",
+  "YEAR",
+];
+
 const DEFAULT_COLORS = {
   main: "#000000",
   mainLight: "#4B0082",

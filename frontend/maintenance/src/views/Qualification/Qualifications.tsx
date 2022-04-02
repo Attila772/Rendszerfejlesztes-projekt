@@ -24,7 +24,7 @@ const Qualifications = () => {
   const qualificationQuery = useQuery(
     ["qualifications", page, toggleRefetch],
     async () => {
-      const { data } = await listQualifications();
+      const data = await listQualifications();
       return data;
     }
   );
