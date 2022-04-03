@@ -1,19 +1,22 @@
 import { Button, Container, Grid, TextField } from "@material-ui/core";
+import { optionGroupUnstyledClasses } from "@mui/base";
+import { Autocomplete } from "@mui/material";
 import React from "react";
 import { Controller, UseFormReturn } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import FormCard from "../../components/FormCard";
-import { User } from "../../components/types";
-import { EMAIL_REGEX } from "../../shared/common/constants";
+import { Qualification, User } from "../../components/types";
+import { EMAIL_REGEX, ROLES } from "../../shared/common/constants";
 import { EmployeeFormValues } from "./EmployeeCreate";
 
 type Props = {
   form: UseFormReturn<EmployeeFormValues, any>;
   employee?: User;
+  qualifications: Qualification[];
 };
 
-const EmployeeForm = ({ form, employee }: Props) => {
+const EmployeeForm = ({ form, employee, qualifications }: Props) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -61,7 +64,7 @@ const EmployeeForm = ({ form, employee }: Props) => {
               )}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12}>
             <Controller
               control={form.control}
               name="password1"
@@ -78,7 +81,7 @@ const EmployeeForm = ({ form, employee }: Props) => {
               )}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12}>
             <Controller
               control={form.control}
               name="password2"
@@ -95,36 +98,61 @@ const EmployeeForm = ({ form, employee }: Props) => {
               )}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12}>
             <Controller
               control={form.control}
               name="trade"
-              defaultValue={employee?.trade || ""}
+              defaultValue={employee?.trade || null}
               rules={{ required: t("validation.required").toString() }}
               render={({ field, fieldState }) => (
-                <TextField
+                <Autocomplete
                   {...field}
-                  label={t("employee.formLabels.trade")}
-                  InputLabelProps={{ required: true }}
-                  error={!!fieldState.error}
-                  helperText={fieldState.error?.message}
+                  onChange={(_, value) => field.onChange(value)}
+                  getOptionLabel={(option: Qualification) => option.name}
+                  isOptionEqualToValue={(option: Qualification, value) =>
+                    option.id === value.id
+                  }
+                  options={qualifications || []}
+                  sx={{ width: "100%" }}
+                  renderInput={(params: any) => (
+                    <TextField
+                      {...params}
+                      style={{ height: 40 }}
+                      label={t("employee.formLabels.trade")}
+                      error={!!fieldState.error}
+                      helperText={fieldState.error?.message}
+                      InputLabelProps={{ required: true }}
+                    />
+                  )}
                 />
               )}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12}>
             <Controller
               control={form.control}
               name="level"
-              defaultValue={employee?.level || ""}
+              defaultValue={employee?.level || null}
               rules={{ required: t("validation.required").toString() }}
               render={({ field, fieldState }) => (
-                <TextField
+                <Autocomplete
                   {...field}
-                  label={t("employee.formLabels.level")}
-                  InputLabelProps={{ required: true }}
-                  error={!!fieldState.error}
-                  helperText={fieldState.error?.message}
+                  onChange={(_, value) => field.onChange(value)}
+                  getOptionLabel={(option: string) =>
+                    t(`common.role.${option}`)
+                  }
+                  options={ROLES || []}
+                  sx={{ width: "100%" }}
+                  renderInput={(params: any) => (
+                    <TextField
+                      {...params}
+                      style={{ height: 40 }}
+                      label={t("employee.formLabels.level")}
+                      error={!!fieldState.error}
+                      helperText={fieldState.error?.message}
+                      InputLabelProps={{ required: true }}
+                    />
+                  )}
                 />
               )}
             />

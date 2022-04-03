@@ -1,11 +1,11 @@
 import { sha512 } from "js-sha512";
-import { User } from "../../components/types";
+import { Qualification, User } from "../../components/types";
 import { SERVER_ADDRESS } from "../common/constants";
 
 export type RegisterUserRequest = {
   email: string;
   password: string;
-  trade: string;
+  trade: Qualification;
   level: string;
 };
 
@@ -23,8 +23,10 @@ export const registerUser = async (userRequest: RegisterUserRequest) => {
     method: "POST",
     headers: { "Content-type": "application/json" },
     body: JSON.stringify({
-      ...userRequest,
+      email: userRequest.email,
+      level: userRequest.level,
       password: sha512(userRequest.password),
+      trade: userRequest.trade.id,
     }),
   };
   const response = await fetch(`${SERVER_ADDRESS}/sign-up`, requestOptions);
@@ -35,7 +37,12 @@ export const modifyEmployee = async (user: User) => {
   const requestOptions = {
     method: "PUT",
     headers: { "Content-type": "application/json" },
-    body: JSON.stringify({ ...user, password: sha512(user.password) }),
+    body: JSON.stringify({
+      email: user.email,
+      level: user.level,
+      password: sha512(user.password),
+      trade: user.trade.id,
+    }),
   };
   const response = await fetch(`${SERVER_ADDRESS}/user`, requestOptions);
   return response.json();

@@ -61,13 +61,19 @@ const Employees = ({ token }: Props) => {
     {
       field: "level",
       headerName: t("common.table.level"),
+      headerAlign: "center",
+      align: "center",
       sortable: false,
       disableColumnMenu: true,
       flex: 1,
+      renderCell: ({ row }: GridRenderCellParams) =>
+        t(`common.role.${row.level}`),
     },
     {
       field: " ",
       headerName: t("common.table.actions"),
+      headerAlign: "right",
+      align: "right",
       sortable: false,
       disableColumnMenu: true,
       flex: 1,
@@ -116,6 +122,8 @@ const Employees = ({ token }: Props) => {
     {
       field: "level",
       headerName: t("common.table.level"),
+      headerAlign: "right",
+      align: "right",
       sortable: false,
       disableColumnMenu: true,
       flex: 1,

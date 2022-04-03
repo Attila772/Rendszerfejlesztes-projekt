@@ -58,13 +58,8 @@ const Tools = ({ token }: Props) => {
     {
       field: "category",
       headerName: t("common.table.category"),
-      sortable: false,
-      disableColumnMenu: true,
-      flex: 1,
-    },
-    {
-      field: "description",
-      headerName: t("common.table.description"),
+      headerAlign: "center",
+      align: "center",
       sortable: false,
       disableColumnMenu: true,
       flex: 1,
@@ -72,6 +67,8 @@ const Tools = ({ token }: Props) => {
     {
       field: "location",
       headerName: t("common.table.location"),
+      headerAlign: "center",
+      align: "center",
       sortable: false,
       disableColumnMenu: true,
       flex: 1,
@@ -79,6 +76,8 @@ const Tools = ({ token }: Props) => {
     {
       field: " ",
       headerName: t("common.table.actions"),
+      headerAlign: "right",
+      align: "right",
       sortable: false,
       disableColumnMenu: true,
       flex: 1,
@@ -127,13 +126,8 @@ const Tools = ({ token }: Props) => {
     {
       field: "category",
       headerName: t("common.table.category"),
-      sortable: false,
-      disableColumnMenu: true,
-      flex: 1,
-    },
-    {
-      field: "description",
-      headerName: t("common.table.description"),
+      headerAlign: "center",
+      align: "center",
       sortable: false,
       disableColumnMenu: true,
       flex: 1,
@@ -141,6 +135,8 @@ const Tools = ({ token }: Props) => {
     {
       field: "location",
       headerName: t("common.table.location"),
+      headerAlign: "right",
+      align: "right",
       sortable: false,
       disableColumnMenu: true,
       flex: 1,
