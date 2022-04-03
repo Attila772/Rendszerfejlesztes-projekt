@@ -124,7 +124,7 @@ def category_():
         category_norma_time = request.get_json()['norma_time']
         category_interval = request.get_json()['interval']
         category_descript = request.get_json()['descript']
-        category_qualifications = request.get_json()['qualifications']
+        category_qualifications = request.get_json()['qualification']
         category_parent_id = request.get_json()['parent_id']
         new_category=category(name=category_name,
                               norma_time=category_norma_time,
