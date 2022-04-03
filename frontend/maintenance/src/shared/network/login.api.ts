@@ -25,7 +25,7 @@ export default function useToken() {
     const tokenString = localStorage?.getItem("userToken");
     if (tokenString && tokenString !== "undefined") {
       const userToken = JSON.parse(tokenString);
-      return userToken?.token;
+      return userToken;
     } else {
       return null;
     }
@@ -48,6 +48,7 @@ export default function useToken() {
   return {
     setToken: saveToken,
     removeToken: deleteToken,
+    getToken: getToken,
     token,
   };
 }

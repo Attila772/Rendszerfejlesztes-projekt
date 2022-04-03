@@ -8,16 +8,25 @@ import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { useHeader } from "../../components/Layout/HeaderContext";
 import SingleQueryTable from "../../components/PageableTable/SingleQueryTable";
+import { hasAuthority } from "../../shared/common/authorization";
 import { COLORS } from "../../shared/common/constants";
+import { AuthenticatedUser } from "../../shared/common/rolePermissions";
 import { deleteTool, listTools } from "../../shared/network/tool.api";
 
+type Props = {
+  token?: any;
+};
 
-const Tools = () => {
+const Tools = ({ token }: Props) => {
   const { t } = useTranslation();
   const [page, setPage] = React.useState(0);
   const { setHeaderButtons } = useHeader();
   const [toggleRefetch, setToggleRefetch] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
+  const isToolAdmin = hasAuthority(
+    (token as AuthenticatedUser)?.level,
+    "TOOL_ADMIN"
+  );
 
   const toolQuery = useQuery(["tools", page, toggleRefetch], async () => {
     const { data } = await listTools();
@@ -25,19 +34,20 @@ const Tools = () => {
   });
 
   useEffect(() => {
-    setHeaderButtons(
-      <Box display="flex" gridGap={12}>
-        <Button component={Link} to="/tool-create">
-          {t("common.button.createAction.tool")}
-        </Button>
-      </Box>
-    );
+    isToolAdmin &&
+      setHeaderButtons(
+        <Box display="flex" gridGap={12}>
+          <Button component={Link} to="/tool-create">
+            {t("common.button.createAction.tool")}
+          </Button>
+        </Box>
+      );
     return () => {
       setHeaderButtons(null);
     };
   }, []);
 
-  const columns: GridColDef[] = [
+  const columnsAdmin: GridColDef[] = [
     {
       field: "name",
       headerName: t("common.table.name"),
@@ -74,9 +84,7 @@ const Tools = () => {
       flex: 1,
       renderCell: ({ row }: GridRenderCellParams) => (
         <Box display="flex" justifyContent="flex-end" width="100%">
-          <Tooltip
-            title={t("common.button.modifyAction.tool").toString()}
-          >
+          <Tooltip title={t("common.button.modifyAction.tool").toString()}>
             <IconButton
               component={Link}
               to={`/tool-modify?id=${row.id}`}
@@ -87,9 +95,7 @@ const Tools = () => {
               <Edit style={{ color: COLORS.mainLight }} />
             </IconButton>
           </Tooltip>
-          <Tooltip
-            title={t("common.button.deleteAction.tool").toString()}
-          >
+          <Tooltip title={t("common.button.deleteAction.tool").toString()}>
             <IconButton
               onClick={() => {
                 deleteTool(row.id);
@@ -110,11 +116,42 @@ const Tools = () => {
     },
   ];
 
+  const columns: GridColDef[] = [
+    {
+      field: "name",
+      headerName: t("common.table.name"),
+      sortable: false,
+      disableColumnMenu: true,
+      flex: 1,
+    },
+    {
+      field: "category",
+      headerName: t("common.table.category"),
+      sortable: false,
+      disableColumnMenu: true,
+      flex: 1,
+    },
+    {
+      field: "description",
+      headerName: t("common.table.description"),
+      sortable: false,
+      disableColumnMenu: true,
+      flex: 1,
+    },
+    {
+      field: "location",
+      headerName: t("common.table.location"),
+      sortable: false,
+      disableColumnMenu: true,
+      flex: 1,
+    },
+  ];
+
   return (
     <Container maxWidth="md">
       <SingleQueryTable
         query={toolQuery}
-        columns={columns}
+        columns={isToolAdmin ? columnsAdmin : columns}
         page={page}
         setPage={setPage}
       />

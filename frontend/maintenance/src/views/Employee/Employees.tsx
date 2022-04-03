@@ -8,15 +8,25 @@ import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { useHeader } from "../../components/Layout/HeaderContext";
 import SingleQueryTable from "../../components/PageableTable/SingleQueryTable";
+import { hasAuthority } from "../../shared/common/authorization";
 import { COLORS } from "../../shared/common/constants";
+import { AuthenticatedUser } from "../../shared/common/rolePermissions";
 import { deleteEmployee, listEmployees } from "../../shared/network/user.api";
 
-const Employees = () => {
+type Props = {
+  token?: any;
+};
+
+const Employees = ({ token }: Props) => {
   const { t } = useTranslation();
   const [page, setPage] = useState(0);
   const { setHeaderButtons } = useHeader();
   const { enqueueSnackbar } = useSnackbar();
   const [toggleRefetch, setToggleRefetch] = useState(false);
+  const isEmployeeAdmin = hasAuthority(
+    (token as AuthenticatedUser)?.level,
+    "EMPLOYEE_ADMIN"
+  );
 
   const employeeQuery = useQuery(
     ["employees", page, toggleRefetch],
@@ -27,6 +37,7 @@ const Employees = () => {
   );
 
   useEffect(() => {
+    // isEmployeeAdmin &&
     setHeaderButtons(
       <Box display="flex" gridGap={12}>
         <Button component={Link} to="/employee-create">
@@ -39,7 +50,7 @@ const Employees = () => {
     };
   }, []);
 
-  const columns: GridColDef[] = [
+  const columnsAdmin: GridColDef[] = [
     {
       field: "email",
       headerName: t("common.table.email"),
@@ -94,11 +105,28 @@ const Employees = () => {
     },
   ];
 
+  const columns: GridColDef[] = [
+    {
+      field: "email",
+      headerName: t("common.table.email"),
+      sortable: false,
+      disableColumnMenu: true,
+      flex: 1,
+    },
+    {
+      field: "level",
+      headerName: t("common.table.level"),
+      sortable: false,
+      disableColumnMenu: true,
+      flex: 1,
+    },
+  ];
+
   return (
     <Container maxWidth="sm">
       <SingleQueryTable
         query={employeeQuery}
-        columns={columns}
+        columns={/*isEmployeeAdmin ? columnsAdmin : columns*/ columnsAdmin}
         page={page}
         setPage={setPage}
       />

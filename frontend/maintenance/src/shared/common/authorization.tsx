@@ -12,24 +12,25 @@ export function hasAuthority(level: string, requredPermission: string) {
   // 2: operátor
   // 3: karbantartó
   // 4: admin
+  const newLevel = parseInt(level);
 
-  switch (level) {
-    case "1":
+  switch (newLevel) {
+    case 1:
       if (LOGISTIC_PERMISSIONS.includes(requredPermission)) {
-        hasAuthority = true;
+        return true;
       }
       break;
-    case "2":
+    case 2:
       if (OPERATOR_PERMISSIONS.includes(requredPermission)) {
         hasAuthority = true;
       }
       break;
-    case "3":
+    case 3:
       if (MAINTENANCE_PERMISSIONS.includes(requredPermission)) {
         hasAuthority = true;
       }
       break;
-    case "4":
+    case 4:
       if (ADMIN_PERMISSIONS.includes(requredPermission)) {
         hasAuthority = true;
       }

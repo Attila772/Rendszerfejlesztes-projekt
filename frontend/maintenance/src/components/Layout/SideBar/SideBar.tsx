@@ -87,13 +87,18 @@ const SideBar = ({ open, setOpen, width, removeToken, token }: Props) => {
               ]}
               width={width}
             />
-            <SidebarItem
-              to={`/issue`}
-              text={"Feladatok"}
-              icon={<AssignmentIndIcon />}
-              activeMenuItem={["/issue", "/issue-create", "/issue-modify"]}
-              width={width}
-            />
+            {hasAuthority(
+              (authenticatedUser as AuthenticatedUser)?.level,
+              "ISSUE_GET"
+            ) && (
+              <SidebarItem
+                to={`/issue`}
+                text={"Feladatok"}
+                icon={<AssignmentIndIcon />}
+                activeMenuItem={["/issue", "/issue-create", "/issue-modify"]}
+                width={width}
+              />
+            )}
             <SidebarItem
               to={`/tool`}
               text={"Eszközök"}
@@ -101,17 +106,22 @@ const SideBar = ({ open, setOpen, width, removeToken, token }: Props) => {
               activeMenuItem={["/tool", "/tool-create", "/tool-modify"]}
               width={width}
             />
-            <SidebarItem
-              to={`/category`}
-              text={"Kategóriák"}
-              icon={<Difference />}
-              activeMenuItem={[
-                "/category",
-                "/category-create",
-                "/category-modify",
-              ]}
-              width={width}
-            />
+            {hasAuthority(
+              (authenticatedUser as AuthenticatedUser)?.level,
+              "CATEGORY_GET"
+            ) && (
+              <SidebarItem
+                to={`/category`}
+                text={"Kategóriák"}
+                icon={<Difference />}
+                activeMenuItem={[
+                  "/category",
+                  "/category-create",
+                  "/category-modify",
+                ]}
+                width={width}
+              />
+            )}
             <SidebarItem
               to={`/location`}
               text={"Helyszínek"}

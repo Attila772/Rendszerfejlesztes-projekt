@@ -54,7 +54,6 @@ const CategoryCreate = () => {
         (key: any) => qualificationQuery.data?.Data[key]
       )
     : [];
-  console.log(qualifications);
 
   const onSubmit = async (values: CategoryFormValues) => {
     try {
