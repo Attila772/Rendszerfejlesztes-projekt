@@ -103,7 +103,7 @@ function App() {
               />
               {/* PRIVILIGE LEVELS */}
               <Route
-                path="/priviligelevel"
+                path="/privilige-level"
                 element={<PriviligeLevels token={token} />}
               />
               <Route
