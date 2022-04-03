@@ -47,6 +47,8 @@ export const ADMIN_PERMISSIONS = [
   "TOOL_ADMIN",
   "LOCATION_GET",
   "LOCATION_ADMIN",
+  "QUALIFICATION_GET",
+  "QUALIFICATION_ADMIN",
 ];
 
 export type AuthenticatedUser = {

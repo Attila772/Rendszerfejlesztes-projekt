@@ -35,7 +35,7 @@ const Categories = ({ token }: Props) => {
   const categoryQuery = useQuery(
     ["categories", page, toggleRefetch],
     async () => {
-      const { data } = await listCategories();
+      const data = await listCategories();
       return data;
     }
   );

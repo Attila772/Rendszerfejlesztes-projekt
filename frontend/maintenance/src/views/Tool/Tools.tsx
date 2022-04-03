@@ -29,7 +29,7 @@ const Tools = ({ token }: Props) => {
   );
 
   const toolQuery = useQuery(["tools", page, toggleRefetch], async () => {
-    const { data } = await listTools();
+    const data = await listTools();
     return data;
   });
 

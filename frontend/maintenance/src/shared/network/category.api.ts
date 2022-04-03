@@ -33,7 +33,7 @@ export const createCategory = async (
       interval: categoryRequest.intervalInDays,
       descript: categoryRequest.description,
       qualification: categoryRequest.qualification,
-      parent_id: categoryRequest.parentCategory?.id,
+      parent_id: categoryRequest.parentCategory?.id ?? -1,
       isExceptional: categoryRequest.isExceptional,
     }),
   };
