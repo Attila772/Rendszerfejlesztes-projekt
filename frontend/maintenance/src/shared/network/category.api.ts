@@ -1,13 +1,15 @@
-import { Category } from "../../components/types";
+import { gridDensityValueSelector } from "@mui/x-data-grid";
+import { Category, Qualification } from "../../components/types";
 import { SERVER_ADDRESS } from "../common/constants";
 
 export type CreateCategoryRequest = {
   name: string;
   isExceptional: boolean;
-  normaTimeInHours: number;
-  intervalInDays?: string;
+  normaTimeInHours: number | string;
+  intervalInDays?: string | null;
   parentCategory?: Category | null;
   description?: string;
+  qualification: number;
 };
 
 export const listCategories = async () => {
@@ -30,8 +32,9 @@ export const createCategory = async (
       norma_time: categoryRequest.normaTimeInHours,
       interval: categoryRequest.intervalInDays,
       descript: categoryRequest.description,
-      qualification: undefined,
+      qualification: categoryRequest.qualification,
       parent_id: categoryRequest.parentCategory?.id,
+      isExceptional: categoryRequest.isExceptional,
     }),
   };
   const response = await fetch(`${SERVER_ADDRESS}/category`, requestOptions);

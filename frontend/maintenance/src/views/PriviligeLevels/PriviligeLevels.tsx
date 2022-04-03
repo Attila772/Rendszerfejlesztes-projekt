@@ -8,15 +8,28 @@ import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { useHeader } from "../../components/Layout/HeaderContext";
 import SingleQueryTable from "../../components/PageableTable/SingleQueryTable";
+import { hasAuthority } from "../../shared/common/authorization";
 import { COLORS } from "../../shared/common/constants";
-import { deletePriviligeLevel, listPriviligeLevels, } from "../../shared/network/privilige-level.api";
+import { AuthenticatedUser } from "../../shared/common/rolePermissions";
+import {
+  deletePriviligeLevel,
+  listPriviligeLevels,
+} from "../../shared/network/privilige-level.api";
 
-const PriviligeLevels = () => {
+type Props = {
+  token?: any;
+};
+
+const PriviligeLevels = ({ token }: Props) => {
   const { t } = useTranslation();
   const [page, setPage] = React.useState(0);
   const { setHeaderButtons } = useHeader();
   const [toggleRefetch, setToggleRefetch] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
+  const isRoleAdmin = hasAuthority(
+    (token as AuthenticatedUser)?.level,
+    "ROLE_ADMIN"
+  );
 
   const priviligeLevelQuery = useQuery(
     ["priviligelevel", page, toggleRefetch],
@@ -27,19 +40,20 @@ const PriviligeLevels = () => {
   );
 
   useEffect(() => {
-    setHeaderButtons(
-      <Box display="flex" gridGap={12}>
-        <Button component={Link} to="/priviligelevel-create">
-          {t("common.button.createAction.priviligeLevel")}
-        </Button>
-      </Box>
-    );
+    isRoleAdmin &&
+      setHeaderButtons(
+        <Box display="flex" gridGap={12}>
+          <Button component={Link} to="/priviligelevel-create">
+            {t("common.button.createAction.priviligeLevel")}
+          </Button>
+        </Box>
+      );
     return () => {
       setHeaderButtons(null);
     };
   }, []);
 
-  const columns: GridColDef[] = [
+  const columnsAdmin: GridColDef[] = [
     {
       field: "name",
       headerName: t("common.table.name"),
@@ -91,11 +105,21 @@ const PriviligeLevels = () => {
     },
   ];
 
+  const columns: GridColDef[] = [
+    {
+      field: "name",
+      headerName: t("common.table.name"),
+      sortable: false,
+      disableColumnMenu: true,
+      flex: 1,
+    },
+  ];
+
   return (
     <Container maxWidth="xs">
       <SingleQueryTable
         query={priviligeLevelQuery}
-        columns={columns}
+        columns={isRoleAdmin ? columnsAdmin : columns}
         page={page}
         setPage={setPage}
       />

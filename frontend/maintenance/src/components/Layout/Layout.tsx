@@ -16,6 +16,7 @@ import SideBar from "./SideBar/SideBar";
 type Props = {
   children: React.ReactNode;
   removeToken?: any;
+  token?: any;
 };
 
 const useStyles = makeStyles(
@@ -42,7 +43,7 @@ const useStyles = makeStyles(
   }
 );
 
-const Layout = ({ children, removeToken }: Props) => {
+const Layout = ({ children, removeToken, token }: Props) => {
   const { t } = useTranslation();
   const classes = useStyles();
   const navigate = useNavigate();
@@ -60,6 +61,7 @@ const Layout = ({ children, removeToken }: Props) => {
         width={width}
         setWidth={setWidth}
         removeToken={removeToken}
+        token={token}
       />
 
       <Box

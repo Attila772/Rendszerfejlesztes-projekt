@@ -16,6 +16,8 @@ import SidebarItem from "./SidebarItem";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import BuildIcon from "@mui/icons-material/Build";
+import { hasAuthority } from "../../../shared/common/authorization";
+import { AuthenticatedUser } from "../../../shared/common/rolePermissions";
 
 type Props = {
   open: boolean;
@@ -23,6 +25,7 @@ type Props = {
   width: number;
   setWidth: Dispatch<SetStateAction<number>>;
   removeToken: any;
+  token: any;
 };
 
 const useStyles = makeStyles({
@@ -45,8 +48,9 @@ const useStyles = makeStyles({
   },
 });
 
-const SideBar = ({ open, setOpen, width, removeToken }: Props) => {
+const SideBar = ({ open, setOpen, width, removeToken, token }: Props) => {
   const classes = useStyles();
+  const authenticatedUser = token;
 
   return (
     <>
@@ -83,13 +87,18 @@ const SideBar = ({ open, setOpen, width, removeToken }: Props) => {
               ]}
               width={width}
             />
-            <SidebarItem
-              to={`/issue`}
-              text={"Feladatok"}
-              icon={<AssignmentIndIcon />}
-              activeMenuItem={["/issue", "/issue-create", "/issue-modify"]}
-              width={width}
-            />
+            {hasAuthority(
+              (authenticatedUser as AuthenticatedUser)?.level,
+              "ISSUE_GET"
+            ) && (
+              <SidebarItem
+                to={`/issue`}
+                text={"Feladatok"}
+                icon={<AssignmentIndIcon />}
+                activeMenuItem={["/issue", "/issue-create", "/issue-modify"]}
+                width={width}
+              />
+            )}
             <SidebarItem
               to={`/tool`}
               text={"Eszközök"}
@@ -97,17 +106,22 @@ const SideBar = ({ open, setOpen, width, removeToken }: Props) => {
               activeMenuItem={["/tool", "/tool-create", "/tool-modify"]}
               width={width}
             />
-            <SidebarItem
-              to={`/category`}
-              text={"Kategóriák"}
-              icon={<Difference />}
-              activeMenuItem={[
-                "/category",
-                "/category-create",
-                "/category-modify",
-              ]}
-              width={width}
-            />
+            {hasAuthority(
+              (authenticatedUser as AuthenticatedUser)?.level,
+              "CATEGORY_GET"
+            ) && (
+              <SidebarItem
+                to={`/category`}
+                text={"Kategóriák"}
+                icon={<Difference />}
+                activeMenuItem={[
+                  "/category",
+                  "/category-create",
+                  "/category-modify",
+                ]}
+                width={width}
+              />
+            )}
             <SidebarItem
               to={`/location`}
               text={"Helyszínek"}

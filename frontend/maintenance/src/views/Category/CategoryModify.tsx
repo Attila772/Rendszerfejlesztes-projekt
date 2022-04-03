@@ -9,8 +9,10 @@ import { useHeader } from "../../components/Layout/HeaderContext";
 import { SliceStatus } from "../../components/types";
 import {
   getCategoryById,
+  listCategories,
   modifyCategory,
 } from "../../shared/network/category.api";
+import { listQualifications } from "../../shared/network/qualification.api";
 import { CategoryFormValues } from "./CategoryCreate";
 import CategoryForm from "./CategoryForm";
 
@@ -30,6 +32,29 @@ const CategoryModify = () => {
     return data;
   });
   const category = categoryQuery.data;
+
+  const categoryQueryList = useQuery(["categoriesForToolForm"], async () => {
+    const { data } = await listCategories();
+    return data;
+  });
+  const categories = categoryQueryList.data?.Data
+    ? Object.keys(categoryQueryList.data?.Data)?.map(
+        (key: any) => categoryQueryList.data?.Data[key]
+      )
+    : [];
+
+  const qualificationQuery = useQuery(
+    ["qualificationsForToolForm"],
+    async () => {
+      const { data } = await listQualifications();
+      return data;
+    }
+  );
+  const qualifications = qualificationQuery.data?.Data
+    ? Object.keys(qualificationQuery.data?.Data)?.map(
+        (key: any) => qualificationQuery.data?.Data[key]
+      )
+    : [];
 
   const onSubmit = async (values: CategoryFormValues) => {
     try {
@@ -72,7 +97,12 @@ const CategoryModify = () => {
       ) : (
         <FormProvider {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <CategoryForm form={form} category={category} />
+            <CategoryForm
+              form={form}
+              category={category}
+              qualifications={qualifications}
+              categories={categories}
+            />
           </form>
         </FormProvider>
       )}

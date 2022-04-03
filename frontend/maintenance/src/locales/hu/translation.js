@@ -2,6 +2,13 @@ export const TRANSLATIONS_HU = {
   notFound: "Az oldal nem található!",
   common: {
     select: { choose: "Kérem válasszon" },
+    interval: {
+      WEEK: "Heti",
+      MONTH: "Havi",
+      QUARTER_YEAR: "Negyedéves",
+      HALF_YEAR: "Féléves",
+      YEAR: "Éves",
+    },
     table: {
       email: "E-mail cím",
       level: "Jogosultsági szint",
@@ -91,7 +98,8 @@ export const TRANSLATIONS_HU = {
       title: "Sikeres dolgozó módosítása",
     },
     modifyFailure: {
-      notMatchingPasswords: "Sikertelen dolgozó módosítás. A jelszavak nem egyeznek.",
+      notMatchingPasswords:
+        "Sikertelen dolgozó módosítás. A jelszavak nem egyeznek.",
     },
   },
   location: {
@@ -106,7 +114,7 @@ export const TRANSLATIONS_HU = {
       detailsTitle: "Helyszín részletei",
     },
     createSuccess: {
-      title: "Sikeres helyszín törlés.",
+      title: "Sikeres helyszín létrehozás.",
     },
     deleteSuccess: {
       title: "Sikeres helyszín törlés.",
@@ -115,7 +123,8 @@ export const TRANSLATIONS_HU = {
       title: "Sikeres helyszín módosítása",
     },
     modifyFailure: {
-      notGoodBuilding: "Sikertelen helyszín módosítás. Rosszul megadott épület.",
+      notGoodBuilding:
+        "Sikertelen helyszín módosítás. Rosszul megadott épület.",
     },
   },
   priviligeLevel: {
@@ -137,7 +146,8 @@ export const TRANSLATIONS_HU = {
       title: "Sikeres hozzáférési szint módosítása",
     },
     modifyFailure: {
-      notGoodName: "Sikertelen hozzáférési szint módosítás. Rosszul megadott név.",
+      notGoodName:
+        "Sikertelen hozzáférési szint módosítás. Rosszul megadott név.",
     },
   },
   tool: {
@@ -189,6 +199,7 @@ export const TRANSLATIONS_HU = {
       interval: "Intervallum",
       parentCategory: "Szülő kategória",
       description: "Leírás",
+      qualification: "Szükséges képesítés",
     },
     actions: {
       createTitle: "Kategória létrehozása",
@@ -223,7 +234,7 @@ export const TRANSLATIONS_HU = {
     modifyFailure: {
       notGoodStatus: "Sikertelen log módosítás. Rosszul megadott státusz.",
     },
-},
+  },
   issue: {
     formLabels: {
       title: "Feladat adatai",

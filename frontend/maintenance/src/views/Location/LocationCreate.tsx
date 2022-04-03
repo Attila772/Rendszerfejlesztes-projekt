@@ -27,7 +27,7 @@ const LocationCreate = () => {
       setStatus("pending");
       await createLocation({ ...values });
       navigate(-1);
-      enqueueSnackbar(t("employee.createSuccess.title"), {
+      enqueueSnackbar(t("location.createSuccess.title"), {
         variant: "success",
       });
       setStatus("success");

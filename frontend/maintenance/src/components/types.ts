@@ -89,10 +89,11 @@ export type Category = {
   id: number;
   name: string;
   isExceptional: boolean;
-  normaTimeInHours: number;
-  intervalInDays?: string;
+  normaTimeInHours: number | string;
+  intervalInDays?: string | null;
   parentCategory?: any;
   description?: string;
+  qualification: any;
 };
 
 export type Log = {

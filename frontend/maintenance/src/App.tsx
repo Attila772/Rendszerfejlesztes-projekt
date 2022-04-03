@@ -1,5 +1,5 @@
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
-import React, { lazy } from "react";
+import React, { lazy, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { HeaderProvider } from "./components/Layout/HeaderContext";
@@ -12,6 +12,8 @@ import LocationModify from "./views/Location/LocationModify";
 import PriviligeLevelModify from "./views/PriviligeLevels/PriviligeLevelModify";
 import QualificationModify from "./views/Qualification/QualificationModify";
 import LogCreate from "./views/Log/LogCreate";
+import { hasAuthority } from "./shared/common/authorization";
+import { AuthenticatedUser } from "./shared/common/rolePermissions";
 
 const Dashboard = lazy(() => import("./views/Dashboard"));
 const Employees = lazy(() => import("./views/Employee/Employees"));
@@ -35,53 +37,83 @@ const Categories = lazy(() => import("./views/Category/Categories"));
 const CategoryCreate = lazy(() => import("./views/Category/CategoryCreate"));
 const CategoryModify = lazy(() => import("./views/Category/CategoryModify"));
 const LocationCreate = lazy(() => import("./views/Location/LocationCreate"));
-const PriviligeLevels = lazy(() => import("./views/PriviligeLevels/PriviligeLevels"));
+const PriviligeLevels = lazy(
+  () => import("./views/PriviligeLevels/PriviligeLevels")
+);
 
 function App() {
-  const { token, setToken, removeToken } = useToken();
+  const { token, setToken, removeToken, getToken } = useToken();
 
-  /*if (!token) {
+  if (!token) {
     return <Login setToken={setToken} />;
-  }*/
+  }
 
   return (
     <>
       <HeaderProvider>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <Layout removeToken={removeToken}>
+          <Layout removeToken={removeToken} token={token}>
             <Routes>
               <Route path="/dashboard" element={<Dashboard />} />
               {/* EMPLOYEE */}
-              <Route path="/employee" element={<Employees />} />
+              <Route path="/employee" element={<Employees token={token} />} />
               <Route path="/employee-modify" element={<EmployeeModify />} />
               <Route path="/employee-create" element={<EmployeeCreate />} />
               {/* ISSUE */}
-              <Route path="/issue" element={<Issues />} />
-              <Route path="/issue-create" element={<IssueCreate />} />
-              <Route path="/issue-modify" element={<IssueModify />} />
+              {hasAuthority(
+                (token as AuthenticatedUser)?.level,
+                "ISSUE_GET"
+              ) && <Route path="/issue" element={<Issues token={token} />} />}
+              {hasAuthority(
+                (token as AuthenticatedUser)?.level,
+                "ISSUE_ADMIN"
+              ) && (
+                <>
+                  <Route path="/issue-create" element={<IssueCreate />} />
+                  <Route path="/issue-modify" element={<IssueModify />} />
+                </>
+              )}
               {/* TOOL */}
-              <Route path="/tool" element={<Tools />} />
+              <Route path="/tool" element={<Tools token={token} />} />
               <Route path="/tool-create" element={<ToolCreate />} />
               <Route path="/tool-modify" element={<ToolModify />} />
               {/* CATEGORY */}
-              <Route path="/category" element={<Categories />} />
+              <Route path="/category" element={<Categories token={token} />} />
               <Route path="/category-create" element={<CategoryCreate />} />
               <Route path="/category-modify" element={<CategoryModify />} />
               {/* LOCATION */}
-              <Route path="/location" element={<Locations />} />
+              <Route path="/location" element={<Locations token={token} />} />
               <Route path="/location-create" element={<LocationCreate />} />
               <Route path="/location-modify" element={<LocationModify />} />
               {/* LOG */}
-              <Route path="/log" element={<Logs />} />
+              <Route path="/log" element={<Logs token={token} />} />
               <Route path="/log-create" element={<LogCreate />} />
               {/* QUALIFICATION */}
-              <Route path="/qualification" element={<Qualifications />} />
-              <Route path="/qualification-create" element={<QualificationCreate />} />
-              <Route path="/qualification-modify" element={<QualificationModify />} />
+              <Route
+                path="/qualification"
+                element={<Qualifications token={token} />}
+              />
+              <Route
+                path="/qualification-create"
+                element={<QualificationCreate />}
+              />
+              <Route
+                path="/qualification-modify"
+                element={<QualificationModify />}
+              />
               {/* PRIVILIGE LEVELS */}
-              <Route path="/priviligelevel" element={<PriviligeLevels />} />
-              <Route path="/priviligelevel-create" element={<PriviligeLevelCreate />} />
-              <Route path="/priviligelevel-modify" element={<PriviligeLevelModify />} />
+              <Route
+                path="/priviligelevel"
+                element={<PriviligeLevels token={token} />}
+              />
+              <Route
+                path="/priviligelevel-create"
+                element={<PriviligeLevelCreate />}
+              />
+              <Route
+                path="/priviligelevel-modify"
+                element={<PriviligeLevelModify />}
+              />
             </Routes>
           </Layout>
         </MuiPickersUtilsProvider>
