@@ -14,6 +14,7 @@ import QualificationModify from "./views/Qualification/QualificationModify";
 import LogCreate from "./views/Log/LogCreate";
 import { hasAuthority } from "./shared/common/authorization";
 import { AuthenticatedUser } from "./shared/common/rolePermissions";
+import LogModify from "./views/Log/LogModify";
 
 const Dashboard = lazy(() => import("./views/Dashboard"));
 const Employees = lazy(() => import("./views/Employee/Employees"));
@@ -56,9 +57,19 @@ function App() {
             <Routes>
               <Route path="/dashboard" element={<Dashboard />} />
               {/* EMPLOYEE */}
-              <Route path="/employee" element={<Employees token={token} />} />
-              <Route path="/employee-modify" element={<EmployeeModify />} />
-              <Route path="/employee-create" element={<EmployeeCreate />} />
+              {hasAuthority(
+                (token as AuthenticatedUser)?.level,
+                "USER_GET"
+              ) && <Route path="/employee" element={<Employees token={token} />} />}
+              {hasAuthority(
+                (token as AuthenticatedUser)?.level,
+                "USER_ADMIN"
+              ) && (
+                <>
+                  <Route path="/employee-modify" element={<EmployeeModify />} />
+                  <Route path="/employee-create" element={<EmployeeCreate />} />
+                </>
+              )}
               {/* ISSUE */}
               {hasAuthority(
                 (token as AuthenticatedUser)?.level,
@@ -74,46 +85,109 @@ function App() {
                 </>
               )}
               {/* TOOL */}
-              <Route path="/tool" element={<Tools token={token} />} />
-              <Route path="/tool-create" element={<ToolCreate />} />
-              <Route path="/tool-modify" element={<ToolModify />} />
+              {hasAuthority(
+                (token as AuthenticatedUser)?.level,
+                "TOOL_GET"
+              ) && <Route path="/tool" element={<Tools token={token} />} /> }
+              {hasAuthority(
+                (token as AuthenticatedUser)?.level,
+                "TOOL_ADMIN"
+              ) && (
+                <>
+                  <Route path="/tool-create" element={<ToolCreate />} />
+                  <Route path="/tool-modify" element={<ToolModify />} />
+                </>
+              )}
               {/* CATEGORY */}
-              <Route path="/category" element={<Categories token={token} />} />
-              <Route path="/category-create" element={<CategoryCreate />} />
-              <Route path="/category-modify" element={<CategoryModify />} />
+              {hasAuthority(
+                (token as AuthenticatedUser)?.level,
+                "CATEGORY_GET"
+              ) && <Route path="/category" element={<Categories token={token} />} /> }
+              {hasAuthority(
+                (token as AuthenticatedUser)?.level,
+                "CATEGORY_ADMIN"
+              ) && (
+                <>
+                  <Route path="/category-create" element={<CategoryCreate />} />
+                  <Route path="/category-modify" element={<CategoryModify />} />
+                </>
+              )}
               {/* LOCATION */}
-              <Route path="/location" element={<Locations token={token} />} />
-              <Route path="/location-create" element={<LocationCreate />} />
-              <Route path="/location-modify" element={<LocationModify />} />
+              {hasAuthority(
+                (token as AuthenticatedUser)?.level,
+                "LOCATION_GET"
+              ) && <Route path="/location" element={<Locations token={token} />} /> }
+              {hasAuthority(
+                (token as AuthenticatedUser)?.level,
+                "LOCATION_ADMIN"
+              ) && (
+                <>
+                  <Route path="/location-create" element={<LocationCreate />} />
+                  <Route path="/location-modify" element={<LocationModify />} />
+                </>
+              )}
               {/* LOG */}
-              <Route path="/log" element={<Logs token={token} />} />
-              <Route path="/log-create" element={<LogCreate />} />
+              {hasAuthority(
+                (token as AuthenticatedUser)?.level,
+                "LOG_GET"
+              ) && <Route path="/log" element={<Logs token={token} />} /> }
+              {hasAuthority(
+                (token as AuthenticatedUser)?.level,
+                "LOG_ADMIN"
+              ) && (
+                <>
+                  <Route path="/log-create" element={<LogCreate />} />
+                  <Route path="/log-modify" element={<LogModify />} />
+                </>
+              )}
               {/* QUALIFICATION */}
+              {hasAuthority(
+                (token as AuthenticatedUser)?.level,
+                "QUALIFICATION_GET"
+              ) && 
               <Route
                 path="/qualification"
                 element={<Qualifications token={token} />}
-              />
-              <Route
-                path="/qualification-create"
-                element={<QualificationCreate />}
-              />
-              <Route
-                path="/qualification-modify"
-                element={<QualificationModify />}
-              />
+              /> }
+              {hasAuthority(
+                (token as AuthenticatedUser)?.level,
+                "QUALIFICATION_ADMIN"
+              ) && (
+                <>
+                  <Route
+                    path="/qualification-create"
+                    element={<QualificationCreate />}
+                  />
+                  <Route
+                    path="/qualification-modify"
+                    element={<QualificationModify />}
+                  />
+                </>
+              )}
               {/* PRIVILIGE LEVELS */}
+              {hasAuthority(
+                (token as AuthenticatedUser)?.level,
+                "ROLE_GET"
+              ) && 
               <Route
                 path="/privilige-level"
                 element={<PriviligeLevels token={token} />}
-              />
-              <Route
-                path="/priviligelevel-create"
-                element={<PriviligeLevelCreate />}
-              />
-              <Route
-                path="/priviligelevel-modify"
-                element={<PriviligeLevelModify />}
-              />
+              /> }
+              {hasAuthority(
+                (token as AuthenticatedUser)?.level,
+                "ROLE_ADMIN"
+              ) && (
+                <>
+                  <Route
+                    path="/priviligelevel-create"
+                    element={<PriviligeLevelCreate />}
+                  />
+                  <Route
+                    path="/priviligelevel-modify"
+                    element={<PriviligeLevelModify />}
+                  />
+                </>
+              )}
             </Routes>
           </Layout>
         </MuiPickersUtilsProvider>
