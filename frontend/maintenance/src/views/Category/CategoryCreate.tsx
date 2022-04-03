@@ -62,7 +62,7 @@ const CategoryCreate = () => {
         await createCategory({
           ...values,
           isExceptional: values.isExceptional || false,
-          qualification: values.qualification,
+          qualification: values.qualification.id,
         });
         navigate(-1);
         enqueueSnackbar(t("category.createSuccess.title"), {

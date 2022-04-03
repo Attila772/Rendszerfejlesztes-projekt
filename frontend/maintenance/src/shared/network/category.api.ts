@@ -9,7 +9,7 @@ export type CreateCategoryRequest = {
   intervalInDays?: string | null;
   parentCategory?: Category | null;
   description?: string;
-  qualification: Qualification;
+  qualification: number;
 };
 
 export const listCategories = async () => {
