@@ -78,15 +78,15 @@ const SideBar = ({ open, setOpen, width, removeToken, token }: Props) => {
             />
             {hasAuthority(
               (authenticatedUser as AuthenticatedUser)?.level,
-              "ISSUE_GET"
+              "USER_GET"
             ) && (
               <SidebarItem
                 to={`/employee`}
                 text={"Dolgozók"}
                 icon={<PersonOutlineIcon />}
                 activeMenuItem={[
-                  "/employee", 
-                  "/employee-create", 
+                  "/employee",
+                  "/employee-create",
                   "employee-modify",
                 ]}
                 width={width}
@@ -125,8 +125,8 @@ const SideBar = ({ open, setOpen, width, removeToken, token }: Props) => {
                 text={"Kategóriák"}
                 icon={<Difference />}
                 activeMenuItem={[
-                  "/category", 
-                  "/category-create", 
+                  "/category",
+                  "/category-create",
                   "/category-modify",
                 ]}
                 width={width}
@@ -141,8 +141,8 @@ const SideBar = ({ open, setOpen, width, removeToken, token }: Props) => {
                 text={"Helyszínek"}
                 icon={<LocationOn />}
                 activeMenuItem={[
-                  "/location", 
-                  "/location-create", 
+                  "/location",
+                  "/location-create",
                   "/location-modify",
                 ]}
                 width={width}
@@ -169,8 +169,8 @@ const SideBar = ({ open, setOpen, width, removeToken, token }: Props) => {
                 text={"Képesítések"}
                 icon={<Star />}
                 activeMenuItem={[
-                  "/qualification", 
-                  "/qualification-create", 
+                  "/qualification",
+                  "/qualification-create",
                   "/qualification-modify",
                 ]}
                 width={width}
