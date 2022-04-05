@@ -22,7 +22,10 @@ export const createTool = async (toolRequest: CreateToolRequest) => {
     method: "POST",
     headers: { "Content-type": "application/json" },
     body: JSON.stringify({
-      ...toolRequest,
+      category: toolRequest.category?.id,
+      descript: toolRequest.description,
+      location: toolRequest.location?.id,
+      name: toolRequest.name,
     }),
   };
   const response = await fetch(`${SERVER_ADDRESS}/item`, requestOptions);

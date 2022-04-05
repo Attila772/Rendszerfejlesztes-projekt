@@ -68,7 +68,7 @@ export type User = {
   id: number;
   email: string;
   password: string;
-  trade: string;
+  trade: Qualification;
   level: string;
   roles?: any[];
   qualifications?: any[];

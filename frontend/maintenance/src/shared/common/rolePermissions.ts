@@ -11,14 +11,14 @@ export const OPERATOR_PERMISSIONS = [
   "USER_GET",
   "USER_ADMIN",
   "ROLE_GET",
-  "TRADE_GET",
-  "TRADE_ADMIN",
   "ISSUE_GET",
   "ISSUE_ADMIN",
   "LOG_GET",
   "CATEGORY_GET",
   "TOOL_GET",
   "LOCATION_GET",
+  "QUALIFICATION_GET",
+  "QUALIFICATION_ADMIN",
 ];
 
 export const MAINTENANCE_PERMISSIONS = [
@@ -35,8 +35,6 @@ export const ADMIN_PERMISSIONS = [
   "USER_ADMIN",
   "ROLE_GET",
   "ROLE_ADMIN",
-  "TRADE_GET",
-  "TRADE_ADMIN",
   "ISSUE_GET",
   "ISSUE_ADMIN",
   "LOG_GET",
@@ -47,6 +45,8 @@ export const ADMIN_PERMISSIONS = [
   "TOOL_ADMIN",
   "LOCATION_GET",
   "LOCATION_ADMIN",
+  "QUALIFICATION_GET",
+  "QUALIFICATION_ADMIN",
 ];
 
 export type AuthenticatedUser = {

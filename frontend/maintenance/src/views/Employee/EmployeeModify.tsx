@@ -7,6 +7,7 @@ import { useQuery } from "react-query";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useHeader } from "../../components/Layout/HeaderContext";
 import { SliceStatus } from "../../components/types";
+import { listQualifications } from "../../shared/network/qualification.api";
 import { getEmployeeById, modifyEmployee } from "../../shared/network/user.api";
 import { EmployeeFormValues } from "./EmployeeCreate";
 import EmployeeForm from "./EmployeeForm";
@@ -28,23 +29,40 @@ const EmployeeModify = () => {
   });
   const employee = employeeQuery.data;
 
+  const qualificationQuery = useQuery(
+    ["qualificationsForEmployeeModForm"],
+    async () => {
+      const data = await listQualifications();
+      return data;
+    }
+  );
+  const qualifications = qualificationQuery.data?.Data
+    ? Object.keys(qualificationQuery.data?.Data)?.map(
+        (key: any) => qualificationQuery.data?.Data[key]
+      )
+    : [];
+
   const onSubmit = async (values: EmployeeFormValues) => {
     try {
       setStatus("pending");
       if (values.password1 === values.password2) {
-        await modifyEmployee({
-          ...values,
-          password: values.password1,
-          id: Number.parseInt(id ? id : ""),
-        });
+        if (values.level && values.trade) {
+          await modifyEmployee({
+            ...values,
+            password: values.password1,
+            id: Number.parseInt(id ? id : ""),
+            level: values.level,
+            trade: values.trade,
+          });
+          navigate(-1);
+          enqueueSnackbar(t("employee.modifySuccess.title"), {
+            variant: "success",
+          });
+          setStatus("success");
+        }
       } else {
         throw new Error("NOT_MATCHING_PASSWORDS");
       }
-      navigate(-1);
-      enqueueSnackbar(t("employee.modifySuccess.title"), {
-        variant: "success",
-      });
-      setStatus("success");
     } catch (e: any) {
       if ((e as Error).message === "NOT_MATCHING_PASSWORDS") {
         enqueueSnackbar(t("employee.modifyFailure.notMatchingPasswords"), {
@@ -76,7 +94,11 @@ const EmployeeModify = () => {
       ) : (
         <FormProvider {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <EmployeeForm form={form} employee={employee} />
+            <EmployeeForm
+              form={form}
+              employee={employee}
+              qualifications={qualifications}
+            />
           </form>
         </FormProvider>
       )}

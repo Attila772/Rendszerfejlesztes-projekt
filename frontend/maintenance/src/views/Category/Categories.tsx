@@ -1,5 +1,10 @@
 import { Box, Button, Container, IconButton, Tooltip } from "@material-ui/core";
-import { Delete, Edit } from "@mui/icons-material";
+import {
+  BlockOutlined,
+  CheckCircleOutline,
+  Delete,
+  Edit,
+} from "@mui/icons-material";
 import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { useSnackbar } from "notistack";
 import React, { useEffect, useState } from "react";
@@ -35,7 +40,7 @@ const Categories = ({ token }: Props) => {
   const categoryQuery = useQuery(
     ["categories", page, toggleRefetch],
     async () => {
-      const { data } = await listCategories();
+      const data = await listCategories();
       return data;
     }
   );
@@ -66,13 +71,22 @@ const Categories = ({ token }: Props) => {
     {
       field: "isExceptional",
       headerName: t("common.table.isExceptional"),
+      headerAlign: "center",
+      align: "center",
       sortable: false,
       disableColumnMenu: true,
       flex: 1,
+      renderCell: ({ row }: GridRenderCellParams) => (
+        <IconButton size="small" color="primary">
+          {row.isExceptional ? <CheckCircleOutline /> : <BlockOutlined />}
+        </IconButton>
+      ),
     },
     {
-      field: "normaTimeInHours",
+      field: "norma_time",
       headerName: t("common.table.normaTimeInHours"),
+      headerAlign: "center",
+      align: "center",
       sortable: false,
       disableColumnMenu: true,
       flex: 1,
@@ -80,20 +94,19 @@ const Categories = ({ token }: Props) => {
     {
       field: "interval",
       headerName: t("common.table.interval"),
+      headerAlign: "center",
+      align: "center",
       sortable: false,
       disableColumnMenu: true,
       flex: 1,
+      renderCell: ({ row }: GridRenderCellParams) =>
+        t(`common.interval.${row.interval}`),
     },
     {
-      field: "parentCategory",
+      field: "parent_id",
       headerName: t("common.table.parentCategory"),
-      sortable: false,
-      disableColumnMenu: true,
-      flex: 1,
-    },
-    {
-      field: "description",
-      headerName: t("common.table.description"),
+      headerAlign: "center",
+      align: "center",
       sortable: false,
       disableColumnMenu: true,
       flex: 1,
@@ -101,6 +114,8 @@ const Categories = ({ token }: Props) => {
     {
       field: " ",
       headerName: t("common.table.actions"),
+      headerAlign: "right",
+      align: "right",
       sortable: false,
       disableColumnMenu: true,
       flex: 1,
@@ -160,13 +175,22 @@ const Categories = ({ token }: Props) => {
     {
       field: "isExceptional",
       headerName: t("common.table.isExceptional"),
+      headerAlign: "center",
+      align: "center",
       sortable: false,
       disableColumnMenu: true,
       flex: 1,
+      renderCell: ({ row }: GridRenderCellParams) => (
+        <IconButton size="small" color="primary">
+          {row.isExceptional ? <CheckCircleOutline /> : <BlockOutlined />}
+        </IconButton>
+      ),
     },
     {
-      field: "normaTimeInHours",
+      field: "norma_time",
       headerName: t("common.table.normaTimeInHours"),
+      headerAlign: "center",
+      align: "center",
       sortable: false,
       disableColumnMenu: true,
       flex: 1,
@@ -174,26 +198,24 @@ const Categories = ({ token }: Props) => {
     {
       field: "interval",
       headerName: t("common.table.interval"),
+      headerAlign: "center",
+      align: "center",
       sortable: false,
       disableColumnMenu: true,
       flex: 1,
+      renderCell: ({ row }: GridRenderCellParams) =>
+        t(`common.interval.${row.interval}`),
     },
     {
-      field: "parentCategory",
+      field: "parent_id",
       headerName: t("common.table.parentCategory"),
-      sortable: false,
-      disableColumnMenu: true,
-      flex: 1,
-    },
-    {
-      field: "description",
-      headerName: t("common.table.description"),
+      headerAlign: "right",
+      align: "right",
       sortable: false,
       disableColumnMenu: true,
       flex: 1,
     },
   ];
-
   return (
     <Container maxWidth="lg">
       <SingleQueryTable

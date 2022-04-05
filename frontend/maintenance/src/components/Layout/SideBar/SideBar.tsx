@@ -76,17 +76,22 @@ const SideBar = ({ open, setOpen, width, removeToken, token }: Props) => {
               activeMenuItem={["/dashboard", "/"]}
               width={width}
             />
-            <SidebarItem
-              to={`/employee`}
-              text={"Dolgozók"}
-              icon={<PersonOutlineIcon />}
-              activeMenuItem={[
-                "/employee",
-                "/employee-create",
-                "employee-modify",
-              ]}
-              width={width}
-            />
+            {hasAuthority(
+              (authenticatedUser as AuthenticatedUser)?.level,
+              "USER_GET"
+            ) && (
+              <SidebarItem
+                to={`/employee`}
+                text={"Dolgozók"}
+                icon={<PersonOutlineIcon />}
+                activeMenuItem={[
+                  "/employee",
+                  "/employee-create",
+                  "employee-modify",
+                ]}
+                width={width}
+              />
+            )}
             {hasAuthority(
               (authenticatedUser as AuthenticatedUser)?.level,
               "ISSUE_GET"
@@ -99,13 +104,18 @@ const SideBar = ({ open, setOpen, width, removeToken, token }: Props) => {
                 width={width}
               />
             )}
-            <SidebarItem
-              to={`/tool`}
-              text={"Eszközök"}
-              icon={<BuildIcon />}
-              activeMenuItem={["/tool", "/tool-create", "/tool-modify"]}
-              width={width}
-            />
+            {hasAuthority(
+              (authenticatedUser as AuthenticatedUser)?.level,
+              "TOOL_GET"
+            ) && (
+              <SidebarItem
+                to={`/tool`}
+                text={"Eszközök"}
+                icon={<BuildIcon />}
+                activeMenuItem={["/tool", "/tool-create", "/tool-modify"]}
+                width={width}
+              />
+            )}
             {hasAuthority(
               (authenticatedUser as AuthenticatedUser)?.level,
               "CATEGORY_GET"
@@ -122,46 +132,66 @@ const SideBar = ({ open, setOpen, width, removeToken, token }: Props) => {
                 width={width}
               />
             )}
-            <SidebarItem
-              to={`/location`}
-              text={"Helyszínek"}
-              icon={<LocationOn />}
-              activeMenuItem={[
-                "/location",
-                "/location-create",
-                "/location-modify",
-              ]}
-              width={width}
-            />
-            <SidebarItem
-              to={`/log`}
-              text={"Logok"}
-              icon={<History />}
-              activeMenuItem={["/log", "/log-create", "/log-modify"]}
-              width={width}
-            />
-            <SidebarItem
-              to={`/qualification`}
-              text={"Képesítések"}
-              icon={<Star />}
-              activeMenuItem={[
-                "/qualification",
-                "/qualification-create",
-                "/qualification-modify",
-              ]}
-              width={width}
-            />
-            <SidebarItem
-              to={`/priviligelevel`}
-              text={"Hozzáfárási szintek"}
-              icon={<LockOpen />}
-              activeMenuItem={[
-                "/privilige-level",
-                "/privilige-level-create",
-                "/privilige-level-modify",
-              ]}
-              width={width}
-            />
+            {hasAuthority(
+              (authenticatedUser as AuthenticatedUser)?.level,
+              "LOCATION_GET"
+            ) && (
+              <SidebarItem
+                to={`/location`}
+                text={"Helyszínek"}
+                icon={<LocationOn />}
+                activeMenuItem={[
+                  "/location",
+                  "/location-create",
+                  "/location-modify",
+                ]}
+                width={width}
+              />
+            )}
+            {hasAuthority(
+              (authenticatedUser as AuthenticatedUser)?.level,
+              "LOG_GET"
+            ) && (
+              <SidebarItem
+                to={`/log`}
+                text={"Logok"}
+                icon={<History />}
+                activeMenuItem={["/log", "/log-create", "/log-modify"]}
+                width={width}
+              />
+            )}
+            {hasAuthority(
+              (authenticatedUser as AuthenticatedUser)?.level,
+              "QUALIFICATION_GET"
+            ) && (
+              <SidebarItem
+                to={`/qualification`}
+                text={"Képesítések"}
+                icon={<Star />}
+                activeMenuItem={[
+                  "/qualification",
+                  "/qualification-create",
+                  "/qualification-modify",
+                ]}
+                width={width}
+              />
+            )}
+            {hasAuthority(
+              (authenticatedUser as AuthenticatedUser)?.level,
+              "ROLE_GET"
+            ) && (
+              <SidebarItem
+                to={`/privilige-level`}
+                text={"Szerepkörök"}
+                icon={<LockOpen />}
+                activeMenuItem={[
+                  "/privilige-level",
+                  "/privilige-level-create",
+                  "/privilige-level-modify",
+                ]}
+                width={width}
+              />
+            )}
           </List>
         </Box>
         <Box style={{ marginBottom: 5 }}>

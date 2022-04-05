@@ -64,6 +64,8 @@ const Locations = ({ token }: Props) => {
     {
       field: "room",
       headerName: t("common.table.room"),
+      headerAlign: "center",
+      align: "center",
       sortable: false,
       disableColumnMenu: true,
       flex: 1,
@@ -71,6 +73,8 @@ const Locations = ({ token }: Props) => {
     {
       field: " ",
       headerName: t("common.table.actions"),
+      headerAlign: "right",
+      align: "right",
       sortable: false,
       disableColumnMenu: true,
       flex: 1,
@@ -119,6 +123,8 @@ const Locations = ({ token }: Props) => {
     {
       field: "room",
       headerName: t("common.table.room"),
+      headerAlign: "right",
+      align: "right",
       sortable: false,
       disableColumnMenu: true,
       flex: 1,

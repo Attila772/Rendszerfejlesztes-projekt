@@ -10,6 +10,8 @@ export const MAINTENANCE_INTERVALS = [
   "YEAR",
 ];
 
+export const ROLES = ["1", "2", "3", "4"];
+
 const DEFAULT_COLORS = {
   main: "#000000",
   mainLight: "#4B0082",

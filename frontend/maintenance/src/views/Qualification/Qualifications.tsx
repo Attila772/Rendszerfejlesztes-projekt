@@ -64,6 +64,7 @@ const Qualifications = ({ token }: Props) => {
     {
       field: " ",
       headerName: t("common.table.actions"),
+      headerAlign: "right",
       sortable: false,
       disableColumnMenu: true,
       flex: 1,
@@ -109,6 +110,8 @@ const Qualifications = ({ token }: Props) => {
     {
       field: "name",
       headerName: t("common.table.name"),
+      headerAlign: "center",
+      align: "center",
       sortable: false,
       disableColumnMenu: true,
       flex: 1,

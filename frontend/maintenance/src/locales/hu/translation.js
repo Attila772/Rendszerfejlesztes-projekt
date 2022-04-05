@@ -9,6 +9,12 @@ export const TRANSLATIONS_HU = {
       HALF_YEAR: "Féléves",
       YEAR: "Éves",
     },
+    role: {
+      1: "Eszközfelelős",
+      2: "Operátor",
+      3: "Karbantartó",
+      4: "Adminisztrátor",
+    },
     table: {
       email: "E-mail cím",
       level: "Jogosultsági szint",
@@ -76,8 +82,8 @@ export const TRANSLATIONS_HU = {
       email: "Email cím",
       password1: "Jelszó",
       password2: "Jelszó mégegyszer",
-      trade: "Trade",
-      level: "Level",
+      trade: "Képesítés",
+      level: "Jogosultsági szint",
     },
     createSuccess: {
       title: "Sikeres dolgozó létrehozás.",
@@ -95,7 +101,7 @@ export const TRANSLATIONS_HU = {
       detailsTitle: "Dologzó részletei",
     },
     modifySuccess: {
-      title: "Sikeres dolgozó módosítása",
+      title: "Sikeres dolgozó módosítás",
     },
     modifyFailure: {
       notMatchingPasswords:

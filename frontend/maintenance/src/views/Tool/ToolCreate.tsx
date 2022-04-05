@@ -28,7 +28,7 @@ const ToolCreate = () => {
   const { setHeaderName } = useHeader();
 
   const categoryQuery = useQuery(["categoriesForToolForm"], async () => {
-    const { data } = await listCategories();
+    const data = await listCategories();
     return data;
   });
 
