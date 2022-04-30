@@ -59,6 +59,7 @@ def create_app():
     
     from .auto_generate import BackgroundTasks
     t=BackgroundTasks()
+    t.daemon=True
     t.start()
     return app
 
