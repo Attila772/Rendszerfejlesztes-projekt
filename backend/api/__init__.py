@@ -57,6 +57,9 @@ def create_app():
     admin.add_view(ModelView(schedule, db.session))
     admin.add_view(ModelView(level, db.session))
     
+    from .auto_generate import BackgroundTasks
+    t=BackgroundTasks()
+    t.start()
     return app
 
 

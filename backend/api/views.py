@@ -2,7 +2,7 @@ from multiprocessing.sharedctypes import Value
 from re import fullmatch
 from unicodedata import name
 from flask_login.utils import login_required
-from .model import User,level,trade,location,category,item
+from .model import User,level,trade,location,category,item,task
 from flask import Blueprint, jsonify, render_template, request, flash, redirect, url_for
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
@@ -179,12 +179,12 @@ def item_():
         item_name = request.get_json()['name']
         item_descript = request.get_json()['descript']
         item_category = request.get_json()['category']
-        item_location= request.get_json()['location']
-        new_item=item(name=item_name,
+        item_location = request.get_json()['location']
+        new_task=item(name=item_name,
                       descript=item_descript, 
-                      category= item_category,
-                      location=item_location)
-        db.session.add(new_item)
+                      category=item_category,
+                      location= item_location)
+        db.session.add(new_task)
         db.session.commit()
         response = jsonify({'Data':'Sikeres'})
         response.headers.add('Access-Control-Allow-Origin', '*')
@@ -221,6 +221,46 @@ def item_():
         return response
     pass
 
-
-
-    
+@views.route('/task', methods=['GET','POST','PUT','DELETE'])
+def task_():
+    if request.method == 'POST':
+        task_name = request.get_json()['name']
+        task_priority = request.get_json()['priority']
+        task_item = request.get_json()['item']
+        new_task=task(name=task_name,
+                      priority=task_priority, 
+                      item=task_item)
+        db.session.add(new_task)
+        db.session.commit()
+        response = jsonify({'Data':'Sikeres'})
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
+    elif request.method == 'GET':
+        tasks = task.query.filter_by()
+        response_dict = {}
+        for _task in tasks:
+            response_dict[_task.id]={'id': _task.id,
+                                     'name': _task.name,
+                                     'priority': _task.priority,
+                                     'item': _task.item}
+        response =  jsonify({'Data': response_dict})
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
+    elif request.method == 'DELETE':
+        id = request.get_json()['id']
+        _task = task.query.filter_by(id = id).first()
+        db.session.delete(_task)
+        db.session.commit()
+        response = jsonify({'Data':'Sikeres'})
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
+    elif request.method == 'PUT':
+        id = request.get_json()['id']
+        task.query.filter_by(id = id).first().name=request.get_json()['name']
+        task.query.filter_by(id = id).first().descript=request.get_json()['priority']
+        task.query.filter_by(id = id).first().category=request.get_json()['item']
+        db.session.commit()
+        response = jsonify({'Data':'Sikeres'})
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
+    pass
