@@ -81,7 +81,7 @@ const IssueForm = ({ form, issue, tools, logs }: Props) => {
                     <TextField
                       {...params}
                       style={{ height: 40 }}
-                      label={t("issue.formLabels.category")}
+                      label={t("issue.formLabels.tool")}
                       error={!!fieldState.error}
                       helperText={fieldState.error?.message}
                     />

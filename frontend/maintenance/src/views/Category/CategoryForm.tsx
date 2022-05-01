@@ -5,6 +5,7 @@ import {
   FormControlLabel,
   Grid,
   Switch,
+  TextareaAutosize,
   TextField,
 } from "@material-ui/core";
 import { valueToPercent } from "@mui/base";
@@ -14,7 +15,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import FormCard from "../../components/FormCard";
 import { Category, Qualification } from "../../components/types";
-import { MAINTENANCE_INTERVALS } from "../../shared/common/constants";
+import { COLORS, MAINTENANCE_INTERVALS } from "../../shared/common/constants";
 import { CategoryFormValues } from "./CategoryCreate";
 
 type Props = {
@@ -191,9 +192,19 @@ const CategoryForm = ({
               name="description"
               defaultValue={category?.description || ""}
               render={({ field }) => (
-                <TextField
+                <TextareaAutosize
+                  style={{
+                    width: "calc(100% - 20px)",
+                    maxWidth: "calc(100% - 20px)",
+                    minWidth: "calc(100% - 20px)",
+                    borderRadius: 8,
+                    minHeight: 50,
+                    padding: 8,
+                  }}
                   {...field}
-                  label={t("category.formLabels.description")}
+                  minRows={3}
+                  maxRows={50}
+                  placeholder={t("category.formLabels.description")}
                 />
               )}
             />

@@ -5,7 +5,11 @@ import {
   Delete,
   Edit,
 } from "@mui/icons-material";
-import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
+import {
+  GridColDef,
+  GridRenderCellParams,
+  GridValueGetterParams,
+} from "@mui/x-data-grid";
 import { useSnackbar } from "notistack";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -44,6 +48,12 @@ const Categories = ({ token }: Props) => {
       return data;
     }
   );
+  const categories = categoryQuery.data?.Data
+    ? Object.keys(categoryQuery.data?.Data)?.map(
+        (key: any) => categoryQuery.data?.Data[key]
+      )
+    : [];
+
   useEffect(() => {
     {
       isCategoryAdmin &&
@@ -67,7 +77,7 @@ const Categories = ({ token }: Props) => {
       sortable: false,
       disableColumnMenu: true,
       flex: 1,
-    },
+    } /*
     {
       field: "isExceptional",
       headerName: t("common.table.isExceptional"),
@@ -81,7 +91,7 @@ const Categories = ({ token }: Props) => {
           {row.isExceptional ? <CheckCircleOutline /> : <BlockOutlined />}
         </IconButton>
       ),
-    },
+    },*/,
     {
       field: "norma_time",
       headerName: t("common.table.normaTimeInHours"),
@@ -110,6 +120,10 @@ const Categories = ({ token }: Props) => {
       sortable: false,
       disableColumnMenu: true,
       flex: 1,
+      valueGetter: ({ row }: GridValueGetterParams) =>
+        row.parent_id === -1
+          ? t("category.noParent")
+          : categories.find((category) => category.id === row.parent_id)?.name,
     },
     {
       field: " ",
@@ -171,7 +185,7 @@ const Categories = ({ token }: Props) => {
       sortable: false,
       disableColumnMenu: true,
       flex: 1,
-    },
+    } /*
     {
       field: "isExceptional",
       headerName: t("common.table.isExceptional"),
@@ -185,7 +199,7 @@ const Categories = ({ token }: Props) => {
           {row.isExceptional ? <CheckCircleOutline /> : <BlockOutlined />}
         </IconButton>
       ),
-    },
+    },*/,
     {
       field: "norma_time",
       headerName: t("common.table.normaTimeInHours"),

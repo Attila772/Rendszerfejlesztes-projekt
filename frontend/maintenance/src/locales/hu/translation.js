@@ -1,5 +1,11 @@
 export const TRANSLATIONS_HU = {
   notFound: "Az oldal nem található!",
+  notification: {
+    add: {
+      success: "Sikeres {{subject}} létrehozás.",
+      failure: "Sikertelen {{subject}} létrehozás.",
+    },
+  },
   common: {
     select: { choose: "Kérem válasszon" },
     interval: {
@@ -82,6 +88,7 @@ export const TRANSLATIONS_HU = {
       title: "Felhasználó",
       add: "Felhasználó hozzárendelése",
     },
+    subject: "beosztás",
   },
   employee: {
     formLabels: {
@@ -204,6 +211,7 @@ export const TRANSLATIONS_HU = {
     },
   },
   category: {
+    noParent: "-",
     formLabels: {
       title: "Kategória adatai",
       name: "Név",
@@ -258,6 +266,7 @@ export const TRANSLATIONS_HU = {
       assignedUser: "Hozzárendelt felhasználó",
       priority: "Prioritás",
       logs: "Logok",
+      tool: "Eszköz",
     },
     actions: {
       createTitle: "Feladat létrehozása",

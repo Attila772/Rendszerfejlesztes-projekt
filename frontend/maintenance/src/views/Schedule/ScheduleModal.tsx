@@ -42,11 +42,19 @@ const ScheduleModal = ({ open, setOpen, users, schedule, issue }: Props) => {
           state: "ASSIGNED",
           task: issue,
         });
+        enqueueSnackbar(
+          t("notification.add.success", {
+            subject: t("schedule.subject"),
+          }),
+          {
+            variant: "success",
+          }
+        );
       }
     } catch {
       enqueueSnackbar(
-        t("common:notification.add.failure", {
-          subject: t("item.category.subject"),
+        t("notification.add.failure", {
+          subject: t("schedule.subject"),
         }),
         {
           variant: "error",
@@ -56,7 +64,7 @@ const ScheduleModal = ({ open, setOpen, users, schedule, issue }: Props) => {
   };
 
   return (
-    <Dialog open={open} maxWidth="sm" fullWidth={true}>
+    <Dialog open={open} maxWidth="xs" fullWidth={true}>
       <DialogTitle>{t("schedule.user.add")}</DialogTitle>
       <DialogContent>
         <form onSubmit={handleSubmit(createScheduleSubmit)} id="schedule_form">
@@ -91,6 +99,11 @@ const ScheduleModal = ({ open, setOpen, users, schedule, issue }: Props) => {
           </Grid>
         </form>
         <DialogActions>
+          <Box style={{ margin: "20px auto", textAlign: "right" }}>
+            <Button onClick={() => setOpen(false)} variant="text">
+              {t("common.button.cancel")}
+            </Button>
+          </Box>
           <Box style={{ margin: "20px auto", textAlign: "center" }}>
             <Button
               type="submit"
@@ -99,11 +112,6 @@ const ScheduleModal = ({ open, setOpen, users, schedule, issue }: Props) => {
               startIcon={<AddBox />}
             >
               {t("common.button.add")}
-            </Button>
-          </Box>
-          <Box style={{ margin: "20px auto", textAlign: "right" }}>
-            <Button onClick={() => setOpen(false)} variant="contained">
-              {t("common.button.cancel")}
             </Button>
           </Box>
         </DialogActions>
