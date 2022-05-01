@@ -16,7 +16,6 @@ import CategoryForm from "./CategoryForm";
 
 export type CategoryFormValues = {
   name: string;
-  isExceptional: boolean;
   normaTimeInHours: number | string;
   intervalInDays?: string | null;
   parentCategory?: Category | null;
@@ -33,7 +32,7 @@ const CategoryCreate = () => {
   const { setHeaderName } = useHeader();
 
   const categoryQuery = useQuery(["categoriesForToolForm"], async () => {
-    const { data } = await listCategories();
+    const data = await listCategories();
     return data;
   });
   const categories = categoryQuery.data?.Data
@@ -61,7 +60,6 @@ const CategoryCreate = () => {
       if (values.qualification) {
         await createCategory({
           ...values,
-          isExceptional: values.isExceptional || false,
           qualification: values.qualification.id,
         });
         navigate(-1);
