@@ -33,7 +33,8 @@ const IssueModify = () => {
       setStatus("pending");
       await modifyIssue({
         ...values,
-        priority: parseInt(values.priority.toString()),
+        priority: 1,
+        item: parseInt(values.item.id.toString()),
         id: Number.parseInt(id ? id : ""),
       });
       navigate(-1);

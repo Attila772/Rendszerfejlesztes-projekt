@@ -31,6 +31,7 @@ export const TRANSLATIONS_HU = {
       parentCategory: "'Szülő' kategória",
     },
     button: {
+      add: "Hozzáadás",
       create: "Létrehozás",
       modify: "Módosítás",
       cancel: "Mégse",
@@ -75,6 +76,12 @@ export const TRANSLATIONS_HU = {
     log: "Logok",
     qualification: "Képesítések",
     priviligelevel: "Hozzáférési szintek",
+  },
+  schedule: {
+    user: {
+      title: "Felhasználó",
+      add: "Felhasználó hozzárendelése",
+    },
   },
   employee: {
     formLabels: {
@@ -242,6 +249,8 @@ export const TRANSLATIONS_HU = {
     },
   },
   issue: {
+    exceptional: "Rendkívüli",
+    notExceptional: "Ütemezett",
     formLabels: {
       title: "Feladat adatai",
       name: "Név",

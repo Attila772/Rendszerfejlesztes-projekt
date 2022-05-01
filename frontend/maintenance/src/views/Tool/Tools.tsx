@@ -172,6 +172,8 @@ const Tools = ({ token }: Props) => {
       sortable: false,
       disableColumnMenu: true,
       flex: 1,
+      valueGetter: ({ row }: GridValueGetterParams) =>
+        categories.find((category) => category.id === row.id)?.name ?? row.id,
     },
     {
       field: "location",
@@ -181,6 +183,12 @@ const Tools = ({ token }: Props) => {
       sortable: false,
       disableColumnMenu: true,
       flex: 1,
+      valueGetter: ({ row }: GridValueGetterParams) => {
+        const location = locations.find((location) => location.id === row.id);
+        return location
+          ? `${location.building}${location.room ? ` / ${location.room}` : ""}`
+          : row.id;
+      },
     },
   ];
 
