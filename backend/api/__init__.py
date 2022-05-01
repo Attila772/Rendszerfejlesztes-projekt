@@ -1,3 +1,4 @@
+from sched import scheduler
 from flask import Flask
 from flask_login.utils import login_required
 from flask_sqlalchemy import SQLAlchemy
@@ -6,6 +7,8 @@ from flask_login import LoginManager, login_manager
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from flask_cors import CORS
+from flask_apscheduler import APScheduler
+import threading
 
 
 db = SQLAlchemy()
@@ -14,9 +17,13 @@ DB_NAME = "database.db"
 
 def create_app():
     app = Flask(__name__)
+    scheduler=APScheduler()
+    scheduler.init_app(app)
+    scheduler.start()
     CORS(app)
     app.config['SECRET_KEY'] = 'titkositottkulcsaaaaaa'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+    db.app=app
     db.init_app(app)
 
     #from .views import views
@@ -57,10 +64,7 @@ def create_app():
     admin.add_view(ModelView(schedule, db.session))
     admin.add_view(ModelView(level, db.session))
     
-    from .auto_generate import BackgroundTasks
-    t=BackgroundTasks()
-    t.daemon=True
-    t.start()
+    app.apscheduler.add_job(func = Generate_stuff,trigger='interval',seconds = 30, id='task_creator')
     return app
 
 
@@ -69,3 +73,24 @@ def create_db(app):
         with app.app_context():
             db.create_all(app=app)
         print('Created Db')
+
+def Generate_stuff():
+    with db.app.app_context():
+        from .model import item,task
+        _tasks = task.query.filter_by()
+        _items = item.query.filter_by()
+        for _item in _items:
+            has_task=False
+            for _task in _tasks:
+                if _task.item == _item.id:
+                    has_task=True
+            if  not has_task:
+                task_name = "Auto_generated"
+                task_priority = 0
+                task_item = _item.id
+                new_task=task(name=task_name,
+                            priority=task_priority, 
+                            item=task_item)
+                db.session.add(new_task)
+                db.session.commit()
+                print(_item.name + " generated")

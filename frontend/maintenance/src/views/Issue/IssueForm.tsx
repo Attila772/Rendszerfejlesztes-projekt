@@ -4,24 +4,22 @@ import { Controller, UseFormReturn } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import FormCard from "../../components/FormCard";
-import { Category, Issue, Log, User } from "../../components/types";
+import { Category, Issue, Log, Tool, User } from "../../components/types";
 
 export type IssueFormValues = {
   name: string;
-  category: Category;
-  assignedUser: User;
   priority: number | string;
+  item: Tool;
 };
 
 type Props = {
   form: UseFormReturn<IssueFormValues, any>;
   issue?: Issue;
-  categories?: Category[];
-  users?: User[];
+  tools?: Tool[];
   logs?: Log[];
 };
 
-const IssueForm = ({ form, issue, categories, users, logs }: Props) => {
+const IssueForm = ({ form, issue, tools, logs }: Props) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -69,61 +67,26 @@ const IssueForm = ({ form, issue, categories, users, logs }: Props) => {
           <Grid item xs={6}>
             <Controller
               control={form.control}
-              name="category"
-              defaultValue={issue?.category}
+              name="item"
+              defaultValue={tools?.find((tool) => tool.id === issue?.item)}
               rules={{ required: t("validation.required").toString() }}
               render={({ field, fieldState }) => (
                 <Autocomplete
                   {...field}
                   onChange={(_, value) => field.onChange(value)}
-                  getOptionLabel={(option: Category) => option.name}
-                  options={categories || []}
+                  getOptionLabel={(option: Tool) => option.name}
+                  options={tools || []}
                   sx={{ width: "100%" }}
                   renderInput={(params: any) => (
                     <TextField
                       {...params}
                       style={{ height: 40 }}
-                      label={t("issue.formLabels.category")}
+                      label={t("issue.formLabels.tool")}
                       error={!!fieldState.error}
                       helperText={fieldState.error?.message}
                     />
                   )}
                 />
-              )}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <Controller
-              control={form.control}
-              name="assignedUser"
-              defaultValue={issue?.assignedUser}
-              render={({ field, fieldState }) => (
-                <Autocomplete
-                  {...field}
-                  onChange={(_, value) => field.onChange(value)}
-                  getOptionLabel={(option: User) => option.email}
-                  options={users || []}
-                  sx={{ width: "100%" }}
-                  renderInput={(params: any) => (
-                    <TextField
-                      {...params}
-                      style={{ height: 40 }}
-                      label={t("issue.formLabels.assignedUser")}
-                      error={!!fieldState.error}
-                      helperText={fieldState.error?.message}
-                    />
-                  )}
-                />
-              )}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <Controller
-              control={form.control}
-              name="priority"
-              defaultValue={issue?.priority || ""}
-              render={({ field, fieldState }) => (
-                <TextField {...field} label={t("issue.formLabels.priority")} />
               )}
             />
           </Grid>

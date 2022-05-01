@@ -1,6 +1,17 @@
-import { Box, Button, Container, IconButton, Tooltip } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  Container,
+  IconButton,
+  Tooltip,
+  Typography,
+} from "@material-ui/core";
 import { Delete, Edit } from "@mui/icons-material";
-import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
+import {
+  GridColDef,
+  GridRenderCellParams,
+  GridValueGetterParams,
+} from "@mui/x-data-grid";
 import { useSnackbar } from "notistack";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -22,6 +33,7 @@ type Props = {
 const Tools = ({ token }: Props) => {
   const { t } = useTranslation();
   const [page, setPage] = React.useState(0);
+  const [pageSize, setPageSize] = React.useState(10);
   const { setHeaderButtons } = useHeader();
   const [toggleRefetch, setToggleRefetch] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
@@ -85,6 +97,9 @@ const Tools = ({ token }: Props) => {
       sortable: false,
       disableColumnMenu: true,
       flex: 1,
+      valueGetter: ({ row }: GridValueGetterParams) =>
+        categories.find((category) => category.id === row.category)?.name ??
+        row.id,
     },
     {
       field: "location",
@@ -94,6 +109,14 @@ const Tools = ({ token }: Props) => {
       sortable: false,
       disableColumnMenu: true,
       flex: 1,
+      valueGetter: ({ row }: GridValueGetterParams) => {
+        const location = locations.find(
+          (location) => location.id === row.location
+        );
+        return location
+          ? `${location.building}${location.room ? ` / ${location.room}` : ""}`
+          : row.id;
+      },
     },
     {
       field: " ",
@@ -153,6 +176,9 @@ const Tools = ({ token }: Props) => {
       sortable: false,
       disableColumnMenu: true,
       flex: 1,
+      valueGetter: ({ row }: GridValueGetterParams) =>
+        categories.find((category) => category.id === row.category)?.name ??
+        row.id,
     },
     {
       field: "location",
@@ -162,6 +188,14 @@ const Tools = ({ token }: Props) => {
       sortable: false,
       disableColumnMenu: true,
       flex: 1,
+      valueGetter: ({ row }: GridValueGetterParams) => {
+        const location = locations.find(
+          (location) => location.id === row.location
+        );
+        return location
+          ? `${location.building}${location.room ? ` / ${location.room}` : ""}`
+          : row.id;
+      },
     },
   ];
 
@@ -172,6 +206,8 @@ const Tools = ({ token }: Props) => {
         columns={isToolAdmin ? columnsAdmin : columns}
         page={page}
         setPage={setPage}
+        pageSize={pageSize}
+        setPageSize={setPageSize}
       />
     </Container>
   );

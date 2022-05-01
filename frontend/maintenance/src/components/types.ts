@@ -105,8 +105,7 @@ export type Log = {
 export type Issue = {
   id: number;
   name: string;
-  category: Category;
-  assignedUser: User;
+  item: number;
   priority: number;
   eventLog?: Log[];
 };
@@ -128,4 +127,12 @@ export type Location = {
   id: number;
   building: string;
   room?: string;
+};
+
+export type Schedule = {
+  user: User;
+  from_date: Date;
+  length: number;
+  state: string;
+  task: Issue;
 };

@@ -22,6 +22,8 @@ type Props = {
     event: MuiEvent<SyntheticEvent<Element, Event>>
   ) => void;
   getRowId?: GridRowIdGetter;
+  pageSize?: number;
+  setPageSize?: Dispatch<React.SetStateAction<number>>;
 };
 
 const useStyles = makeStyles({
@@ -42,6 +44,8 @@ const SingleQueryTable = ({
   setPage,
   onCellClick,
   getRowId,
+  pageSize,
+  setPageSize,
 }: Props) => {
   const classes = useStyles();
 
@@ -61,9 +65,9 @@ const SingleQueryTable = ({
       }
       columns={columns}
       page={page}
-      pageSize={10}
-      rowCount={query.data?.Data?.length || 0}
+      pageSize={pageSize ?? 10}
       rowsPerPageOptions={[10, 20, 50, 100]}
+      onPageSizeChange={(newSize) => setPageSize?.(newSize)}
       pagination
       paginationMode="client"
       onPageChange={setPage}

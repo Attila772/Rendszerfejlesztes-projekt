@@ -9,17 +9,9 @@ import { useHeader } from "../../components/Layout/HeaderContext";
 import { Category, SliceStatus } from "../../components/types";
 import { listCategories } from "../../shared/network/category.api";
 import { createIssue } from "../../shared/network/issue.api";
+import { listTools } from "../../shared/network/tool.api";
 import { listEmployees } from "../../shared/network/user.api";
 import IssueForm, { IssueFormValues } from "./IssueForm";
-
-export type CategoryFormValues = {
-  name: string;
-  isExceptional: boolean;
-  normaTimeInHours: number;
-  intervalInDays?: string;
-  parentCategory?: Category | null;
-  description?: string;
-};
 
 const IssueCreate = () => {
   const { t } = useTranslation();
@@ -29,23 +21,13 @@ const IssueCreate = () => {
   const [status, setStatus] = useState<SliceStatus>("idle");
   const { setHeaderName } = useHeader();
 
-  const categoryQuery = useQuery(["categoriesForIssueForm"], async () => {
-    const data = await listCategories();
+  const toolQuery = useQuery(["toolsForIssueCreate"], async () => {
+    const data = await listTools();
     return data;
   });
-  const categories = categoryQuery.data?.Data
-    ? Object.keys(categoryQuery.data?.Data)?.map(
-        (key: any) => categoryQuery.data?.Data[key]
-      )
-    : [];
-
-  const userQuery = useQuery(["usersForIssueForm"], async () => {
-    const data = await listEmployees();
-    return data;
-  });
-  const users = userQuery.data?.Data
-    ? Object.keys(userQuery.data?.Data)?.map(
-        (key: any) => userQuery.data?.Data[key]
+  const tools = toolQuery.data?.Data
+    ? Object.keys(toolQuery.data?.Data)?.map(
+        (key: any) => toolQuery.data?.Data[key]
       )
     : [];
 
@@ -54,7 +36,8 @@ const IssueCreate = () => {
       setStatus("pending");
       await createIssue({
         ...values,
-        priority: parseInt(values.priority.toString()),
+        priority: 1,
+        item: parseInt(values.item.id.toString()),
       });
       navigate(-1);
       enqueueSnackbar(t("issue.createSuccess.title"), {
@@ -90,7 +73,7 @@ const IssueCreate = () => {
       ) : (
         <FormProvider {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <IssueForm form={form} categories={categories} users={users} />
+            <IssueForm form={form} tools={tools} />
           </form>
         </FormProvider>
       )}
