@@ -40,8 +40,7 @@ const Qualifications = ({ token }: Props) => {
   );
 
   useEffect(() => {
-    //isQualificationAdmin
-    true &&
+    isQualificationAdmin &&
       setHeaderButtons(
         <Box display="flex" gridGap={12}>
           <Button component={Link} to="/qualification-create">

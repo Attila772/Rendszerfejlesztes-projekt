@@ -45,9 +45,9 @@ const PriviligeLevels = lazy(
 function App() {
   const { token, setToken, removeToken, getToken } = useToken();
 
-  /*if (!token) {
+  if (!token) {
     return <Login setToken={setToken} />;
-  }*/
+  }
 
   return (
     <>
@@ -57,17 +57,21 @@ function App() {
             <Routes>
               <Route path="/dashboard" element={<Dashboard />} />
               {/* EMPLOYEE */}
-              <Route path="/employee" element={<Employees token={token} />} />
-              <Route path="/employee-modify" element={<EmployeeModify />} />
-              <Route path="/employee-create" element={<EmployeeCreate />} />
               {hasAuthority(
                 (token as AuthenticatedUser)?.level,
                 "USER_GET"
-              ) && <></>}
+              ) && (
+                <Route path="/employee" element={<Employees token={token} />} />
+              )}
               {hasAuthority(
                 (token as AuthenticatedUser)?.level,
                 "USER_ADMIN"
-              ) && <></>}
+              ) && (
+                <>
+                  <Route path="/employee-modify" element={<EmployeeModify />} />
+                  <Route path="/employee-create" element={<EmployeeCreate />} />
+                </>
+              )}
               {/* ISSUE */}
               {hasAuthority(
                 (token as AuthenticatedUser)?.level,
@@ -145,26 +149,30 @@ function App() {
                 </>
               )}
               {/* QUALIFICATION */}
-              <Route
-                path="/qualification"
-                element={<Qualifications token={token} />}
-              />
-              <Route
-                path="/qualification-create"
-                element={<QualificationCreate />}
-              />
-              <Route
-                path="/qualification-modify"
-                element={<QualificationModify />}
-              />
               {hasAuthority(
                 (token as AuthenticatedUser)?.level,
                 "QUALIFICATION_GET"
-              ) && <></>}
+              ) && (
+                <Route
+                  path="/qualification"
+                  element={<Qualifications token={token} />}
+                />
+              )}
               {hasAuthority(
                 (token as AuthenticatedUser)?.level,
                 "QUALIFICATION_ADMIN"
-              ) && <></>}
+              ) && (
+                <>
+                  <Route
+                    path="/qualification-create"
+                    element={<QualificationCreate />}
+                  />
+                  <Route
+                    path="/qualification-modify"
+                    element={<QualificationModify />}
+                  />
+                </>
+              )}
               {/* PRIVILIGE LEVELS */}
               {hasAuthority(
                 (token as AuthenticatedUser)?.level,
