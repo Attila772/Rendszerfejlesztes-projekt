@@ -64,7 +64,7 @@ def create_app():
     admin.add_view(ModelView(schedule, db.session))
     admin.add_view(ModelView(level, db.session))
     
-    app.apscheduler.add_job(func = Generate_stuff,trigger='date',id='task_creator')
+    app.apscheduler.add_job(func = Generate_stuff,trigger='interval',seconds = 30, id='task_creator')
     return app
 
 
@@ -77,10 +77,8 @@ def create_db(app):
 def Generate_stuff():
     with db.app.app_context():
         from .model import item,task
-        print ("yeet")
         _tasks = task.query.filter_by()
         _items = item.query.filter_by()
-        print("fut")
         for _item in _items:
             has_task=False
             for _task in _tasks:
@@ -88,10 +86,11 @@ def Generate_stuff():
                     has_task=True
             if  not has_task:
                 task_name = "Auto_generated"
-                task_priority = -1
+                task_priority = 0
                 task_item = _item.id
                 new_task=task(name=task_name,
                             priority=task_priority, 
                             item=task_item)
                 db.session.add(new_task)
                 db.session.commit()
+                print(_item.name + " generated")
