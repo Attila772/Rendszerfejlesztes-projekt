@@ -1,6 +1,17 @@
-import { Box, Button, Container, IconButton, Tooltip } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  Container,
+  IconButton,
+  Tooltip,
+  Typography,
+} from "@material-ui/core";
 import { Delete, Edit } from "@mui/icons-material";
-import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
+import {
+  GridColDef,
+  GridRenderCellParams,
+  GridValueGetterParams,
+} from "@mui/x-data-grid";
 import { useSnackbar } from "notistack";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -85,6 +96,8 @@ const Tools = ({ token }: Props) => {
       sortable: false,
       disableColumnMenu: true,
       flex: 1,
+      valueGetter: ({ row }: GridValueGetterParams) =>
+        categories.find((category) => category.id === row.id)?.name ?? row.id,
     },
     {
       field: "location",
@@ -94,6 +107,12 @@ const Tools = ({ token }: Props) => {
       sortable: false,
       disableColumnMenu: true,
       flex: 1,
+      valueGetter: ({ row }: GridValueGetterParams) => {
+        const location = locations.find((location) => location.id === row.id);
+        return location
+          ? `${location.building}${location.room ? ` / ${location.room}` : ""}`
+          : row.id;
+      },
     },
     {
       field: " ",
