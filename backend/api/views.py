@@ -1,6 +1,7 @@
 from multiprocessing.sharedctypes import Value
 from re import fullmatch
 from unicodedata import name
+from flask_cors import CORS
 from flask_login.utils import login_required
 from .model import User,level,trade,location,category,item,task,schedule,log
 from flask import Blueprint, jsonify, render_template, request, flash, redirect, url_for
@@ -266,6 +267,7 @@ def task_():
     pass
 
 #basic functions for schedule model class
+   
     @views.route('/schedule', methods=['GET','POST','PUT','DELETE'])
     def schedule_():
         if request.method == 'POST':
