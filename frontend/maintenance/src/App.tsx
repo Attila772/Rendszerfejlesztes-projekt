@@ -145,30 +145,26 @@ function App() {
                 </>
               )}
               {/* QUALIFICATION */}
+              <Route
+                path="/qualification"
+                element={<Qualifications token={token} />}
+              />
+              <Route
+                path="/qualification-create"
+                element={<QualificationCreate />}
+              />
+              <Route
+                path="/qualification-modify"
+                element={<QualificationModify />}
+              />
               {hasAuthority(
                 (token as AuthenticatedUser)?.level,
                 "QUALIFICATION_GET"
-              ) && (
-                <Route
-                  path="/qualification"
-                  element={<Qualifications token={token} />}
-                />
-              )}
+              ) && <></>}
               {hasAuthority(
                 (token as AuthenticatedUser)?.level,
                 "QUALIFICATION_ADMIN"
-              ) && (
-                <>
-                  <Route
-                    path="/qualification-create"
-                    element={<QualificationCreate />}
-                  />
-                  <Route
-                    path="/qualification-modify"
-                    element={<QualificationModify />}
-                  />
-                </>
-              )}
+              ) && <></>}
               {/* PRIVILIGE LEVELS */}
               {hasAuthority(
                 (token as AuthenticatedUser)?.level,

@@ -162,19 +162,18 @@ const SideBar = ({ open, setOpen, width, removeToken, token }: Props) => {
             {hasAuthority(
               (authenticatedUser as AuthenticatedUser)?.level,
               "QUALIFICATION_GET"
-            ) && (
-              <SidebarItem
-                to={`/qualification`}
-                text={"Képesítések"}
-                icon={<Star />}
-                activeMenuItem={[
-                  "/qualification",
-                  "/qualification-create",
-                  "/qualification-modify",
-                ]}
-                width={width}
-              />
-            )}
+            ) && <></>}
+            <SidebarItem
+              to={`/qualification`}
+              text={"Képesítések"}
+              icon={<Star />}
+              activeMenuItem={[
+                "/qualification",
+                "/qualification-create",
+                "/qualification-modify",
+              ]}
+              width={width}
+            />
             {hasAuthority(
               (authenticatedUser as AuthenticatedUser)?.level,
               "ROLE_GET"
