@@ -45,9 +45,9 @@ const PriviligeLevels = lazy(
 function App() {
   const { token, setToken, removeToken, getToken } = useToken();
 
-  if (!token) {
+  /*if (!token) {
     return <Login setToken={setToken} />;
-  }
+  }*/
 
   return (
     <>
@@ -57,19 +57,17 @@ function App() {
             <Routes>
               <Route path="/dashboard" element={<Dashboard />} />
               {/* EMPLOYEE */}
+              <Route path="/employee" element={<Employees token={token} />} />
+              <Route path="/employee-modify" element={<EmployeeModify />} />
+              <Route path="/employee-create" element={<EmployeeCreate />} />
               {hasAuthority(
                 (token as AuthenticatedUser)?.level,
                 "USER_GET"
-              ) && <Route path="/employee" element={<Employees token={token} />} />}
+              ) && <></>}
               {hasAuthority(
                 (token as AuthenticatedUser)?.level,
                 "USER_ADMIN"
-              ) && (
-                <>
-                  <Route path="/employee-modify" element={<EmployeeModify />} />
-                  <Route path="/employee-create" element={<EmployeeCreate />} />
-                </>
-              )}
+              ) && <></>}
               {/* ISSUE */}
               {hasAuthority(
                 (token as AuthenticatedUser)?.level,
@@ -88,7 +86,7 @@ function App() {
               {hasAuthority(
                 (token as AuthenticatedUser)?.level,
                 "TOOL_GET"
-              ) && <Route path="/tool" element={<Tools token={token} />} /> }
+              ) && <Route path="/tool" element={<Tools token={token} />} />}
               {hasAuthority(
                 (token as AuthenticatedUser)?.level,
                 "TOOL_ADMIN"
@@ -102,7 +100,12 @@ function App() {
               {hasAuthority(
                 (token as AuthenticatedUser)?.level,
                 "CATEGORY_GET"
-              ) && <Route path="/category" element={<Categories token={token} />} /> }
+              ) && (
+                <Route
+                  path="/category"
+                  element={<Categories token={token} />}
+                />
+              )}
               {hasAuthority(
                 (token as AuthenticatedUser)?.level,
                 "CATEGORY_ADMIN"
@@ -116,7 +119,9 @@ function App() {
               {hasAuthority(
                 (token as AuthenticatedUser)?.level,
                 "LOCATION_GET"
-              ) && <Route path="/location" element={<Locations token={token} />} /> }
+              ) && (
+                <Route path="/location" element={<Locations token={token} />} />
+              )}
               {hasAuthority(
                 (token as AuthenticatedUser)?.level,
                 "LOCATION_ADMIN"
@@ -127,10 +132,9 @@ function App() {
                 </>
               )}
               {/* LOG */}
-              {hasAuthority(
-                (token as AuthenticatedUser)?.level,
-                "LOG_GET"
-              ) && <Route path="/log" element={<Logs token={token} />} /> }
+              {hasAuthority((token as AuthenticatedUser)?.level, "LOG_GET") && (
+                <Route path="/log" element={<Logs token={token} />} />
+              )}
               {hasAuthority(
                 (token as AuthenticatedUser)?.level,
                 "LOG_ADMIN"
@@ -144,11 +148,12 @@ function App() {
               {hasAuthority(
                 (token as AuthenticatedUser)?.level,
                 "QUALIFICATION_GET"
-              ) && 
-              <Route
-                path="/qualification"
-                element={<Qualifications token={token} />}
-              /> }
+              ) && (
+                <Route
+                  path="/qualification"
+                  element={<Qualifications token={token} />}
+                />
+              )}
               {hasAuthority(
                 (token as AuthenticatedUser)?.level,
                 "QUALIFICATION_ADMIN"
@@ -168,11 +173,12 @@ function App() {
               {hasAuthority(
                 (token as AuthenticatedUser)?.level,
                 "ROLE_GET"
-              ) && 
-              <Route
-                path="/privilige-level"
-                element={<PriviligeLevels token={token} />}
-              /> }
+              ) && (
+                <Route
+                  path="/privilige-level"
+                  element={<PriviligeLevels token={token} />}
+                />
+              )}
               {hasAuthority(
                 (token as AuthenticatedUser)?.level,
                 "ROLE_ADMIN"

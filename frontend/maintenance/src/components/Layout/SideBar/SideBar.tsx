@@ -76,22 +76,21 @@ const SideBar = ({ open, setOpen, width, removeToken, token }: Props) => {
               activeMenuItem={["/dashboard", "/"]}
               width={width}
             />
+            <SidebarItem
+              to={`/employee`}
+              text={"Dolgozók"}
+              icon={<PersonOutlineIcon />}
+              activeMenuItem={[
+                "/employee",
+                "/employee-create",
+                "employee-modify",
+              ]}
+              width={width}
+            />
             {hasAuthority(
               (authenticatedUser as AuthenticatedUser)?.level,
               "USER_GET"
-            ) && (
-              <SidebarItem
-                to={`/employee`}
-                text={"Dolgozók"}
-                icon={<PersonOutlineIcon />}
-                activeMenuItem={[
-                  "/employee",
-                  "/employee-create",
-                  "employee-modify",
-                ]}
-                width={width}
-              />
-            )}
+            ) && <></>}
             {hasAuthority(
               (authenticatedUser as AuthenticatedUser)?.level,
               "ISSUE_GET"
