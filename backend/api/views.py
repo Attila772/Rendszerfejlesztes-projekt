@@ -2,7 +2,7 @@ from multiprocessing.sharedctypes import Value
 from re import fullmatch
 from unicodedata import name
 from flask_login.utils import login_required
-from .model import User,level,trade,location,category,item,task
+from .model import User,level,trade,location,category,item,task,schedule,log
 from flask import Blueprint, jsonify, render_template, request, flash, redirect, url_for
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
@@ -264,3 +264,58 @@ def task_():
         response.headers.add('Access-Control-Allow-Origin', '*')
         return response
     pass
+
+#basic functions for schedule model class
+    @views.route('/schedule', methods=['GET','POST','PUT','DELETE'])
+    def schedule_():
+        if request.method == 'POST':
+            user_id = request.get_json()['user_id']
+            from_date = request.get_json()['from_date']
+            length = request.get_json()['length']
+            state = request.get_json()['state']
+            task_id = request.get_json()['task_id']
+            new_schedule=schedule(user_id=user_id,
+                        from_date=from_date, 
+                        length=length,
+                        state= state,
+                        task=task_id)
+            db.session.add(new_schedule)
+            db.session.commit()
+            response = jsonify({'Data':'Sikeres'})
+            response.headers.add('Access-Control-Allow-Origin', '*')
+            return response
+        elif request.method == 'GET':
+            schedules = schedule.query.filter_by()
+            response_dict = {}
+            for _item in schedules:
+                response_dict[_item.id]={'id': _item.id,
+                                        'user_id': _item.user_id,
+                                        'from_date': _item.from_date,
+                                        'length': _item.length,
+                                        'state': _item.state,
+                                        'task_id': _item.task_id}
+            response =  jsonify({'Data': response_dict})
+            response.headers.add('Access-Control-Allow-Origin', '*')
+            return response
+        elif request.method == 'DELETE':
+            id = request.get_json()['id']
+            _item = schedule.query.filter_by(id = id).first()
+            db.session.delete(_item)
+            db.session.commit()
+            response = jsonify({'Data':'Sikeres'})
+            response.headers.add('Access-Control-Allow-Origin', '*')
+            return response
+        elif request.method == 'PUT':
+            id = request.get_json()['id']
+            schedule.query.filter_by(id = id).first().name=request.get_json()['user_id']
+            schedule.query.filter_by(id = id).first().descript=request.get_json()['from_date']
+            schedule.query.filter_by(id = id).first().category=request.get_json()['length']
+            schedule.query.filter_by(id = id).first().location=request.get_json()['state']
+            schedule.query.filter_by(id = id).first().location=request.get_json()['task_id']
+            db.session.commit()
+            response = jsonify({'Data':'Sikeres'})
+            response.headers.add('Access-Control-Allow-Origin', '*')
+            return response
+    pass
+
+    
