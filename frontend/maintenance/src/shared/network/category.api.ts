@@ -4,7 +4,6 @@ import { SERVER_ADDRESS } from "../common/constants";
 
 export type CreateCategoryRequest = {
   name: string;
-  isExceptional: boolean;
   normaTimeInHours: number | string;
   intervalInDays?: string | null;
   parentCategory?: Category | null;
@@ -34,7 +33,6 @@ export const createCategory = async (
       descript: categoryRequest.description,
       qualification: categoryRequest.qualification,
       parent_id: categoryRequest.parentCategory?.id ?? -1,
-      isExceptional: categoryRequest.isExceptional,
     }),
   };
   const response = await fetch(`${SERVER_ADDRESS}/category`, requestOptions);

@@ -30,7 +30,7 @@ const IssueCreate = () => {
   const { setHeaderName } = useHeader();
 
   const categoryQuery = useQuery(["categoriesForIssueForm"], async () => {
-    const { data } = await listCategories();
+    const data = await listCategories();
     return data;
   });
   const categories = categoryQuery.data?.Data

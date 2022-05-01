@@ -88,7 +88,6 @@ export type Permission = {
 export type Category = {
   id: number;
   name: string;
-  isExceptional: boolean;
   normaTimeInHours: number | string;
   intervalInDays?: string | null;
   parentCategory?: any;

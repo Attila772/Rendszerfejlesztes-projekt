@@ -36,36 +36,7 @@ const CategoryForm = ({
   return (
     <Container maxWidth="sm">
       <FormCard
-        title={
-          <Box display="flex" justifyContent="space-between">
-            <Box>{t("category.formLabels.title")}</Box>
-            <Box>
-              <Controller
-                name="isExceptional"
-                control={form.control}
-                defaultValue={category?.isExceptional || true}
-                render={({ field: { onChange, value, ref }, fieldState }) => (
-                  <FormControlLabel
-                    label={t("category.formLabels.isExceptional")}
-                    labelPlacement="start"
-                    defaultChecked
-                    disabled
-                    control={
-                      <Switch
-                        onChange={(e, checked) => {
-                          onChange(checked);
-                        }}
-                        checked={value}
-                        inputRef={ref}
-                        color="primary"
-                      />
-                    }
-                  />
-                )}
-              />
-            </Box>
-          </Box>
-        }
+        title={t("category.formLabels.title")}
         buttons={
           <>
             <Button

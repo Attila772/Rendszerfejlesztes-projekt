@@ -11,6 +11,8 @@ import SingleQueryTable from "../../components/PageableTable/SingleQueryTable";
 import { hasAuthority } from "../../shared/common/authorization";
 import { COLORS } from "../../shared/common/constants";
 import { AuthenticatedUser } from "../../shared/common/rolePermissions";
+import { listCategories } from "../../shared/network/category.api";
+import { listLocations } from "../../shared/network/location.api";
 import { deleteTool, listTools } from "../../shared/network/tool.api";
 
 type Props = {
@@ -32,6 +34,26 @@ const Tools = ({ token }: Props) => {
     const data = await listTools();
     return data;
   });
+
+  const categoryQuery = useQuery(["categoriesForToolList"], async () => {
+    const data = await listCategories();
+    return data;
+  });
+  const categories = categoryQuery.data?.Data
+    ? Object.keys(categoryQuery.data?.Data)?.map(
+        (key: any) => categoryQuery.data?.Data[key]
+      )
+    : [];
+
+  const locationQuery = useQuery(["locationsForToolList"], async () => {
+    const data = await listLocations();
+    return data;
+  });
+  const locations = locationQuery.data?.Data
+    ? Object.keys(locationQuery.data?.Data)?.map(
+        (key: any) => locationQuery.data?.Data[key]
+      )
+    : [];
 
   useEffect(() => {
     isToolAdmin &&
