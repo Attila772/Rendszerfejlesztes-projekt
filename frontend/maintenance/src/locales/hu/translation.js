@@ -89,6 +89,7 @@ export const TRANSLATIONS_HU = {
     log: "Logok",
     qualification: "Képesítések",
     priviligelevel: "Hozzáférési szintek",
+    schedule: "Ütemtervek",
   },
   schedule: {
     user: {

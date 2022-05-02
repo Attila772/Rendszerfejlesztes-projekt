@@ -147,18 +147,19 @@ const SideBar = ({ open, setOpen, width, removeToken, token }: Props) => {
                 width={width}
               />
             )}
-            {hasAuthority(
-              (authenticatedUser as AuthenticatedUser)?.level,
-              "LOG_GET"
-            ) && (
-              <SidebarItem
-                to={`/log`}
-                text={"Logok"}
-                icon={<History />}
-                activeMenuItem={["/log", "/log-create", "/log-modify"]}
-                width={width}
-              />
-            )}
+            {false &&
+              hasAuthority(
+                (authenticatedUser as AuthenticatedUser)?.level,
+                "LOG_GET"
+              ) && (
+                <SidebarItem
+                  to={`/log`}
+                  text={"Logok"}
+                  icon={<History />}
+                  activeMenuItem={["/log", "/log-create", "/log-modify"]}
+                  width={width}
+                />
+              )}
             {hasAuthority(
               (authenticatedUser as AuthenticatedUser)?.level,
               "QUALIFICATION_GET"
@@ -175,22 +176,23 @@ const SideBar = ({ open, setOpen, width, removeToken, token }: Props) => {
                 width={width}
               />
             )}
-            {hasAuthority(
-              (authenticatedUser as AuthenticatedUser)?.level,
-              "ROLE_GET"
-            ) && (
-              <SidebarItem
-                to={`/privilige-level`}
-                text={"Szerepkörök"}
-                icon={<LockOpen />}
-                activeMenuItem={[
-                  "/privilige-level",
-                  "/privilige-level-create",
-                  "/privilige-level-modify",
-                ]}
-                width={width}
-              />
-            )}
+            {false &&
+              hasAuthority(
+                (authenticatedUser as AuthenticatedUser)?.level,
+                "ROLE_GET"
+              ) && (
+                <SidebarItem
+                  to={`/privilige-level`}
+                  text={"Szerepkörök"}
+                  icon={<LockOpen />}
+                  activeMenuItem={[
+                    "/privilige-level",
+                    "/privilige-level-create",
+                    "/privilige-level-modify",
+                  ]}
+                  width={width}
+                />
+              )}
             <SidebarItem
               to={`/schedule`}
               text={"Ütemtervek"}
