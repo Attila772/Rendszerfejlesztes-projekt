@@ -7,17 +7,16 @@ import {
   LocationOn,
   LockOpen,
   Star,
-  Sync,
 } from "@mui/icons-material";
-import HomeIcon from "@mui/icons-material/Home";
-import { Dispatch, SetStateAction } from "react";
-import { GRADIENT } from "../../../shared/common/constants";
-import SidebarItem from "./SidebarItem";
-import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import BuildIcon from "@mui/icons-material/Build";
+import HomeIcon from "@mui/icons-material/Home";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import { Dispatch, SetStateAction } from "react";
 import { hasAuthority } from "../../../shared/common/authorization";
+import { GRADIENT } from "../../../shared/common/constants";
 import { AuthenticatedUser } from "../../../shared/common/rolePermissions";
+import SidebarItem from "./SidebarItem";
 
 type Props = {
   open: boolean;
@@ -196,9 +195,7 @@ const SideBar = ({ open, setOpen, width, removeToken, token }: Props) => {
               to={`/schedule`}
               text={"Ütemtervek"}
               icon={<History />}
-              activeMenuItem={[
-                "/schedule"
-              ]}
+              activeMenuItem={["/schedule"]}
               width={width}
             />
           </List>

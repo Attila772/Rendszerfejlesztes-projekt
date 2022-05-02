@@ -52,7 +52,7 @@ const PriviligeLevels = ({ token }: Props) => {
     return () => {
       setHeaderButtons(null);
     };
-  }, []);
+  }, [isRoleAdmin]);
 
   const columnsAdmin: GridColDef[] = [
     {

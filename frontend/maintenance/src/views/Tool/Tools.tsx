@@ -1,11 +1,4 @@
-import {
-  Box,
-  Button,
-  Container,
-  IconButton,
-  Tooltip,
-  Typography,
-} from "@material-ui/core";
+import { Box, Button, Container, IconButton, Tooltip } from "@material-ui/core";
 import { Delete, Edit } from "@mui/icons-material";
 import {
   GridColDef,
@@ -79,7 +72,7 @@ const Tools = ({ token }: Props) => {
     return () => {
       setHeaderButtons(null);
     };
-  }, []);
+  }, [isToolAdmin]);
 
   const columnsAdmin: GridColDef[] = [
     {

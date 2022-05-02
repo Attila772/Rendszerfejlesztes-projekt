@@ -52,7 +52,7 @@ const Locations = ({ token }: Props) => {
     return () => {
       setHeaderButtons(null);
     };
-  }, []);
+  }, [isLocationAdmin]);
 
   const columnsAdmin: GridColDef[] = [
     {

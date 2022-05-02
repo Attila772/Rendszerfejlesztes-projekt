@@ -12,7 +12,7 @@ import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { useHeader } from "../../components/Layout/HeaderContext";
 import SingleQueryTable from "../../components/PageableTable/SingleQueryTable";
-import { Issue, User } from "../../components/types";
+import { User } from "../../components/types";
 import { hasAuthority } from "../../shared/common/authorization";
 import { COLORS } from "../../shared/common/constants";
 import { AuthenticatedUser } from "../../shared/common/rolePermissions";
@@ -80,7 +80,7 @@ const Issues = ({ token }: Props) => {
     return () => {
       setHeaderButtons(null);
     };
-  }, []);
+  }, [isIssueAdmin]);
 
   const columnsAdmin: GridColDef[] = [
     {
@@ -99,7 +99,7 @@ const Issues = ({ token }: Props) => {
       align: "center",
       flex: 1,
       valueGetter: ({ row }: GridValueGetterParams) =>
-        row.priority === 1 ? t("issue.exceptional") : t("issue.notExceptinal"),
+        row.priority === 1 ? t("issue.exceptional") : t("issue.notExceptional"),
     },
     {
       field: "item",
@@ -184,7 +184,7 @@ const Issues = ({ token }: Props) => {
       align: "center",
       flex: 1,
       valueGetter: ({ row }: GridValueGetterParams) =>
-        row.priority === 1 ? t("issue.exceptional") : t("issue.notExceptinal"),
+        row.priority === 1 ? t("issue.exceptional") : t("issue.notExceptional"),
     },
     {
       field: "item",

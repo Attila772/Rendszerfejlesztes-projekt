@@ -52,7 +52,7 @@ const Qualifications = ({ token }: Props) => {
     return () => {
       setHeaderButtons(null);
     };
-  }, []);
+  }, [isQualificationAdmin]);
 
   const columnsAdmin: GridColDef[] = [
     {

@@ -39,7 +39,7 @@ const Logs = ({ token }: Props) => {
     return () => {
       setHeaderButtons(null);
     };
-  }, []);
+  }, [isLogAdmin]);
 
   const columnsAdmin: GridColDef[] = [
     {

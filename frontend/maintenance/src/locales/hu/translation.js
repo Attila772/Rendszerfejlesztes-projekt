@@ -278,9 +278,6 @@ export const TRANSLATIONS_HU = {
       logs: "Logok",
       tool: "Eszköz",
     },
-    actions: {
-      createTitle: "Feladat létrehozása",
-    },
     createSuccess: {
       title: "Sikeres feladat létrehozás.",
     },
