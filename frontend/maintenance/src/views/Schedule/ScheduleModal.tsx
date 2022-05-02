@@ -53,7 +53,6 @@ const ScheduleModal = ({ open, setOpen, users, schedule, issue }: Props) => {
 
   const createScheduleSubmit = async (values: ScheduleFormValues) => {
     try {
-      console.log(category);
       if (issue && values.user) {
         await createSchedule({
           user: values.user,
@@ -103,7 +102,10 @@ const ScheduleModal = ({ open, setOpen, users, schedule, issue }: Props) => {
                     getOptionLabel={(option: User) => option.email}
                     options={
                       users?.filter((user: User) => {
-                        return user.trade === category?.qualification;
+                        return (
+                          user.trade === category?.qualification &&
+                          parseInt(user.level.toString()) === 3
+                        );
                       }) || []
                     }
                     sx={{ width: "100%" }}
