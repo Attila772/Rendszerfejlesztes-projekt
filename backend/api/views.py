@@ -249,7 +249,7 @@ def schedule_():
                                         'from_date': _item.from_date,
                                         'length': _item.length,
                                         'state': _item.state,
-                                        'task_id': _item.task_id}
+                                        'task_id': _item.task}
             response =  jsonify({'Data': response_dict})
             response.headers.add('Access-Control-Allow-Origin', '*')
             return response
