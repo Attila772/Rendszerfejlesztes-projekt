@@ -1,6 +1,12 @@
 import { Box, Container, IconButton, Tooltip } from "@material-ui/core";
 import { Delete, Edit } from "@mui/icons-material";
-import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
+import {
+  GridColDef,
+  GridRenderCellParams,
+  GridValueGetterParams,
+} from "@mui/x-data-grid";
+import { format } from "date-fns";
+import { hu } from "date-fns/locale";
 import { useSnackbar } from "notistack";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -10,10 +16,12 @@ import SingleQueryTable from "../../components/PageableTable/SingleQueryTable";
 import { hasAuthority } from "../../shared/common/authorization";
 import { COLORS } from "../../shared/common/constants";
 import { AuthenticatedUser } from "../../shared/common/rolePermissions";
+import { listIssues } from "../../shared/network/issue.api";
 import {
   deleteSchedule,
   listSchedules,
 } from "../../shared/network/schedule.api";
+import { listEmployees } from "../../shared/network/user.api";
 
 type Props = {
   token?: any;
@@ -38,26 +46,58 @@ const Schedules = ({ token }: Props) => {
     }
   );
 
+  const userQuery = useQuery(["usersForSchedules"], async () => {
+    const data = await listEmployees();
+    return data;
+  });
+  const users = userQuery.data?.Data
+    ? Object.keys(userQuery.data?.Data)?.map(
+        (key: any) => userQuery.data?.Data[key]
+      )
+    : [];
+
+  const issueQuery = useQuery(["issuesForSchedules"], async () => {
+    const data = await listIssues();
+    return data;
+  });
+  const issues = issueQuery.data?.Data
+    ? Object.keys(issueQuery.data?.Data)?.map(
+        (key: any) => issueQuery.data?.Data[key]
+      )
+    : [];
+
   const columnsAdmin: GridColDef[] = [
     {
-      field: "user",
+      field: "user_id",
       headerName: t("common.table.user"),
       sortable: false,
       disableColumnMenu: true,
       flex: 1,
+      valueGetter: ({ row }: GridValueGetterParams) =>
+        row.user_id
+          ? users.find((user) => user.id === row.user_id)?.email
+          : "-",
     },
     {
       field: "from_date",
       headerName: t("common.table.from_date"),
       sortable: false,
       disableColumnMenu: true,
+      headerAlign: "center",
+      align: "center",
       flex: 1,
+      valueGetter: ({ row }: GridValueGetterParams) =>
+        row.from_date
+          ? format(new Date(row.from_date), "Pp", { locale: hu }).toString()
+          : "-",
     },
     {
       field: "length",
       headerName: t("common.table.length"),
       sortable: false,
       disableColumnMenu: true,
+      headerAlign: "center",
+      align: "center",
       flex: 1,
     },
     {
@@ -65,14 +105,24 @@ const Schedules = ({ token }: Props) => {
       headerName: t("common.table.state"),
       sortable: false,
       disableColumnMenu: true,
+      headerAlign: "center",
+      align: "center",
       flex: 1,
+      valueGetter: ({ row }: GridValueGetterParams) =>
+        row.state ? t(`common.issueStates.${row.state}`) : "-",
     },
     {
-      field: "task",
+      field: "task_id",
       headerName: t("common.table.task"),
       sortable: false,
       disableColumnMenu: true,
+      headerAlign: "center",
+      align: "center",
       flex: 1,
+      valueGetter: ({ row }: GridValueGetterParams) =>
+        row.task_id
+          ? issues.find((task) => task.id === row.task_id)?.name
+          : "-",
     },
     {
       field: " ",
@@ -117,18 +167,66 @@ const Schedules = ({ token }: Props) => {
 
   const columns: GridColDef[] = [
     {
-      field: "name",
-      headerName: t("common.table.name"),
-      headerAlign: "center",
-      align: "center",
+      field: "user_id",
+      headerName: t("common.table.user"),
       sortable: false,
       disableColumnMenu: true,
       flex: 1,
+      valueGetter: ({ row }: GridValueGetterParams) =>
+        row.user_id
+          ? users.find((user) => user.id === row.user_id)?.email
+          : "-",
+    },
+    {
+      field: "from_date",
+      headerName: t("common.table.from_date"),
+      sortable: false,
+      disableColumnMenu: true,
+      headerAlign: "center",
+      align: "center",
+      flex: 1,
+      valueGetter: ({ row }: GridValueGetterParams) =>
+        row.from_date
+          ? format(new Date(row.from_date), "Pp", { locale: hu }).toString()
+          : "-",
+    },
+    {
+      field: "length",
+      headerName: t("common.table.length"),
+      sortable: false,
+      disableColumnMenu: true,
+      headerAlign: "center",
+      align: "center",
+      flex: 1,
+    },
+    {
+      field: "state",
+      headerName: t("common.table.state"),
+      sortable: false,
+      disableColumnMenu: true,
+      headerAlign: "center",
+      align: "center",
+      flex: 1,
+      valueGetter: ({ row }: GridValueGetterParams) =>
+        row.state ? t(`common.issueStates.${row.state}`) : "-",
+    },
+    {
+      field: "task_id",
+      headerName: t("common.table.task"),
+      sortable: false,
+      disableColumnMenu: true,
+      headerAlign: "center",
+      align: "center",
+      flex: 1,
+      valueGetter: ({ row }: GridValueGetterParams) =>
+        row.task_id
+          ? issues.find((task) => task.id === row.task_id)?.name
+          : "-",
     },
   ];
 
   return (
-    <Container maxWidth="xs">
+    <Container maxWidth="md">
       <SingleQueryTable
         query={scheduleQuery}
         columns={isIssueAdmin ? columnsAdmin : columns}

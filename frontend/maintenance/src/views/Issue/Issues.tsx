@@ -12,12 +12,13 @@ import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { useHeader } from "../../components/Layout/HeaderContext";
 import SingleQueryTable from "../../components/PageableTable/SingleQueryTable";
-import { User } from "../../components/types";
+import { Category, Issue, Tool, User } from "../../components/types";
 import { hasAuthority } from "../../shared/common/authorization";
 import { COLORS } from "../../shared/common/constants";
 import { AuthenticatedUser } from "../../shared/common/rolePermissions";
+import { getCategoryById } from "../../shared/network/category.api";
 import { deleteIssue, listIssues } from "../../shared/network/issue.api";
-import { listTools } from "../../shared/network/tool.api";
+import { getToolById, listTools } from "../../shared/network/tool.api";
 import { listEmployees } from "../../shared/network/user.api";
 import ScheduleModal from "../Schedule/ScheduleModal";
 
@@ -37,7 +38,7 @@ const Issues = ({ token }: Props) => {
   const { enqueueSnackbar } = useSnackbar();
   const [toggleRefetch, setToggleRefetch] = useState(false);
   const [openScheduleModal, setOpenScheduleModal] = useState(false);
-  const [selectedIssue, setSelectedIssue] = useState(null);
+  const [selectedIssue, setSelectedIssue] = useState<Issue | null>(null);
   const isIssueAdmin = hasAuthority(
     (token as AuthenticatedUser)?.level,
     "ISSUE_ADMIN"
@@ -124,16 +125,18 @@ const Issues = ({ token }: Props) => {
         <>
           {hasAuthority(
             (token as AuthenticatedUser)?.level,
-            "CATEGORY_ADMIN"
+            "SCHEDULE_ADMIN"
           ) && (
             <Box display="flex" justifyContent="flex-end" width="100%">
               <Tooltip
-                title={t("common.button.modifyAction.category").toString()}
+                title={t(
+                  "common.button.modifyAction.scheduleAddUser"
+                ).toString()}
               >
                 <IconButton
-                  onClick={() => {
+                  onClick={async () => {
+                    setSelectedIssue(row as Issue);
                     setOpenScheduleModal(true);
-                    setSelectedIssue(row);
                   }}
                   size="small"
                   color="primary"
@@ -142,25 +145,31 @@ const Issues = ({ token }: Props) => {
                   <Person style={{ color: COLORS.mainLight }} />
                 </IconButton>
               </Tooltip>
-              <Tooltip
-                title={t("common.button.deleteAction.category").toString()}
-              >
-                <IconButton
-                  onClick={() => {
-                    deleteIssue(row.id);
-                    enqueueSnackbar(t("category.deleteSuccess.title"), {
-                      variant: "success",
-                    });
-                    setToggleRefetch(!toggleRefetch);
-                  }}
-                  size="small"
-                  color="primary"
-                  style={{ margin: "0 8px", color: COLORS.mainLight }}
-                >
-                  <Delete style={{ color: COLORS.mainLight }} />
-                </IconButton>
-              </Tooltip>
             </Box>
+          )}
+          {hasAuthority((token as AuthenticatedUser)?.level, "ISSUE_ADMIN") && (
+            <Tooltip title={t("common.button.deleteAction.issue").toString()}>
+              <IconButton
+                disabled={row?.priority !== 1}
+                onClick={() => {
+                  deleteIssue(row.id);
+                  enqueueSnackbar(t("issue.deleteSuccess.title"), {
+                    variant: "success",
+                  });
+                  setToggleRefetch(!toggleRefetch);
+                }}
+                size="small"
+                color="primary"
+                style={{ margin: "0 8px", color: COLORS.mainLight }}
+              >
+                <Delete
+                  style={{
+                    color:
+                      row?.priority !== 1 ? COLORS.lightGrey : COLORS.mainLight,
+                  }}
+                />
+              </IconButton>
+            </Tooltip>
           )}
         </>
       ),

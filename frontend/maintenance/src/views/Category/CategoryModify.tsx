@@ -28,7 +28,7 @@ const CategoryModify = () => {
   const { setHeaderName } = useHeader();
 
   const categoryQuery = useQuery(["getCategoryByIdQuery", id], async () => {
-    const { data } = await getCategoryById(id ? id : "");
+    const { data } = await getCategoryById(id ? parseInt(id) : 0);
     return data;
   });
   const category = categoryQuery.data;

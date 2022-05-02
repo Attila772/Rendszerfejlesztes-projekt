@@ -53,12 +53,14 @@ export const deleteTool = async (id: string | number) => {
 };
 
 //get-by-id
-export const getToolById = async (id: string) => {
+export const getToolById = async (id: number) => {
   const requestOptions = {
-    method: "POST",
+    method: "GET",
     headers: { "Content-type": "application/json" },
-    body: JSON.stringify({ id: id }),
   };
-  const response = await fetch(`${SERVER_ADDRESS}/tool-by-id`, requestOptions);
+  const response = await fetch(
+    `${SERVER_ADDRESS}/itemid/${id}`,
+    requestOptions
+  );
   return response.json();
 };

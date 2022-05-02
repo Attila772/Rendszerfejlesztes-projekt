@@ -60,14 +60,13 @@ export const deleteCategory = async (id: string | number) => {
 };
 
 //get-by-id
-export const getCategoryById = async (id: string) => {
+export const getCategoryById = async (id: number) => {
   const requestOptions = {
-    method: "POST",
+    method: "GET",
     headers: { "Content-type": "application/json" },
-    body: JSON.stringify({ id: id }),
   };
   const response = await fetch(
-    `${SERVER_ADDRESS}/category-by-id`,
+    `${SERVER_ADDRESS}/categoryid/${id}`,
     requestOptions
   );
   return response.json();

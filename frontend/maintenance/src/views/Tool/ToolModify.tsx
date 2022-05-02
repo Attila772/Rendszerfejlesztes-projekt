@@ -23,7 +23,7 @@ const ToolModify = () => {
   const { setHeaderName } = useHeader();
 
   const toolQuery = useQuery(["getToolByIdQuery", id], async () => {
-    const { data } = await getToolById(id ? id : "");
+    const { data } = await getToolById(id ? parseInt(id) : 0);
     return data;
   });
   const tool = toolQuery.data;

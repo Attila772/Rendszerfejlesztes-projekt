@@ -77,7 +77,7 @@ const SideBar = ({ open, setOpen, width, removeToken, token }: Props) => {
             />
             {hasAuthority(
               (authenticatedUser as AuthenticatedUser)?.level,
-              "USER_GET"
+              "EMPLOYEE_GET"
             ) && (
               <SidebarItem
                 to={`/employee`}
@@ -193,13 +193,18 @@ const SideBar = ({ open, setOpen, width, removeToken, token }: Props) => {
                   width={width}
                 />
               )}
-            <SidebarItem
-              to={`/schedule`}
-              text={"Ütemtervek"}
-              icon={<History />}
-              activeMenuItem={["/schedule"]}
-              width={width}
-            />
+            {hasAuthority(
+              (authenticatedUser as AuthenticatedUser)?.level,
+              "SCHEDULE_GET"
+            ) && (
+              <SidebarItem
+                to={`/schedule`}
+                text={"Ütemtervek"}
+                icon={<History />}
+                activeMenuItem={["/schedule"]}
+                width={width}
+              />
+            )}
           </List>
         </Box>
         <Box style={{ marginBottom: 5 }}>

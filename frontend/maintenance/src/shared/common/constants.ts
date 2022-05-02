@@ -10,6 +10,15 @@ export const MAINTENANCE_INTERVALS = [
   "YEAR",
 ];
 
+export const ISSUE_STATES = [
+  "NEW",
+  "ASSIGNED",
+  "ACCEPTED",
+  "DECLINED",
+  "IN_PROGRESS",
+  "COMPLETED",
+];
+
 export const ROLES = ["1", "2", "3", "4"];
 
 const DEFAULT_COLORS = {

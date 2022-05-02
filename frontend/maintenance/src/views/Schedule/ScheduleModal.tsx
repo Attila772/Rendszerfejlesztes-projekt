@@ -6,7 +6,6 @@ import {
   DialogContent,
   DialogTitle,
   Grid,
-  MenuItem,
   TextField,
 } from "@material-ui/core";
 import { AddBox } from "@mui/icons-material";
@@ -15,8 +14,11 @@ import { useSnackbar } from "notistack";
 import { Dispatch, SetStateAction } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { Issue, Schedule, User } from "../../components/types";
+import { useQuery } from "react-query";
+import { Category, Issue, Schedule, User } from "../../components/types";
+import { getCategoryById } from "../../shared/network/category.api";
 import { createSchedule } from "../../shared/network/schedule.api";
+import { getToolById } from "../../shared/network/tool.api";
 import { ScheduleFormValues } from "../Issue/Issues";
 
 type Props = {
@@ -32,13 +34,31 @@ const ScheduleModal = ({ open, setOpen, users, schedule, issue }: Props) => {
   const { enqueueSnackbar } = useSnackbar();
   const { control, handleSubmit } = useForm<ScheduleFormValues>();
 
+  const categoryQuery = useQuery(
+    ["issueItemQueryForScheduleModal", issue],
+    async () => {
+      if (issue?.item) {
+        const data = await getToolById(issue?.item);
+        if ((data as any)?.Data?.category) {
+          const categoryData = await getCategoryById(
+            (data as any)?.Data?.category
+          );
+          return categoryData;
+        }
+      }
+      return undefined;
+    }
+  );
+  const category = (categoryQuery as any)?.data?.Data as Category;
+
   const createScheduleSubmit = async (values: ScheduleFormValues) => {
     try {
+      console.log(category);
       if (issue && values.user) {
         await createSchedule({
           user: values.user,
           from_date: new Date(),
-          length: 4,
+          length: parseInt(category?.normaTimeInHours?.toString()) ?? 0,
           state: "ASSIGNED",
           task: issue,
         });
@@ -50,6 +70,7 @@ const ScheduleModal = ({ open, setOpen, users, schedule, issue }: Props) => {
             variant: "success",
           }
         );
+        setOpen(false);
       }
     } catch {
       enqueueSnackbar(
@@ -80,7 +101,11 @@ const ScheduleModal = ({ open, setOpen, users, schedule, issue }: Props) => {
                     {...field}
                     onChange={(_, value) => field.onChange(value)}
                     getOptionLabel={(option: User) => option.email}
-                    options={users || []}
+                    options={
+                      users?.filter((user: User) => {
+                        return user.trade === category?.qualification;
+                      }) || []
+                    }
                     sx={{ width: "100%" }}
                     renderInput={(params: any) => (
                       <TextField

@@ -60,13 +60,13 @@ function App() {
               {/* EMPLOYEE */}
               {hasAuthority(
                 (token as AuthenticatedUser)?.level,
-                "USER_GET"
+                "EMPLOYEE_GET"
               ) && (
                 <Route path="/employee" element={<Employees token={token} />} />
               )}
               {hasAuthority(
                 (token as AuthenticatedUser)?.level,
-                "USER_ADMIN"
+                "EMPLOYEE_ADMIN"
               ) && (
                 <>
                   <Route path="/employee-modify" element={<EmployeeModify />} />
@@ -200,7 +200,12 @@ function App() {
                 </>
               )}
               {/* SCHEDULES */}
-              <Route path="/schedule" element={<Schedules token={token} />} />
+              {hasAuthority(
+                (token as AuthenticatedUser)?.level,
+                "SCHEDULE_GET"
+              ) && (
+                <Route path="/schedule" element={<Schedules token={token} />} />
+              )}
             </Routes>
           </Layout>
         </MuiPickersUtilsProvider>
