@@ -35,6 +35,11 @@ export const TRANSLATIONS_HU = {
       normaTimeInHours: "Norma idő",
       interval: "Intervallum",
       parentCategory: "'Szülő' kategória",
+      user: "Felhasználó neve",
+      from_date: "Feladat kezdése",
+      length: "Hossz",
+      state: "Állapot",
+      task: "Feladat",
     },
     button: {
       add: "Hozzáadás",
@@ -56,6 +61,7 @@ export const TRANSLATIONS_HU = {
         tool: "Eszköz módosítása",
         qualification: "Képesítés módosítása",
         category: "Kategória módosítása",
+        schedule: "Ütemterv módosítása",
       },
       deleteAction: {
         employee: "Dolgozó törlése",
@@ -64,6 +70,7 @@ export const TRANSLATIONS_HU = {
         tool: "Eszköz törlése",
         qualification: "Képesítés törlése",
         category: "Kategória törlése",
+        schedule: "Ütemterv törlése",
       },
     },
   },
@@ -82,6 +89,7 @@ export const TRANSLATIONS_HU = {
     log: "Logok",
     qualification: "Képesítések",
     priviligelevel: "Hozzáférési szintek",
+    schedule: "Ütemtervek",
   },
   schedule: {
     user: {
@@ -89,6 +97,9 @@ export const TRANSLATIONS_HU = {
       add: "Felhasználó hozzárendelése",
     },
     subject: "beosztás",
+    deleteSuccess: {
+      title: "Sikeres ütemterv törlés.",
+    },
   },
   employee: {
     formLabels: {
@@ -267,9 +278,6 @@ export const TRANSLATIONS_HU = {
       priority: "Prioritás",
       logs: "Logok",
       tool: "Eszköz",
-    },
-    actions: {
-      createTitle: "Feladat létrehozása",
     },
     createSuccess: {
       title: "Sikeres feladat létrehozás.",

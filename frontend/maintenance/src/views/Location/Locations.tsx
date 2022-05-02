@@ -23,6 +23,7 @@ type Props = {
 const Locations = ({ token }: Props) => {
   const { t } = useTranslation();
   const [page, setPage] = React.useState(0);
+  const [pageSize, setPageSize] = React.useState(10);
   const { setHeaderButtons } = useHeader();
   const { enqueueSnackbar } = useSnackbar();
   const [toggleRefetch, setToggleRefetch] = useState(false);
@@ -51,7 +52,7 @@ const Locations = ({ token }: Props) => {
     return () => {
       setHeaderButtons(null);
     };
-  }, []);
+  }, [isLocationAdmin]);
 
   const columnsAdmin: GridColDef[] = [
     {
@@ -138,6 +139,8 @@ const Locations = ({ token }: Props) => {
         columns={isLocationAdmin ? columnsAdmin : columns}
         page={page}
         setPage={setPage}
+        pageSize={pageSize}
+        setPageSize={setPageSize}
       />
     </Container>
   );

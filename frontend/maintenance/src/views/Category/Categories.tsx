@@ -1,10 +1,5 @@
 import { Box, Button, Container, IconButton, Tooltip } from "@material-ui/core";
-import {
-  BlockOutlined,
-  CheckCircleOutline,
-  Delete,
-  Edit,
-} from "@mui/icons-material";
+import { Delete, Edit } from "@mui/icons-material";
 import {
   GridColDef,
   GridRenderCellParams,
@@ -24,7 +19,6 @@ import {
   deleteCategory,
   listCategories,
 } from "../../shared/network/category.api";
-import useToken from "../../shared/network/login.api";
 
 type Props = {
   token?: any;
@@ -33,6 +27,7 @@ type Props = {
 const Categories = ({ token }: Props) => {
   const { t } = useTranslation();
   const [page, setPage] = React.useState(0);
+  const [pageSize, setPageSize] = React.useState(10);
   const { setHeaderButtons } = useHeader();
   const [toggleRefetch, setToggleRefetch] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
@@ -55,20 +50,19 @@ const Categories = ({ token }: Props) => {
     : [];
 
   useEffect(() => {
-    {
-      isCategoryAdmin &&
-        setHeaderButtons(
-          <Box display="flex" gridGap={12}>
-            <Button component={Link} to="/category-create">
-              {t("common.button.createAction.category")}
-            </Button>
-          </Box>
-        );
-    }
+    isCategoryAdmin &&
+      setHeaderButtons(
+        <Box display="flex" gridGap={12}>
+          <Button component={Link} to="/category-create">
+            {t("common.button.createAction.category")}
+          </Button>
+        </Box>
+      );
+
     return () => {
       setHeaderButtons(null);
     };
-  }, []);
+  }, [isCategoryAdmin]);
 
   const columnsAdmin: GridColDef[] = [
     {
@@ -237,6 +231,8 @@ const Categories = ({ token }: Props) => {
         columns={isCategoryAdmin ? columnsAdmin : columns}
         page={page}
         setPage={setPage}
+        pageSize={pageSize}
+        setPageSize={setPageSize}
       />
     </Container>
   );

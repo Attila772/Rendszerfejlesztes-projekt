@@ -1,20 +1,20 @@
+import DateFnsUtils from "@date-io/date-fns";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
-import React, { lazy, useEffect } from "react";
+import React, { lazy } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { HeaderProvider } from "./components/Layout/HeaderContext";
 import Layout from "./components/Layout/Layout";
-import useToken from "./shared/network/login.api";
-import DateFnsUtils from "@date-io/date-fns";
-import PriviligeLevelCreate from "./views/PriviligeLevels/PriviligeLevelCreate";
 import Login from "./components/Login/Login";
-import LocationModify from "./views/Location/LocationModify";
-import PriviligeLevelModify from "./views/PriviligeLevels/PriviligeLevelModify";
-import QualificationModify from "./views/Qualification/QualificationModify";
-import LogCreate from "./views/Log/LogCreate";
 import { hasAuthority } from "./shared/common/authorization";
 import { AuthenticatedUser } from "./shared/common/rolePermissions";
+import useToken from "./shared/network/login.api";
+import LocationModify from "./views/Location/LocationModify";
+import LogCreate from "./views/Log/LogCreate";
 import LogModify from "./views/Log/LogModify";
+import PriviligeLevelCreate from "./views/PriviligeLevels/PriviligeLevelCreate";
+import PriviligeLevelModify from "./views/PriviligeLevels/PriviligeLevelModify";
+import QualificationModify from "./views/Qualification/QualificationModify";
 
 const Dashboard = lazy(() => import("./views/Dashboard"));
 const Employees = lazy(() => import("./views/Employee/Employees"));
@@ -41,9 +41,10 @@ const LocationCreate = lazy(() => import("./views/Location/LocationCreate"));
 const PriviligeLevels = lazy(
   () => import("./views/PriviligeLevels/PriviligeLevels")
 );
+const Schedules = lazy(() => import("./views/Schedule/Schedules"));
 
 function App() {
-  const { token, setToken, removeToken, getToken } = useToken();
+  const { token, setToken, removeToken } = useToken();
 
   if (!token) {
     return <Login setToken={setToken} />;
@@ -198,6 +199,8 @@ function App() {
                   />
                 </>
               )}
+              {/* SCHEDULES */}
+              <Route path="/schedule" element={<Schedules token={token} />} />
             </Routes>
           </Layout>
         </MuiPickersUtilsProvider>

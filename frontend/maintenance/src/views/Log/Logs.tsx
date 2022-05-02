@@ -15,6 +15,7 @@ type Props = {
 
 const Logs = ({ token }: Props) => {
   const [page, setPage] = React.useState(0);
+  const [pageSize, setPageSize] = React.useState(10);
   const { setHeaderButtons } = useHeader();
   const isLogAdmin = hasAuthority(
     (token as AuthenticatedUser)?.level,
@@ -38,7 +39,7 @@ const Logs = ({ token }: Props) => {
     return () => {
       setHeaderButtons(null);
     };
-  }, []);
+  }, [isLogAdmin]);
 
   const columnsAdmin: GridColDef[] = [
     {
@@ -67,6 +68,8 @@ const Logs = ({ token }: Props) => {
         columns={isLogAdmin ? columnsAdmin : columns}
         page={page}
         setPage={setPage}
+        pageSize={pageSize}
+        setPageSize={setPageSize}
       />
     </Container>
   );

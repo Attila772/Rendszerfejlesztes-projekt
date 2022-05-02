@@ -1,5 +1,5 @@
 import { Box, Button, Container, IconButton, Tooltip } from "@material-ui/core";
-import { Assignment, Delete, Edit } from "@mui/icons-material";
+import { Delete, Edit } from "@mui/icons-material";
 import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { useSnackbar } from "notistack";
 import React, { useEffect, useState } from "react";
@@ -20,6 +20,7 @@ type Props = {
 const Employees = ({ token }: Props) => {
   const { t } = useTranslation();
   const [page, setPage] = useState(0);
+  const [pageSize, setPageSize] = React.useState(10);
   const { setHeaderButtons } = useHeader();
   const { enqueueSnackbar } = useSnackbar();
   const [toggleRefetch, setToggleRefetch] = useState(false);
@@ -37,18 +38,18 @@ const Employees = ({ token }: Props) => {
   );
 
   useEffect(() => {
-    // isEmployeeAdmin &&
-    setHeaderButtons(
-      <Box display="flex" gridGap={12}>
-        <Button component={Link} to="/employee-create">
-          {t("common.button.createAction.employee")}
-        </Button>
-      </Box>
-    );
+    isEmployeeAdmin &&
+      setHeaderButtons(
+        <Box display="flex" gridGap={12}>
+          <Button component={Link} to="/employee-create">
+            {t("common.button.createAction.employee")}
+          </Button>
+        </Box>
+      );
     return () => {
       setHeaderButtons(null);
     };
-  }, []);
+  }, [isEmployeeAdmin]);
 
   const columnsAdmin: GridColDef[] = [
     {
@@ -127,6 +128,8 @@ const Employees = ({ token }: Props) => {
       sortable: false,
       disableColumnMenu: true,
       flex: 1,
+      renderCell: ({ row }: GridRenderCellParams) =>
+        t(`common.role.${row.level}`),
     },
   ];
 
@@ -134,9 +137,11 @@ const Employees = ({ token }: Props) => {
     <Container maxWidth="sm">
       <SingleQueryTable
         query={employeeQuery}
-        columns={/*isEmployeeAdmin ? columnsAdmin : columns*/ columnsAdmin}
+        columns={isEmployeeAdmin ? columnsAdmin : columns}
         page={page}
         setPage={setPage}
+        pageSize={pageSize}
+        setPageSize={setPageSize}
       />
     </Container>
   );

@@ -23,6 +23,7 @@ type Props = {
 const PriviligeLevels = ({ token }: Props) => {
   const { t } = useTranslation();
   const [page, setPage] = React.useState(0);
+  const [pageSize, setPageSize] = React.useState(10);
   const { setHeaderButtons } = useHeader();
   const [toggleRefetch, setToggleRefetch] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
@@ -51,7 +52,7 @@ const PriviligeLevels = ({ token }: Props) => {
     return () => {
       setHeaderButtons(null);
     };
-  }, []);
+  }, [isRoleAdmin]);
 
   const columnsAdmin: GridColDef[] = [
     {
@@ -122,6 +123,8 @@ const PriviligeLevels = ({ token }: Props) => {
         columns={isRoleAdmin ? columnsAdmin : columns}
         page={page}
         setPage={setPage}
+        pageSize={pageSize}
+        setPageSize={setPageSize}
       />
     </Container>
   );

@@ -7,17 +7,16 @@ import {
   LocationOn,
   LockOpen,
   Star,
-  Sync,
 } from "@mui/icons-material";
-import HomeIcon from "@mui/icons-material/Home";
-import { Dispatch, SetStateAction } from "react";
-import { GRADIENT } from "../../../shared/common/constants";
-import SidebarItem from "./SidebarItem";
-import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import BuildIcon from "@mui/icons-material/Build";
+import HomeIcon from "@mui/icons-material/Home";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import { Dispatch, SetStateAction } from "react";
 import { hasAuthority } from "../../../shared/common/authorization";
+import { GRADIENT } from "../../../shared/common/constants";
 import { AuthenticatedUser } from "../../../shared/common/rolePermissions";
+import SidebarItem from "./SidebarItem";
 
 type Props = {
   open: boolean;
@@ -148,18 +147,19 @@ const SideBar = ({ open, setOpen, width, removeToken, token }: Props) => {
                 width={width}
               />
             )}
-            {hasAuthority(
-              (authenticatedUser as AuthenticatedUser)?.level,
-              "LOG_GET"
-            ) && (
-              <SidebarItem
-                to={`/log`}
-                text={"Logok"}
-                icon={<History />}
-                activeMenuItem={["/log", "/log-create", "/log-modify"]}
-                width={width}
-              />
-            )}
+            {false &&
+              hasAuthority(
+                (authenticatedUser as AuthenticatedUser)?.level,
+                "LOG_GET"
+              ) && (
+                <SidebarItem
+                  to={`/log`}
+                  text={"Logok"}
+                  icon={<History />}
+                  activeMenuItem={["/log", "/log-create", "/log-modify"]}
+                  width={width}
+                />
+              )}
             {hasAuthority(
               (authenticatedUser as AuthenticatedUser)?.level,
               "QUALIFICATION_GET"
@@ -176,22 +176,30 @@ const SideBar = ({ open, setOpen, width, removeToken, token }: Props) => {
                 width={width}
               />
             )}
-            {hasAuthority(
-              (authenticatedUser as AuthenticatedUser)?.level,
-              "ROLE_GET"
-            ) && (
-              <SidebarItem
-                to={`/privilige-level`}
-                text={"Szerepkörök"}
-                icon={<LockOpen />}
-                activeMenuItem={[
-                  "/privilige-level",
-                  "/privilige-level-create",
-                  "/privilige-level-modify",
-                ]}
-                width={width}
-              />
-            )}
+            {false &&
+              hasAuthority(
+                (authenticatedUser as AuthenticatedUser)?.level,
+                "ROLE_GET"
+              ) && (
+                <SidebarItem
+                  to={`/privilige-level`}
+                  text={"Szerepkörök"}
+                  icon={<LockOpen />}
+                  activeMenuItem={[
+                    "/privilige-level",
+                    "/privilige-level-create",
+                    "/privilige-level-modify",
+                  ]}
+                  width={width}
+                />
+              )}
+            <SidebarItem
+              to={`/schedule`}
+              text={"Ütemtervek"}
+              icon={<History />}
+              activeMenuItem={["/schedule"]}
+              width={width}
+            />
           </List>
         </Box>
         <Box style={{ marginBottom: 5 }}>
