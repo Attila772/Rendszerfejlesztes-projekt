@@ -222,54 +222,8 @@ def item_():
         return response
     pass
 
-@views.route('/task', methods=['GET','POST','PUT','DELETE'])
-def task_():
-    if request.method == 'POST':
-        task_name = request.get_json()['name']
-        task_priority = request.get_json()['priority']
-        task_item = request.get_json()['item']
-        new_task=task(name=task_name,
-                      priority=task_priority, 
-                      item=task_item)
-        db.session.add(new_task)
-        db.session.commit()
-        response = jsonify({'Data':'Sikeres'})
-        response.headers.add('Access-Control-Allow-Origin', '*')
-        return response
-    elif request.method == 'GET':
-        tasks = task.query.filter_by()
-        response_dict = {}
-        for _task in tasks:
-            response_dict[_task.id]={'id': _task.id,
-                                     'name': _task.name,
-                                     'priority': _task.priority,
-                                     'item': _task.item}
-        response =  jsonify({'Data': response_dict})
-        response.headers.add('Access-Control-Allow-Origin', '*')
-        return response
-    elif request.method == 'DELETE':
-        id = request.get_json()['id']
-        _task = task.query.filter_by(id = id).first()
-        db.session.delete(_task)
-        db.session.commit()
-        response = jsonify({'Data':'Sikeres'})
-        response.headers.add('Access-Control-Allow-Origin', '*')
-        return response
-    elif request.method == 'PUT':
-        id = request.get_json()['id']
-        task.query.filter_by(id = id).first().name=request.get_json()['name']
-        task.query.filter_by(id = id).first().descript=request.get_json()['priority']
-        task.query.filter_by(id = id).first().category=request.get_json()['item']
-        db.session.commit()
-        response = jsonify({'Data':'Sikeres'})
-        response.headers.add('Access-Control-Allow-Origin', '*')
-        return response
-    pass
-
-#basic functions for schedule model class
-   
-    @views.route('/schedule', methods=['GET','POST','PUT','DELETE'])
-    def schedule_():
+@views.route('/schedule', methods=['GET','POST','PUT','DELETE'])
+def schedule_():
         if request.method == 'POST':
             user_id = request.get_json()['user_id']
             from_date = request.get_json()['from_date']
@@ -318,6 +272,104 @@ def task_():
             response = jsonify({'Data':'Sikeres'})
             response.headers.add('Access-Control-Allow-Origin', '*')
             return response
+
+
+    # get Item by id
+@views.route('/itemid/<int:id>', methods=['GET'])
+def get_item(id):
+        _item = item.query.filter_by(id = id).first()
+        response_dict = {'id': _item.id,
+                        'name': _item.name,
+                        'descript': _item.descript,
+                        'category': _item.category,
+                        'location': _item.location}
+        response =  jsonify({'Data': response_dict})
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
+    
+    # get task by id
+@views.route('/taskid', methods=['GET'])
+def get_task(id):
+        _task = task.query.filter_by(id = id).first()
+        response_dict = {'id': _task.id,
+                        'name': _task.name,
+                        'priority': _task.priority,
+                        'item': _task.item}
+        response =  jsonify({'Data': response_dict})
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
+    
+    # get schedule by id
+@views.route('/scheduleid/<int:id>', methods=['GET'])
+def get_schedule(id):
+        _schedule = schedule.query.filter_by(id = id).first()
+        response_dict = {'id': _schedule.id,
+                        'user_id': _schedule.user_id,
+                        'from_date': _schedule.from_date,
+                        'length': _schedule.length,
+                        'state': _schedule.state,
+                        'task_id': _schedule.task_id}
+        response =  jsonify({'Data': response_dict})
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
+    
+    # get category by id
+@views.route('/categoryid/<int:id>', methods=['GET'])
+def get_category(id):
+        _category = category.query.filter_by(id = id).first()
+        response_dict = {'id': _category.id,
+                        'name': _category.name,
+                        'interval': _category.interval,
+                        'qualification': _category.qualifications,
+                        'parent_id': _category.parent_id,
+                        'descript': _category.descript}
+        response =  jsonify({'Data': response_dict})
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
+    
+@views.route('/task', methods=['GET','POST','PUT','DELETE'])
+def task_():
+    if request.method == 'POST':
+        task_name = request.get_json()['name']
+        task_priority = request.get_json()['priority']
+        task_item = request.get_json()['item']
+        new_task=task(name=task_name,
+                      priority=task_priority, 
+                      item=task_item)
+        db.session.add(new_task)
+        db.session.commit()
+        response = jsonify({'Data':'Sikeres'})
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
+    elif request.method == 'GET':
+        tasks = task.query.filter_by()
+        response_dict = {}
+        for _task in tasks:
+            response_dict[_task.id]={'id': _task.id,
+                                     'name': _task.name,
+                                     'priority': _task.priority,
+                                     'item': _task.item}
+        response =  jsonify({'Data': response_dict})
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
+    elif request.method == 'DELETE':
+        id = request.get_json()['id']
+        _task = task.query.filter_by(id = id).first()
+        db.session.delete(_task)
+        db.session.commit()
+        response = jsonify({'Data':'Sikeres'})
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
+    elif request.method == 'PUT':
+        id = request.get_json()['id']
+        task.query.filter_by(id = id).first().name=request.get_json()['name']
+        task.query.filter_by(id = id).first().descript=request.get_json()['priority']
+        task.query.filter_by(id = id).first().category=request.get_json()['item']
+        db.session.commit()
+        response = jsonify({'Data':'Sikeres'})
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
     pass
 
-    
+#basic functions for schedule model class
+   
