@@ -23,6 +23,7 @@ type Props = {
 const Qualifications = ({ token }: Props) => {
   const { t } = useTranslation();
   const [page, setPage] = React.useState(0);
+  const [pageSize, setPageSize] = React.useState(10);
   const { setHeaderButtons } = useHeader();
   const [toggleRefetch, setToggleRefetch] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
@@ -125,6 +126,8 @@ const Qualifications = ({ token }: Props) => {
         columns={isQualificationAdmin ? columnsAdmin : columns}
         page={page}
         setPage={setPage}
+        pageSize={pageSize}
+        setPageSize={setPageSize}
       />
     </Container>
   );

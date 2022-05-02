@@ -20,6 +20,7 @@ type Props = {
 const Employees = ({ token }: Props) => {
   const { t } = useTranslation();
   const [page, setPage] = useState(0);
+  const [pageSize, setPageSize] = React.useState(10);
   const { setHeaderButtons } = useHeader();
   const { enqueueSnackbar } = useSnackbar();
   const [toggleRefetch, setToggleRefetch] = useState(false);
@@ -137,6 +138,8 @@ const Employees = ({ token }: Props) => {
         columns={/*isEmployeeAdmin ? columnsAdmin : columns*/ columnsAdmin}
         page={page}
         setPage={setPage}
+        pageSize={pageSize}
+        setPageSize={setPageSize}
       />
     </Container>
   );

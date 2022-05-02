@@ -41,6 +41,7 @@ const LocationCreate = lazy(() => import("./views/Location/LocationCreate"));
 const PriviligeLevels = lazy(
   () => import("./views/PriviligeLevels/PriviligeLevels")
 );
+const Schedules = lazy(() => import("./views/Schedule/Schedules"));
 
 function App() {
   const { token, setToken, removeToken, getToken } = useToken();
@@ -198,6 +199,8 @@ function App() {
                   />
                 </>
               )}
+              {/* SCHEDULES */}
+              <Route path="/schedule" element={<Schedules token={token} />} />
             </Routes>
           </Layout>
         </MuiPickersUtilsProvider>

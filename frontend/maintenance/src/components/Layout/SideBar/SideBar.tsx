@@ -192,6 +192,15 @@ const SideBar = ({ open, setOpen, width, removeToken, token }: Props) => {
                 width={width}
               />
             )}
+            <SidebarItem
+              to={`/schedule`}
+              text={"Ütemtervek"}
+              icon={<History />}
+              activeMenuItem={[
+                "/schedule"
+              ]}
+              width={width}
+            />
           </List>
         </Box>
         <Box style={{ marginBottom: 5 }}>
