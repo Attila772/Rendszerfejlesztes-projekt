@@ -58,7 +58,7 @@ const ScheduleModal = ({ open, setOpen, users, schedule, issue }: Props) => {
         await createSchedule({
           user: values.user,
           from_date: new Date(),
-          length: parseInt(category?.normaTimeInHours?.toString()) ?? 0,
+          length: parseInt((category as any)?.normal_time?.toString()) ?? 0,
           state: "ASSIGNED",
           task: issue,
         });

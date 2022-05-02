@@ -191,7 +191,7 @@ const Schedules = ({ token }: Props) => {
           : "-",
     },
     {
-      field: "length",
+      field: "normal_time",
       headerName: t("common.table.length"),
       sortable: false,
       disableColumnMenu: true,

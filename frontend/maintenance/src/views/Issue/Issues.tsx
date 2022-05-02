@@ -150,7 +150,7 @@ const Issues = ({ token }: Props) => {
           {hasAuthority((token as AuthenticatedUser)?.level, "ISSUE_ADMIN") && (
             <Tooltip title={t("common.button.deleteAction.issue").toString()}>
               <IconButton
-                disabled={row?.priority !== 1}
+                // disabled={row?.priority !== 1}
                 onClick={() => {
                   deleteIssue(row.id);
                   enqueueSnackbar(t("issue.deleteSuccess.title"), {
@@ -164,8 +164,8 @@ const Issues = ({ token }: Props) => {
               >
                 <Delete
                   style={{
-                    color:
-                      row?.priority !== 1 ? COLORS.lightGrey : COLORS.mainLight,
+                    color: COLORS.mainLight,
+                    //row?.priority !== 1 ? COLORS.lightGrey : COLORS.mainLight,
                   }}
                 />
               </IconButton>
