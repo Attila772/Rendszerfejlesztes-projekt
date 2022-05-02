@@ -321,6 +321,7 @@ def get_category(id):
                         'name': _category.name,
                         'interval': _category.interval,
                         'qualification': _category.qualifications,
+                        'normal_time': _category.norma_time,
                         'parent_id': _category.parent_id,
                         'descript': _category.descript}
         response =  jsonify({'Data': response_dict})
