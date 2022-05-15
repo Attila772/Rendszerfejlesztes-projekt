@@ -32,6 +32,7 @@ class item(db.Model):
     category = db.Column(db.Integer, db.ForeignKey('category.id'))
     descript = db.Column(db.String(150))
     location = db.Column(db.Integer, db.ForeignKey('location.id'))
+    last_maintenance = db.Column(db.Date)
 
 
 class location(db.Model):

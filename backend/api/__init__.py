@@ -1,14 +1,16 @@
 from sched import scheduler
+from unicodedata import category
 from flask import Flask
 from flask_login.utils import login_required
-from flask_sqlalchemy import SQLAlchemy
-from os import path
+from flask_sqlalchemy import SQLAlchemy 
+from os import path, system
 from flask_login import LoginManager, login_manager
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from flask_cors import CORS
 from flask_apscheduler import APScheduler
 import threading
+from datetime import date
 
 
 db = SQLAlchemy()
@@ -64,7 +66,7 @@ def create_app():
     admin.add_view(ModelView(schedule, db.session))
     admin.add_view(ModelView(level, db.session))
     
-    app.apscheduler.add_job(func = Generate_stuff,trigger='interval',seconds = 30, id='task_creator')
+    app.apscheduler.add_job(func = Generate_stuff,trigger='interval',seconds = 10, id='task_creator')
     return app
 
 
@@ -76,7 +78,8 @@ def create_db(app):
 
 def Generate_stuff():
     with db.app.app_context():
-        from .model import item,task
+        from datetime import date
+        from .model import item,task,category
         _tasks = task.query.filter_by()
         _items = item.query.filter_by()
         for _item in _items:
@@ -84,7 +87,7 @@ def Generate_stuff():
             for _task in _tasks:
                 if _task.item == _item.id:
                     has_task=True
-            if  not has_task:
+            if  not has_task and (date.today() - _item.last_maintenance).days > category.query.filter_by(id=_item.category).first().interval:
                 task_name = "Auto_generated"
                 task_priority = 0
                 task_item = _item.id
