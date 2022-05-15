@@ -1,3 +1,4 @@
+from enum import auto
 from multiprocessing.sharedctypes import Value
 from re import fullmatch
 from unicodedata import name
@@ -7,8 +8,8 @@ from sqlalchemy import false, true
 from .model import User,level,trade,location,category,item,task,schedule,log
 from flask import Blueprint, jsonify, render_template, request, flash, redirect, url_for
 from . import db
-from flask_login import login_user, login_required, logout_user, current_user
-
+from flask_login import login_user, login_required, logout_user
+from datetime import date
 
 views = Blueprint('views', __name__)
 
@@ -222,13 +223,15 @@ def item_():
         response.headers.add('Access-Control-Allow-Origin', '*')
         return response
     pass
-
+@login_required
 @views.route('/task', methods=['GET','POST','PUT','DELETE'])
 def task_():
     if request.method == 'POST':
         task_name = request.get_json()['name']
         task_priority = request.get_json()['priority']
         task_item = request.get_json()['item']
+        current_user = User.query.filter_by(id=int(request.get_json()["user_id"])).first()   
+        auto_generate_log(data="Added new task: "+task_name,current_user_var = current_user)
         new_task=task(name=task_name,
                       priority=task_priority, 
                       item=task_item)
@@ -258,6 +261,8 @@ def task_():
     elif request.method == 'DELETE':
         id = request.get_json()['id']
         _task = task.query.filter_by(id = id).first()
+        current_user = User.query.filter_by(id=int(request.get_json()["user_id"])).first()  
+        auto_generate_log(data="Deleted task: "+_task.name,current_user_var = current_user)
         db.session.delete(_task)
         db.session.commit()
         response = jsonify({'Data':'Sikeres'})
@@ -265,6 +270,8 @@ def task_():
         return response
     elif request.method == 'PUT':
         id = request.get_json()['id']
+        current_user = User.query.filter_by(id=int(request.get_json()["user_id"])).first()  
+        auto_generate_log(data="Edited task: "+task.query.filter_by(id = id).first().name,current_user_var = current_user)
         task.query.filter_by(id = id).first().name=request.get_json()['name']
         task.query.filter_by(id = id).first().descript=request.get_json()['priority']
         task.query.filter_by(id = id).first().category=request.get_json()['item']
@@ -275,6 +282,7 @@ def task_():
     pass
 
 #basic functions for schedule model class
+@login_required
 @views.route('/schedule', methods=['GET','POST','PUT','DELETE'])
 def schedule_():
         if request.method == 'POST':
@@ -288,6 +296,8 @@ def schedule_():
                         length=length,
                         state= state,
                         task=task_id)
+            current_user = User.query.filter_by(id=int(request.get_json()["user_id"])).first()  
+            auto_generate_log(data="Added to schedule task: "+task.query.filter_by(id = task_id).first().name,current_user_var = current_user)
             db.session.add(new_schedule)
             db.session.commit()
             response = jsonify({'Data':'Sikeres'})
@@ -309,13 +319,23 @@ def schedule_():
         elif request.method == 'DELETE':
             id = request.get_json()['id']
             _item = schedule.query.filter_by(id = id).first()
+            _task = task.query.filter_by(id=_item.task).first()
+            
+            _tool = item.query.filter_by(id=_task.item).first()
+            _tool.last_maintenance = date.today()
+            db.session.commit()
+            current_user = User.query.filter_by(id=int(request.get_json()["user_id"])).first()  
+            auto_generate_log(data="Task completed: "+task.query.filter_by(id = _item.task).first().name,current_user_var = current_user)
             db.session.delete(_item)
+            db.session.delete(_task)
             db.session.commit()
             response = jsonify({'Data':'Sikeres'})
             response.headers.add('Access-Control-Allow-Origin', '*')
             return response
         elif request.method == 'PUT':
             id = request.get_json()['id']
+            current_user = User.query.filter_by(id=int(request.get_json()["user_id"])).first()  
+            auto_generate_log(data="Scheduled task state changed: "+schedule.query.filter_by(id = id).first().name,current_user_var = current_user)
             schedule.query.filter_by(id = id).first().name=request.get_json()['user_id']
             schedule.query.filter_by(id = id).first().descript=request.get_json()['from_date']
             schedule.query.filter_by(id = id).first().category=request.get_json()['length']
@@ -353,6 +373,7 @@ def get_task(id):
         return response
     
     # get schedule by id
+@login_required
 @views.route('/scheduleid/<int:id>', methods=['GET'])
 def get_schedule(id):
         _schedule = schedule.query.filter_by(id = id).first()
@@ -381,7 +402,87 @@ def get_category(id):
         response.headers.add('Access-Control-Allow-Origin', '*')
         return response
     
-
+    
+# basic functions for log model class
+@views.route('/log', methods=['GET','POST','PUT','DELETE'])
+def log_():
+        if request.method == 'POST':
+            current_user = User.query.filter_by(id=int(request.get_json()["user_id"])).first()  
+            user_id = current_user.id
+            data = request.get_json()['data']
+            _date = date.today()
+            new_log=log(
+                        user_id=user_id,
+                        data=data, 
+                       )
+            db.session.add(new_log)
+            db.session.commit()
+            response = jsonify({'Data':'Sikeres'})
+            response.headers.add('Access-Control-Allow-Origin', '*')
+            return response
+        elif request.method == 'GET':
+            logs = log.query.filter_by()
+            response_dict = {}
+            for _item in logs:
+                response_dict[_item.id]={'id': _item.id,
+                                        'data': _item.data,
+                                        'date': _item.date,
+                                        'user_id': _item.user_id
+                                        }
+            response =  jsonify({'Data': response_dict})
+            response.headers.add('Access-Control-Allow-Origin', '*')
+            return response
+        elif request.method == 'DELETE':
+            id = request.get_json()['id']
+            _item = log.query.filter_by(id = id).first()
+            db.session.delete(_item)
+            db.session.commit()
+            response = jsonify({'Data':'Sikeres'})
+            response.headers.add('Access-Control-Allow-Origin', '*')
+            return response
+ 
+ # Delete schedule by id
+@login_required
+@views.route('/delschedule/<int:id>', methods=['DELETE'])
+def delete_schedule(id):
+        current_user = User.query.filter_by(id=int(request.get_json()["user_id"])).first()  
+        auto_generate_log(data="Scheduled deleted: "+schedule.query.filter_by(id = id).first().name,current_user_var = current_user)
+        _schedule = schedule.query.filter_by(id = id)
+        db.session.delete(_schedule)
+        db.session.commit()
+        response = jsonify({'Data':'Sikeres'})
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
+ 
+def auto_generate_log(data,current_user_var):
+    with db.app.app_context():
+        new_log = log( 
+                        user_id=current_user_var.id,
+                        data=data
+                       )
+        db.session.add(new_log)
+        db.session.commit() 
+     
+## route to get the schedule of the user
+@login_required
+@views.route('/getschedule/<int:id>', methods=['GET'])
+def get_schedule(id):
+        current_user = User.query.filter_by(id=int(request.get_json()["user_id"])).first()  
+        _schedule = current_user.schedule
+        response_dict = {}
+        counter = 0
+        for item in _schedule:
+            temp_dict = {'id': item.id,
+                        'user_id': item.user_id,
+                        'from_date': item.from_date,
+                        'length': item.length,
+                        'state': item.state,
+                        'task_id': item.task_id}
+            response_dict[str(counter)] = temp_dict
+            counter+=1
+        response =  jsonify({'Data': response_dict})
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
 
 #basic functions for schedule model class
    
