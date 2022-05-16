@@ -16,6 +16,7 @@ import PriviligeLevelCreate from "./views/PriviligeLevels/PriviligeLevelCreate";
 import PriviligeLevelModify from "./views/PriviligeLevels/PriviligeLevelModify";
 import QualificationModify from "./views/Qualification/QualificationModify";
 import ScheduleDetails from "./views/Schedule/ScheduleDetails";
+import ToolDetails from "./views/Tool/ToolDetails";
 
 const Dashboard = lazy(() => import("./views/Dashboard"));
 const Employees = lazy(() => import("./views/Employee/Employees"));
@@ -92,7 +93,12 @@ function App() {
               {hasAuthority(
                 (token as AuthenticatedUser)?.level,
                 "TOOL_GET"
-              ) && <Route path="/tool" element={<Tools token={token} />} />}
+              ) && (
+                <>
+                  <Route path="/tool" element={<Tools token={token} />} />
+                  <Route path="/toolDetails" element={<ToolDetails />} />
+                </>
+              )}
               {hasAuthority(
                 (token as AuthenticatedUser)?.level,
                 "TOOL_ADMIN"
