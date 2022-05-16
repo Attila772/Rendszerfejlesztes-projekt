@@ -382,7 +382,21 @@ def get_schedule(id):
                         'from_date': _schedule.from_date,
                         'length': _schedule.length,
                         'state': _schedule.state,
-                        'task_id': _schedule.task_id}
+                        'task_id': _schedule.task}
+        response =  jsonify({'Data': response_dict})
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
+
+# User get by id
+@views.route('/userid/<int:id>', methods=['GET'])
+def get_user_by_id():
+        _user = User.query.filter_by(id = id).first()
+        response_dict = {'id': _user.id,
+                        'name': _user.name,
+                        'email': _user.email,
+                        'trade': _user.trade,
+                        'level': _user.level,
+                        'admin': _user.admin}
         response =  jsonify({'Data': response_dict})
         response.headers.add('Access-Control-Allow-Origin', '*')
         return response

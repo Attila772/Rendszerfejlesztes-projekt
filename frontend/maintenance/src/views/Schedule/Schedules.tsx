@@ -241,17 +241,6 @@ const Schedules = ({ token }: Props) => {
                 </Tooltip>
               </>
             )}
-          <Tooltip title={t("common.button.modifyAction.schedule").toString()}>
-            <IconButton
-              component={Link}
-              to={`/schedule-modify?id=${row.id}`}
-              size="small"
-              color="primary"
-              style={{ margin: "0 8px" }}
-            >
-              <Edit style={{ color: COLORS.mainLight }} />
-            </IconButton>
-          </Tooltip>
           <Tooltip title={t("common.button.detailsAction.schedule").toString()}>
             <IconButton
               component={Link}
