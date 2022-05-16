@@ -335,7 +335,7 @@ def schedule_():
         elif request.method == 'PUT':
             id = request.get_json()['id']
             current_user = User.query.filter_by(id=int(request.get_json()["user_id"])).first()  
-            auto_generate_log(data="Scheduled task state changed: "+schedule.query.filter_by(id = id).first().task_id,current_user_var = current_user)
+            auto_generate_log(data="Scheduled task state changed: "+schedule.query.filter_by(id = id).first().task,current_user_var = current_user)
             schedule.query.filter_by(id = id).first().user_id=request.get_json()['user_id']
             schedule.query.filter_by(id = id).first().from_date=request.get_json()['from_date']
             schedule.query.filter_by(id = id).first().length=request.get_json()['length']
@@ -446,7 +446,7 @@ def log_():
 @views.route('/delschedule/<int:id>', methods=['DELETE'])
 def delete_schedule(id):
         current_user = User.query.filter_by(id=int(request.get_json()["user_id"])).first()  
-        auto_generate_log(data="Scheduled deleted: "+schedule.query.filter_by(id = id).first().name,current_user_var = current_user)
+        auto_generate_log(data="Scheduled deleted: "+schedule.query.filter_by(id = id).first().task,current_user_var = current_user)
         _schedule = schedule.query.filter_by(id = id)
         db.session.delete(_schedule)
         db.session.commit()
@@ -477,7 +477,7 @@ def get_user_schedule(id):
                         'from_date': item.from_date,
                         'length': item.length,
                         'state': item.state,
-                        'task_id': item.task_id}
+                        'task_id': item.task}
             response_dict[str(counter)] = temp_dict
             counter+=1
         response =  jsonify({'Data': response_dict})
