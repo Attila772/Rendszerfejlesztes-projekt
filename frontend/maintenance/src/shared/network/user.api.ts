@@ -65,6 +65,6 @@ export const getEmployeeById = async (id: string) => {
     headers: { "Content-type": "application/json" },
     body: JSON.stringify({ id: id }),
   };
-  const response = await fetch(`${SERVER_ADDRESS}/user-by-id`, requestOptions);
+  const response = await fetch(`${SERVER_ADDRESS}/userid/${id}`, requestOptions);
   return response.json();
 };

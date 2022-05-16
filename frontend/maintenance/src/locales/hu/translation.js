@@ -240,6 +240,7 @@ export const TRANSLATIONS_HU = {
     },
     actions: {
       createTitle: "Eszköz létrehozása",
+      detailsTitle: "Eszköz részletei",
     },
     createSuccess: {
       title: "Sikeres eszköz létrehozás.",
