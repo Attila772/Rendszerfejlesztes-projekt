@@ -386,6 +386,20 @@ def get_schedule(id):
         response =  jsonify({'Data': response_dict})
         response.headers.add('Access-Control-Allow-Origin', '*')
         return response
+
+# User get by id
+@views.route('/userid/<int:id>', methods=['GET'])
+def get_user_by_id():
+        _user = User.query.filter_by(id = id).first()
+        response_dict = {'id': _user.id,
+                        'name': _user.name,
+                        'email': _user.email,
+                        'trade': _user.trade,
+                        'level': _user.level,
+                        'admin': _user.admin}
+        response =  jsonify({'Data': response_dict})
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
     
     # get category by id
 @views.route('/categoryid/<int:id>', methods=['GET'])
