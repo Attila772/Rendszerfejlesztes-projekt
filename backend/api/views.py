@@ -335,7 +335,7 @@ def schedule_():
         elif request.method == 'PUT':
             id = request.get_json()['id']
             current_user = User.query.filter_by(id=int(request.get_json()["user_id"])).first()  
-            auto_generate_log(data="Scheduled task state changed: "+schedule.query.filter_by(id = id).first().task,current_user_var = current_user)
+            auto_generate_log(data="Scheduled task state changed: "+str(schedule.query.filter_by(id = id).first().task),current_user_var = current_user)
             schedule.query.filter_by(id = id).first().user_id=request.get_json()['user_id']
             schedule.query.filter_by(id = id).first().from_date=request.get_json()['from_date']
             schedule.query.filter_by(id = id).first().length=request.get_json()['length']
