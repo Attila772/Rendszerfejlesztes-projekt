@@ -336,11 +336,11 @@ def schedule_():
             id = request.get_json()['id']
             current_user = User.query.filter_by(id=int(request.get_json()["user_id"])).first()  
             auto_generate_log(data="Scheduled task state changed: "+schedule.query.filter_by(id = id).first().name,current_user_var = current_user)
-            schedule.query.filter_by(id = id).first().name=request.get_json()['user_id']
-            schedule.query.filter_by(id = id).first().descript=request.get_json()['from_date']
-            schedule.query.filter_by(id = id).first().category=request.get_json()['length']
-            schedule.query.filter_by(id = id).first().location=request.get_json()['state']
-            schedule.query.filter_by(id = id).first().location=request.get_json()['task_id']
+            schedule.query.filter_by(id = id).first().user_id=request.get_json()['user_id']
+            schedule.query.filter_by(id = id).first().from_date=request.get_json()['from_date']
+            schedule.query.filter_by(id = id).first().length=request.get_json()['length']
+            schedule.query.filter_by(id = id).first().state=request.get_json()['state']
+            schedule.query.filter_by(id = id).first().task_id=request.get_json()['task_id']
             db.session.commit()
             response = jsonify({'Data':'Sikeres'})
             response.headers.add('Access-Control-Allow-Origin', '*')
