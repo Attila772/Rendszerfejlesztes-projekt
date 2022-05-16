@@ -16,6 +16,7 @@ import { Dispatch, SetStateAction } from "react";
 import { hasAuthority } from "../../../shared/common/authorization";
 import { GRADIENT } from "../../../shared/common/constants";
 import { AuthenticatedUser } from "../../../shared/common/rolePermissions";
+import { User } from "../../types";
 import SidebarItem from "./SidebarItem";
 
 type Props = {
@@ -198,10 +199,20 @@ const SideBar = ({ open, setOpen, width, removeToken, token }: Props) => {
               "SCHEDULE_GET"
             ) && (
               <SidebarItem
-                to={`/schedule`}
-                text={"Ütemtervek"}
+                to={
+                  (token as User)?.level?.toString() === "2" ||
+                  (token as User)?.level?.toString() === "4"
+                    ? `/schedule`
+                    : "/mySchedule"
+                }
+                text={
+                  (token as User)?.level?.toString() === "2" ||
+                  (token as User)?.level?.toString() === "4"
+                    ? `Ütemtervek`
+                    : "Beosztásom"
+                }
                 icon={<History />}
-                activeMenuItem={["/schedule"]}
+                activeMenuItem={["/schedule", "/my-schedule"]}
                 width={width}
               />
             )}

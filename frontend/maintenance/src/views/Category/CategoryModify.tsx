@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { useQuery } from "react-query";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useHeader } from "../../components/Layout/HeaderContext";
-import { SliceStatus } from "../../components/types";
+import { Category, SliceStatus } from "../../components/types";
 import {
   getCategoryById,
   listCategories,
@@ -28,13 +28,21 @@ const CategoryModify = () => {
   const { setHeaderName } = useHeader();
 
   const categoryQuery = useQuery(["getCategoryByIdQuery", id], async () => {
-    const { data } = await getCategoryById(id ? parseInt(id) : 0);
+    const data = await getCategoryById(id ? parseInt(id) : 0);
     return data;
   });
-  const category = categoryQuery.data;
+  const category = {
+    id: categoryQuery.data?.Data?.id,
+    name: categoryQuery.data?.Data?.name,
+    normaTimeInHours: categoryQuery.data?.Data?.normal_time,
+    intervalInDays: categoryQuery.data?.Data?.interval,
+    description: categoryQuery.data?.Data?.descript,
+    parentCategory: categoryQuery.data?.Data?.parent_id,
+    qualification: categoryQuery.data?.Data?.qualification,
+  } as Category;
 
   const categoryQueryList = useQuery(["categoriesForToolForm"], async () => {
-    const { data } = await listCategories();
+    const data = await listCategories();
     return data;
   });
   const categories = categoryQueryList.data?.Data
@@ -46,7 +54,7 @@ const CategoryModify = () => {
   const qualificationQuery = useQuery(
     ["qualificationsForToolForm"],
     async () => {
-      const { data } = await listQualifications();
+      const data = await listQualifications();
       return data;
     }
   );
@@ -82,6 +90,23 @@ const CategoryModify = () => {
       setHeaderName(null);
     };
   }, []);
+
+  useEffect(() => {
+    if (category) {
+      form.setValue(
+        "qualification",
+        qualifications.find((qua) => qua.id === category.qualification)
+      );
+      form.setValue("name", category.name);
+      form.setValue("normaTimeInHours", category.normaTimeInHours);
+      form.setValue("intervalInDays", category.intervalInDays);
+      form.setValue(
+        "parentCategory",
+        categories.find((categ) => categ.id === category.parentCategory)
+      );
+      form.setValue("description", category.description);
+    }
+  }, [category]);
 
   return (
     <Container maxWidth="xs">

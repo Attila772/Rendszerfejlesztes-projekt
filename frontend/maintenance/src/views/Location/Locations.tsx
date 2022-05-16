@@ -81,17 +81,6 @@ const Locations = ({ token }: Props) => {
       flex: 1,
       renderCell: ({ row }: GridRenderCellParams) => (
         <Box display="flex" justifyContent="flex-end" width="100%">
-          <Tooltip title={t("common.button.modifyAction.location").toString()}>
-            <IconButton
-              component={Link}
-              to={`/location-modify?id=${row.id}`}
-              size="small"
-              color="primary"
-              style={{ margin: "0 8px" }}
-            >
-              <Edit style={{ color: COLORS.mainLight }} />
-            </IconButton>
-          </Tooltip>
           <Tooltip title={t("common.button.deleteAction.location").toString()}>
             <IconButton
               onClick={() => {

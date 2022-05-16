@@ -9,11 +9,11 @@ export const TRANSLATIONS_HU = {
   common: {
     select: { choose: "Kérem válasszon" },
     interval: {
-      WEEK: "Heti",
-      MONTH: "Havi",
-      QUARTER_YEAR: "Negyedéves",
-      HALF_YEAR: "Féléves",
-      YEAR: "Éves",
+      7: "Heti",
+      30: "Havi",
+      90: "Negyedéves",
+      180: "Féléves",
+      365: "Éves",
     },
     issueStates: {
       NEW: "Új",
@@ -45,7 +45,7 @@ export const TRANSLATIONS_HU = {
       parentCategory: "'Szülő' kategória",
       user: "Felhasználó neve",
       from_date: "Módosítva",
-      length: "Hossz",
+      length: "Időtartam",
       state: "Állapot",
       task: "Feladat",
     },
@@ -54,6 +54,18 @@ export const TRANSLATIONS_HU = {
       create: "Létrehozás",
       modify: "Módosítás",
       cancel: "Mégse",
+      acceptAction: {
+        schedule: "Karbantartás elfogadása",
+      },
+      declineAction: {
+        schedule: "Karbantartás elutasítása",
+      },
+      startAction: {
+        schedule: "Karbantartás megkezdése",
+      },
+      finishAction: {
+        schedule: "Karbantartás befejezése",
+      },
       createAction: {
         employee: "Dolgozó hozzáadása",
         location: "Helyszín hozzáadása",
@@ -82,6 +94,9 @@ export const TRANSLATIONS_HU = {
         schedule: "Ütemterv törlése",
         issue: "Feladat törlése",
       },
+      detailsAction: {
+        schedule: "Karbantartás részletei",
+      },
     },
   },
   validation: {
@@ -100,8 +115,12 @@ export const TRANSLATIONS_HU = {
     qualification: "Képesítések",
     priviligelevel: "Hozzáférési szintek",
     schedule: "Ütemtervek",
+    mySchedule: "Beosztásom",
   },
   schedule: {
+    actions: {
+      detailsTitle: "Karbantartás részletei",
+    },
     user: {
       title: "Felhasználó",
       add: "Felhasználó hozzárendelése",
@@ -109,6 +128,18 @@ export const TRANSLATIONS_HU = {
     subject: "beosztás",
     deleteSuccess: {
       title: "Sikeres ütemterv törlés.",
+    },
+    acceptSuccess: {
+      title: "Sikeres elfogadás.",
+    },
+    acceptFailure: {
+      title: "Sikertelen elfogadás.",
+    },
+    declineSuccess: {
+      title: "Sikeres elutasítás.",
+    },
+    declineFailure: {
+      title: "Sikertelen elutasítás.",
     },
   },
   employee: {

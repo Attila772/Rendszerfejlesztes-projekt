@@ -72,19 +72,6 @@ const Qualifications = ({ token }: Props) => {
       renderCell: ({ row }: GridRenderCellParams) => (
         <Box display="flex" justifyContent="flex-end" width="100%">
           <Tooltip
-            title={t("common.button.modifyAction.qualification").toString()}
-          >
-            <IconButton
-              component={Link}
-              to={`/qualification-modify?id=${row.id}`}
-              size="small"
-              color="primary"
-              style={{ margin: "0 8px" }}
-            >
-              <Edit style={{ color: COLORS.mainLight }} />
-            </IconButton>
-          </Tooltip>
-          <Tooltip
             title={t("common.button.deleteAction.qualification").toString()}
           >
             <IconButton

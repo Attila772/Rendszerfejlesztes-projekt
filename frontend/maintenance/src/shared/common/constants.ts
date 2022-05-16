@@ -2,13 +2,7 @@ import { createTheme } from "@material-ui/core";
 
 export const SERVER_ADDRESS = "http://127.0.0.1:5000";
 
-export const MAINTENANCE_INTERVALS = [
-  "WEEK",
-  "MONTH",
-  "QUARTER_YEAR",
-  "HALF_YEAR",
-  "YEAR",
-];
+export const MAINTENANCE_INTERVALS = [7, 30, 90, 180, 365];
 
 export const ISSUE_STATES = [
   "NEW",

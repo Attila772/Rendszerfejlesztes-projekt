@@ -15,6 +15,7 @@ import LogModify from "./views/Log/LogModify";
 import PriviligeLevelCreate from "./views/PriviligeLevels/PriviligeLevelCreate";
 import PriviligeLevelModify from "./views/PriviligeLevels/PriviligeLevelModify";
 import QualificationModify from "./views/Qualification/QualificationModify";
+import ScheduleDetails from "./views/Schedule/ScheduleDetails";
 
 const Dashboard = lazy(() => import("./views/Dashboard"));
 const Employees = lazy(() => import("./views/Employee/Employees"));
@@ -204,7 +205,20 @@ function App() {
                 (token as AuthenticatedUser)?.level,
                 "SCHEDULE_GET"
               ) && (
-                <Route path="/schedule" element={<Schedules token={token} />} />
+                <>
+                  <Route
+                    path="/schedule"
+                    element={<Schedules token={token} />}
+                  />
+                  <Route
+                    path="/scheduleDetails"
+                    element={<ScheduleDetails />}
+                  />
+                  <Route
+                    path="/mySchedule"
+                    element={<Schedules token={token} />}
+                  />
+                </>
               )}
             </Routes>
           </Layout>
