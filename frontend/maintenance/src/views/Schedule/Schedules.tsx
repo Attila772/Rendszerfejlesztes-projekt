@@ -265,7 +265,7 @@ const Schedules = ({ token }: Props) => {
             <IconButton
               onClick={async () => {
                 try {
-                  await deleteSchedule(row.id);
+                  await deleteSchedule(row.id, (token as User)?.id);
                   enqueueSnackbar(t("schedule.deleteSuccess.title"), {
                     variant: "success",
                   });

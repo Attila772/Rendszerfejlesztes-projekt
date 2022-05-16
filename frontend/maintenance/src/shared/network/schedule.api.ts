@@ -48,11 +48,14 @@ export const createSchedule = async (
   return response.json();
 };
 
-export const deleteSchedule = async (id: string | number) => {
+export const deleteSchedule = async (
+  id: string | number,
+  user_id: string | number
+) => {
   const requestOptions = {
     method: "DELETE",
     headers: { "Content-type": "application/json" },
-    body: JSON.stringify({ id: id }),
+    body: JSON.stringify({ id: id, user_id: user_id }),
   };
   const response = await fetch(`${SERVER_ADDRESS}/schedule`, requestOptions);
   return response.json();

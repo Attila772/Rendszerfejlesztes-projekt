@@ -1,5 +1,4 @@
-import { sha512 } from "js-sha512";
-import { Category, Issue, User } from "../../components/types";
+import { Issue } from "../../components/types";
 import { SERVER_ADDRESS } from "../common/constants";
 
 export type CreateIssueRequest = {
@@ -51,11 +50,14 @@ export const getIssueById = async (id: string) => {
   return response.json();
 };
 
-export const deleteIssue = async (id: string | number) => {
+export const deleteIssue = async (
+  id: string | number,
+  user_id: string | number
+) => {
   const requestOptions = {
     method: "DELETE",
     headers: { "Content-type": "application/json" },
-    body: JSON.stringify({ id: id }),
+    body: JSON.stringify({ id: id, user_id: user_id }),
   };
   const response = await fetch(`${SERVER_ADDRESS}/task`, requestOptions);
   return response.json();

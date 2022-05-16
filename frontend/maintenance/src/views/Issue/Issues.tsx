@@ -12,13 +12,12 @@ import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { useHeader } from "../../components/Layout/HeaderContext";
 import SingleQueryTable from "../../components/PageableTable/SingleQueryTable";
-import { Category, Issue, Tool, User } from "../../components/types";
+import { Issue, User } from "../../components/types";
 import { hasAuthority } from "../../shared/common/authorization";
 import { COLORS } from "../../shared/common/constants";
 import { AuthenticatedUser } from "../../shared/common/rolePermissions";
-import { getCategoryById } from "../../shared/network/category.api";
 import { deleteIssue, listIssues } from "../../shared/network/issue.api";
-import { getToolById, listTools } from "../../shared/network/tool.api";
+import { listTools } from "../../shared/network/tool.api";
 import { listEmployees } from "../../shared/network/user.api";
 import ScheduleModal from "../Schedule/ScheduleModal";
 
@@ -152,7 +151,7 @@ const Issues = ({ token }: Props) => {
               <IconButton
                 // disabled={row?.priority !== 1}
                 onClick={() => {
-                  deleteIssue(row.id);
+                  deleteIssue(row.id, (token as User)?.id);
                   enqueueSnackbar(t("issue.deleteSuccess.title"), {
                     variant: "success",
                   });

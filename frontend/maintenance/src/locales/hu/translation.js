@@ -48,6 +48,7 @@ export const TRANSLATIONS_HU = {
       length: "Időtartam",
       state: "Állapot",
       task: "Feladat",
+      trade: "Képesítés",
     },
     button: {
       add: "Hozzáadás",

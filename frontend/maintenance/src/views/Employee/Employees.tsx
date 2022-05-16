@@ -1,7 +1,6 @@
 import { Box, Button, Container, IconButton, Tooltip } from "@material-ui/core";
-import { Assignment, Delete, Edit } from "@mui/icons-material";
+import { Edit } from "@mui/icons-material";
 import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
-import { useSnackbar } from "notistack";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "react-query";
@@ -11,7 +10,8 @@ import SingleQueryTable from "../../components/PageableTable/SingleQueryTable";
 import { hasAuthority } from "../../shared/common/authorization";
 import { COLORS } from "../../shared/common/constants";
 import { AuthenticatedUser } from "../../shared/common/rolePermissions";
-import { deleteEmployee, listEmployees } from "../../shared/network/user.api";
+import { listQualifications } from "../../shared/network/qualification.api";
+import { listEmployees } from "../../shared/network/user.api";
 
 type Props = {
   token?: any;
@@ -22,20 +22,28 @@ const Employees = ({ token }: Props) => {
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = React.useState(10);
   const { setHeaderButtons } = useHeader();
-  const { enqueueSnackbar } = useSnackbar();
-  const [toggleRefetch, setToggleRefetch] = useState(false);
   const isEmployeeAdmin = hasAuthority(
     (token as AuthenticatedUser)?.level,
     "EMPLOYEE_ADMIN"
   );
 
-  const employeeQuery = useQuery(
-    ["employees", page, toggleRefetch],
+  const employeeQuery = useQuery(["employees", page], async () => {
+    const data = await listEmployees();
+    return data;
+  });
+
+  const qualificationQuery = useQuery(
+    ["qualificationsForEmployees"],
     async () => {
-      const data = await listEmployees();
+      const data = await listQualifications();
       return data;
     }
   );
+  const qualifications = qualificationQuery.data?.Data
+    ? Object.keys(qualificationQuery.data?.Data)?.map(
+        (key: any) => qualificationQuery.data?.Data[key]
+      )
+    : [];
 
   useEffect(() => {
     isEmployeeAdmin &&
@@ -71,6 +79,17 @@ const Employees = ({ token }: Props) => {
         t(`common.role.${row.level}`),
     },
     {
+      field: "trade",
+      headerName: t("common.table.trade"),
+      headerAlign: "center",
+      align: "center",
+      sortable: false,
+      disableColumnMenu: true,
+      flex: 1,
+      renderCell: ({ row }: GridRenderCellParams) =>
+        qualifications.find((qua) => qua.id === row.trade)?.name || "-",
+    },
+    {
       field: " ",
       headerName: t("common.table.actions"),
       headerAlign: "right",
@@ -91,17 +110,6 @@ const Employees = ({ token }: Props) => {
               <Edit style={{ color: COLORS.mainLight }} />
             </IconButton>
           </Tooltip>
-          <Tooltip title={t("common.button.detailsAction.employee").toString()}>
-            <IconButton
-              component={Link}
-              to={`/employeeDetails?id=${row.id}`}
-              size="small"
-              color="primary"
-              style={{ margin: "0 8px" }}
-            >
-              <Assignment style={{ color: COLORS.mainLight }} />
-            </IconButton>
-          </Tooltip>
         </Box>
       ),
     },
@@ -118,18 +126,29 @@ const Employees = ({ token }: Props) => {
     {
       field: "level",
       headerName: t("common.table.level"),
-      headerAlign: "right",
-      align: "right",
+      headerAlign: "center",
+      align: "center",
       sortable: false,
       disableColumnMenu: true,
       flex: 1,
       renderCell: ({ row }: GridRenderCellParams) =>
         t(`common.role.${row.level}`),
     },
+    {
+      field: "trade",
+      headerName: t("common.table.trade"),
+      headerAlign: "right",
+      align: "right",
+      sortable: false,
+      disableColumnMenu: true,
+      flex: 1,
+      renderCell: ({ row }: GridRenderCellParams) =>
+        qualifications.find((qua) => qua.id === row.trade)?.name || "-",
+    },
   ];
 
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="md">
       <SingleQueryTable
         query={employeeQuery}
         columns={isEmployeeAdmin ? columnsAdmin : columns}
