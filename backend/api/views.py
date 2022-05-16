@@ -374,7 +374,7 @@ def get_task(id):
     
     # get schedule by id
 
-@views.route('/scheduleid/<int:id>', methods=['GET'])
+@views.route('/scheduleid/<int:id>', methods=['GET','POST'])
 def get_schedule(id):
         _schedule = schedule.query.filter_by(id = id).first()
         response_dict = {'id': _schedule.id,
