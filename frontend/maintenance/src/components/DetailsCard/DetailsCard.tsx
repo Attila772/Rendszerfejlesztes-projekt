@@ -5,6 +5,7 @@ import {
   CardHeader,
   Grid,
   makeStyles,
+  Typography,
 } from "@material-ui/core";
 import { CSSProperties, ReactNode } from "react";
 import { COLORS } from "../../shared/common/constants";
@@ -75,7 +76,7 @@ const DetailsCard = ({
                   {`${data.name}:`}
                 </Grid>
                 <Grid item xs={6} sm={3}>
-                  {data.value}
+                  <Typography noWrap>{data.value}</Typography>
                 </Grid>
               </>
             ))}

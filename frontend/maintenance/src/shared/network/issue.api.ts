@@ -41,11 +41,13 @@ export const modifyIssue = async (issue: Issue) => {
 //get-by-id
 export const getIssueById = async (id: string) => {
   const requestOptions = {
-    method: "POST",
+    method: "GET",
     headers: { "Content-type": "application/json" },
-    body: JSON.stringify({ id: id }),
   };
-  const response = await fetch(`${SERVER_ADDRESS}/task-by-id`, requestOptions);
+  const response = await fetch(
+    `${SERVER_ADDRESS}/taskid/${id}`,
+    requestOptions
+  );
   return response.json();
 };
 

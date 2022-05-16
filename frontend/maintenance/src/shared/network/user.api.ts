@@ -61,10 +61,12 @@ export const deleteEmployee = async (id: string | number) => {
 //get-by-id
 export const getEmployeeById = async (id: string) => {
   const requestOptions = {
-    method: "POST",
+    method: "GET",
     headers: { "Content-type": "application/json" },
-    body: JSON.stringify({ id: id }),
   };
-  const response = await fetch(`${SERVER_ADDRESS}/user-by-id`, requestOptions);
+  const response = await fetch(
+    `${SERVER_ADDRESS}/userid/${id}`,
+    requestOptions
+  );
   return response.json();
 };

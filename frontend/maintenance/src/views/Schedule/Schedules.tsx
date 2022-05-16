@@ -1,5 +1,13 @@
 import { Box, Container, IconButton, Tooltip } from "@material-ui/core";
-import { Assignment, Check, Close, Delete, Edit } from "@mui/icons-material";
+import {
+  Assignment,
+  Check,
+  CheckCircleOutline,
+  Close,
+  Delete,
+  Edit,
+  PlayArrow,
+} from "@mui/icons-material";
 import {
   GridColDef,
   GridRenderCellParams,
@@ -106,6 +114,7 @@ const Schedules = ({ token }: Props) => {
         }
       );
     }
+    setToggleRefetch(!toggleRefetch);
   }
 
   const columnsAdmin: GridColDef[] = [
@@ -218,7 +227,7 @@ const Schedules = ({ token }: Props) => {
                     color="primary"
                     style={{ margin: "0 8px" }}
                   >
-                    <Check style={{ color: COLORS.mainLight }} />
+                    <PlayArrow style={{ color: COLORS.mainLight }} />
                   </IconButton>
                 </Tooltip>
               </>
@@ -236,7 +245,7 @@ const Schedules = ({ token }: Props) => {
                     color="primary"
                     style={{ margin: "0 8px" }}
                   >
-                    <Check style={{ color: COLORS.mainLight }} />
+                    <CheckCircleOutline style={{ color: COLORS.mainLight }} />
                   </IconButton>
                 </Tooltip>
               </>
