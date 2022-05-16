@@ -1,5 +1,5 @@
 import { Box, Button, Container, IconButton, Tooltip } from "@material-ui/core";
-import { Delete, Edit } from "@mui/icons-material";
+import { Assignment, Delete, Edit } from "@mui/icons-material";
 import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { useSnackbar } from "notistack";
 import React, { useEffect, useState } from "react";
@@ -89,6 +89,17 @@ const Employees = ({ token }: Props) => {
               style={{ margin: "0 8px" }}
             >
               <Edit style={{ color: COLORS.mainLight }} />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title={t("common.button.detailsAction.employee").toString()}>
+            <IconButton
+              component={Link}
+              to={`/employeeDetails?id=${row.id}`}
+              size="small"
+              color="primary"
+              style={{ margin: "0 8px" }}
+            >
+              <Assignment style={{ color: COLORS.mainLight }} />
             </IconButton>
           </Tooltip>
         </Box>
