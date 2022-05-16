@@ -17,6 +17,7 @@ import PriviligeLevelModify from "./views/PriviligeLevels/PriviligeLevelModify";
 import QualificationModify from "./views/Qualification/QualificationModify";
 import ScheduleDetails from "./views/Schedule/ScheduleDetails";
 import ToolDetails from "./views/Tool/ToolDetails";
+import CategoryDetails from "./views/Category/CategoryDetails";
 
 const Dashboard = lazy(() => import("./views/Dashboard"));
 const Employees = lazy(() => import("./views/Employee/Employees"));
@@ -113,10 +114,13 @@ function App() {
                 (token as AuthenticatedUser)?.level,
                 "CATEGORY_GET"
               ) && (
-                <Route
-                  path="/category"
-                  element={<Categories token={token} />}
-                />
+                <>
+                  <Route
+                    path="/category"
+                    element={<Categories token={token} />}
+                  />
+                  <Route path="/categoryDetails" element={<CategoryDetails />} />
+                </>
               )}
               {hasAuthority(
                 (token as AuthenticatedUser)?.level,

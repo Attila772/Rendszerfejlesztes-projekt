@@ -41,26 +41,27 @@ const ToolDetails = () => {
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <DetailsCard
-            title="asd"
+            title={t("tool.details.title")}
             detailData={[
-              { name: "asd", value: "ww" },
-              { name: "wwww", value: "qqq" },
-              { name: "wwww", value: "qqq" },
-              { name: "wwww", value: "qqq" },
-              { name: "wwww", value: "qqq" },
+              { 
+                name: t("common.table.user"), 
+                value: tool?.name ? tool.name : "-"
+              },
+              { 
+                name: t("common.table.category"),
+                value: tool?.category ? tool.category.name : "-"
+              },
+              { 
+                name: t("common.table.location"),
+                value: tool?.location ? tool.location.building + "/" + tool.location.room : "-"
+              },
             ]}
           />
         </Grid>
         <Grid item xs={12}>
           <DetailsCard
-            title="asd"
-            singleData="A TOS olyan kórképek összefoglaló neve, melyek a nyaki szakasz anatómiai rendellenességeinek következtében alakulnak ki. Lényege, hogy a nyak területén található nagyerek, illetve a felső végtag idegfonata nyomás alá kerül, melynek következtében állandó vagy ideiglenes, gyakran nehezen meghatározható tünetek alakulnak ki.
-
-            A TOS (mellkaskimeneti szindrómák, thoracic outlet syndrome) körébe három betegség tartozik: scalenus szindróma, costoclaviculáris szindróma, hyperabdukciós szindróma. A kórképek elnevezése a kiváltó okokra utal, vagyis azokra az anatómiai képletekre illetve testhelyzetre, amelyek az adott betegség tüneteit okozzák.
-            
-            Hirdetés
-            
-            A mellkaskimeneti szindrómák diagnózisában és kezelésében leggyakrabban több orvostudományi terület szakemberei vesznek benne részt (neurológus, angiológus, radiológus, reumatológus)."
+            title={t("tool.details.toolDescription")}
+            singleData= {tool?.description ? tool.description : "-"}
           />
         </Grid>
       </Grid>

@@ -250,6 +250,10 @@ export const TRANSLATIONS_HU = {
     deleteSuccess: {
       title: "Sikeres eszköz törlés.",
     },
+    details: {
+      title: "Eszköz részletei",
+      toolDescription: "Eszköz leíársa",
+    },
   },
   qualification: {
     formLabels: {
@@ -287,12 +291,17 @@ export const TRANSLATIONS_HU = {
     },
     actions: {
       createTitle: "Kategória létrehozása",
+      detailsTitle: "Kategória részletei",
     },
     createSuccess: {
       title: "Sikeres kategória létrehozás.",
     },
     deleteSuccess: {
       title: "Sikeres kategória törlés.",
+    },
+    details: {
+      title: "Kategória részletei",
+      categoryDescription: "Kategória leíársa",
     },
   },
   log: {
