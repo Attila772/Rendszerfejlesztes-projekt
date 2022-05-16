@@ -389,7 +389,7 @@ def get_schedule(id):
 
 # User get by id
 @views.route('/userid/<int:id>', methods=['GET'])
-def get_user_by_id():
+def get_user_by_id(id):
         _user = User.query.filter_by(id = id).first()
         response_dict = {'id': _user.id,
                         'name': _user.name,
