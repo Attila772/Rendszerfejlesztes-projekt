@@ -467,7 +467,7 @@ def auto_generate_log(data,current_user_var):
 @login_required
 @views.route('/getschedule/<int:id>', methods=['GET'])
 def get_user_schedule(id):
-        current_user = User.query.filter_by(id=int(request.get_json()["user_id"])).first()  
+        current_user = User.query.filter_by(id=id).first()  
         _schedule = current_user.schedule
         response_dict = {}
         counter = 0
