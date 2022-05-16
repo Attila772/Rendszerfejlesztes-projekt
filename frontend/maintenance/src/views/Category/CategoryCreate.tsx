@@ -17,7 +17,7 @@ import CategoryForm from "./CategoryForm";
 export type CategoryFormValues = {
   name: string;
   normaTimeInHours: number | string;
-  intervalInDays?: string | null;
+  intervalInDays?: number | null;
   parentCategory?: Category | null;
   description?: string;
   qualification: Qualification | null;

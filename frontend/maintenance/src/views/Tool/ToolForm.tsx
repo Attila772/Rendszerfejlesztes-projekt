@@ -1,5 +1,5 @@
 import { Button, Container, Grid, TextField } from "@material-ui/core";
-import { Autocomplete } from "@mui/material";
+import { Autocomplete, TextareaAutosize } from "@mui/material";
 import { Controller, UseFormReturn } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
@@ -58,21 +58,10 @@ const ToolForm = ({ form, tool, locations, categories }: Props) => {
           <Grid item xs={12}>
             <Controller
               control={form.control}
-              name="description"
-              defaultValue={tool?.description || ""}
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  label={t("tool.formLabels.description")}
-                />
-              )}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Controller
-              control={form.control}
               name="category"
-              defaultValue={tool?.category.name || null}
+              defaultValue={
+                categories?.find((categ) => categ.id === tool?.category) || null
+              }
               rules={{ required: t("validation.required").toString() }}
               render={({ field, fieldState }) => (
                 <Autocomplete
@@ -100,7 +89,10 @@ const ToolForm = ({ form, tool, locations, categories }: Props) => {
               control={form.control}
               name="location"
               rules={{ required: t("validation.required").toString() }}
-              defaultValue={tool?.location || null}
+              defaultValue={
+                locations?.find((location) => location.id === tool?.location) ||
+                null
+              }
               render={({ field, fieldState }) => (
                 <Autocomplete
                   {...field}
@@ -119,6 +111,29 @@ const ToolForm = ({ form, tool, locations, categories }: Props) => {
                       InputLabelProps={{ required: true }}
                     />
                   )}
+                />
+              )}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Controller
+              control={form.control}
+              name="description"
+              defaultValue={tool?.description || ""}
+              render={({ field }) => (
+                <TextareaAutosize
+                  style={{
+                    width: "calc(100% - 20px)",
+                    maxWidth: "calc(100% - 20px)",
+                    minWidth: "calc(100% - 20px)",
+                    borderRadius: 8,
+                    minHeight: 50,
+                    padding: 8,
+                  }}
+                  {...field}
+                  minRows={3}
+                  maxRows={50}
+                  placeholder={t("tool.formLabels.description")}
                 />
               )}
             />

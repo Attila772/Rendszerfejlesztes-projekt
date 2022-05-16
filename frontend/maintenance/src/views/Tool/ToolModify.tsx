@@ -6,7 +6,9 @@ import { useTranslation } from "react-i18next";
 import { useQuery } from "react-query";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useHeader } from "../../components/Layout/HeaderContext";
-import { SliceStatus } from "../../components/types";
+import { SliceStatus, Tool } from "../../components/types";
+import { listCategories } from "../../shared/network/category.api";
+import { listLocations } from "../../shared/network/location.api";
 import { getToolById, modifyTool } from "../../shared/network/tool.api";
 import { ToolFormValues } from "./ToolCreate";
 import ToolForm from "./ToolForm";
@@ -22,11 +24,55 @@ const ToolModify = () => {
   const id = query.get("id");
   const { setHeaderName } = useHeader();
 
-  const toolQuery = useQuery(["getToolByIdQuery", id], async () => {
-    const { data } = await getToolById(id ? parseInt(id) : 0);
+  const toolQuery = useQuery(
+    ["getToolByIdQueryForToolModify", id],
+    async () => {
+      const data = await getToolById(id ? parseInt(id) : 0);
+      return data;
+    }
+  );
+
+  const tool = {
+    name: toolQuery.data?.Data?.name,
+    location: toolQuery.data?.Data?.location,
+    id: toolQuery.data?.Data?.id,
+    description: toolQuery.data?.Data?.descript,
+    category: toolQuery.data?.Data?.category,
+  } as Tool;
+
+  const locationQuery = useQuery(["locationsForToolFormMod"], async () => {
+    const data = await listLocations();
     return data;
   });
-  const tool = toolQuery.data;
+  const locations = locationQuery.data?.Data
+    ? Object.keys(locationQuery.data?.Data)?.map(
+        (key: any) => locationQuery.data?.Data[key]
+      )
+    : [];
+  const categoryQuery = useQuery(["categoriesForToolFormMod"], async () => {
+    const data = await listCategories();
+    return data;
+  });
+  const categories = categoryQuery.data?.Data
+    ? Object.keys(categoryQuery.data?.Data)?.map(
+        (key: any) => categoryQuery.data?.Data[key]
+      )
+    : [];
+
+  useEffect(() => {
+    if (tool) {
+      form.setValue(
+        "category",
+        categories.find((categ) => categ.id === tool.category)
+      );
+      form.setValue("description", tool.description);
+      form.setValue(
+        "location",
+        locations.find((location) => location.id === tool.location)
+      );
+      form.setValue("name", tool.name);
+    }
+  }, [tool]);
 
   const onSubmit = async (values: ToolFormValues) => {
     try {
@@ -69,7 +115,12 @@ const ToolModify = () => {
       ) : (
         <FormProvider {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <ToolForm form={form} tool={tool} />
+            <ToolForm
+              form={form}
+              tool={tool}
+              locations={locations}
+              categories={categories}
+            />
           </form>
         </FormProvider>
       )}

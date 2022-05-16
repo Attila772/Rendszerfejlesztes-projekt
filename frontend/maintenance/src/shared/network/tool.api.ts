@@ -36,7 +36,13 @@ export const modifyTool = async (tool: Tool) => {
   const requestOptions = {
     method: "PUT",
     headers: { "Content-type": "application/json" },
-    body: JSON.stringify({ ...tool }),
+    body: JSON.stringify({
+      category: tool.category?.id,
+      descript: tool.description,
+      location: tool.location?.id,
+      name: tool.name,
+      id: tool.id,
+    }),
   };
   const response = await fetch(`${SERVER_ADDRESS}/item`, requestOptions);
   return response.json();

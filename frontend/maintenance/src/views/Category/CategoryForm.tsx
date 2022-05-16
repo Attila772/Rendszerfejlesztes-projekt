@@ -1,21 +1,17 @@
 import {
-  Box,
   Button,
   Container,
-  FormControlLabel,
   Grid,
-  Switch,
   TextareaAutosize,
   TextField,
 } from "@material-ui/core";
-import { valueToPercent } from "@mui/base";
 import { Autocomplete } from "@mui/material";
 import { Controller, UseFormReturn } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import FormCard from "../../components/FormCard";
 import { Category, Qualification } from "../../components/types";
-import { COLORS, MAINTENANCE_INTERVALS } from "../../shared/common/constants";
+import { MAINTENANCE_INTERVALS } from "../../shared/common/constants";
 import { CategoryFormValues } from "./CategoryCreate";
 
 type Props = {
@@ -58,7 +54,12 @@ const CategoryForm = ({
             <Controller
               control={form.control}
               name="qualification"
-              defaultValue={category?.qualification || null}
+              defaultValue={
+                qualifications?.find(
+                  (qualification) =>
+                    qualification?.id === category?.qualification
+                ) || null
+              }
               rules={{ required: t("validation.required").toString() }}
               render={({ field, fieldState }) => (
                 <Autocomplete
@@ -133,7 +134,7 @@ const CategoryForm = ({
                 <Autocomplete
                   {...field}
                   onChange={(_, value) => field.onChange(value)}
-                  getOptionLabel={(option: string) =>
+                  getOptionLabel={(option: number) =>
                     MAINTENANCE_INTERVALS
                       ? t(`common.interval.${option}`)
                       : t("common.select.choose")
@@ -162,7 +163,11 @@ const CategoryForm = ({
             <Controller
               control={form.control}
               name="parentCategory"
-              defaultValue={category?.parentCategory || null}
+              defaultValue={
+                categories?.find(
+                  (categ) => categ.id === category?.parentCategory
+                ) || null
+              }
               render={({ field, fieldState }) => (
                 <Autocomplete
                   {...field}

@@ -204,7 +204,16 @@ function App() {
                 (token as AuthenticatedUser)?.level,
                 "SCHEDULE_GET"
               ) && (
-                <Route path="/schedule" element={<Schedules token={token} />} />
+                <>
+                  <Route
+                    path="/schedule"
+                    element={<Schedules token={token} />}
+                  />
+                  <Route
+                    path="/mySchedule"
+                    element={<Schedules token={token} />}
+                  />
+                </>
               )}
             </Routes>
           </Layout>

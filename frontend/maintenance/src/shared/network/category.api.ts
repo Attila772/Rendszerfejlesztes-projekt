@@ -5,7 +5,7 @@ import { SERVER_ADDRESS } from "../common/constants";
 export type CreateCategoryRequest = {
   name: string;
   normaTimeInHours: number | string;
-  intervalInDays?: string | null;
+  intervalInDays?: number | null;
   parentCategory?: Category | null;
   description?: string;
   qualification: number;

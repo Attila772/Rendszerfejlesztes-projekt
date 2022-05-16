@@ -25,7 +25,6 @@ export const OPERATOR_PERMISSIONS = [
 
 export const MAINTENANCE_PERMISSIONS = [
   "ISSUE_GET",
-  "ISSUE_ADMIN",
   "LOG_GET",
   "CATEGORY_GET",
   "TOOL_GET",

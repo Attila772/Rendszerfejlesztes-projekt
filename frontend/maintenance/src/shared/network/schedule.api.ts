@@ -18,6 +18,18 @@ export const listSchedules = async () => {
   return response.json();
 };
 
+export const listMySchedules = async (id: number) => {
+  const requestOptions = {
+    method: "GET",
+    headers: { "Content-type": "application/json" },
+  };
+  const response = await fetch(
+    `${SERVER_ADDRESS}/getschedule/${id}`,
+    requestOptions
+  );
+  return response.json();
+};
+
 export const createSchedule = async (
   scheduleRequest: CreateScheduleRequest
 ) => {
@@ -63,6 +75,9 @@ export const getScheduleById = async (id: string) => {
     headers: { "Content-type": "application/json" },
     body: JSON.stringify({ id: id }),
   };
-  const response = await fetch(`${SERVER_ADDRESS}/schedule-by-id`, requestOptions);
+  const response = await fetch(
+    `${SERVER_ADDRESS}/schedule-by-id`,
+    requestOptions
+  );
   return response.json();
 };

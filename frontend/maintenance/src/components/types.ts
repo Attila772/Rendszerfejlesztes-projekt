@@ -89,7 +89,7 @@ export type Category = {
   id: number;
   name: string;
   normaTimeInHours: number | string;
-  intervalInDays?: string | null;
+  intervalInDays?: number | null;
   parentCategory?: any;
   description?: string;
   qualification: any;
