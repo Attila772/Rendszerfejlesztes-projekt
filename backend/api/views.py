@@ -361,7 +361,7 @@ def get_item(id):
         return response
     
     # get task by id
-@views.route('/taskid', methods=['GET'])
+@views.route('/taskid/<int:id>', methods=['GET'])
 def get_task(id):
         _task = task.query.filter_by(id = id).first()
         response_dict = {'id': _task.id,
