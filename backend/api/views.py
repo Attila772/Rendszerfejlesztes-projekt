@@ -466,7 +466,7 @@ def auto_generate_log(data,current_user_var):
 ## route to get the schedule of the user
 @login_required
 @views.route('/getschedule/<int:id>', methods=['GET'])
-def get_schedule(id):
+def get_user_schedule(id):
         current_user = User.query.filter_by(id=int(request.get_json()["user_id"])).first()  
         _schedule = current_user.schedule
         response_dict = {}
