@@ -76,7 +76,7 @@ export const getScheduleById = async (id: string) => {
     body: JSON.stringify({ id: id }),
   };
   const response = await fetch(
-    `${SERVER_ADDRESS}/schedule-by-id`,
+    `${SERVER_ADDRESS}/scheduleid/${id}`,
     requestOptions
   );
   return response.json();

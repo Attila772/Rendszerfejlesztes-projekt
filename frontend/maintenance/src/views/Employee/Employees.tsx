@@ -91,22 +91,6 @@ const Employees = ({ token }: Props) => {
               <Edit style={{ color: COLORS.mainLight }} />
             </IconButton>
           </Tooltip>
-          <Tooltip title={t("common.button.deleteAction.employee").toString()}>
-            <IconButton
-              onClick={() => {
-                deleteEmployee(row.id);
-                enqueueSnackbar(t("employee.deleteSuccess.title"), {
-                  variant: "success",
-                });
-                setToggleRefetch(!toggleRefetch);
-              }}
-              size="small"
-              color="primary"
-              style={{ margin: "0 8px", color: COLORS.mainLight }}
-            >
-              <Delete style={{ color: COLORS.mainLight }} />
-            </IconButton>
-          </Tooltip>
         </Box>
       ),
     },

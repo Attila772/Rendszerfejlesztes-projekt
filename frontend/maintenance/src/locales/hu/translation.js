@@ -45,7 +45,7 @@ export const TRANSLATIONS_HU = {
       parentCategory: "'Szülő' kategória",
       user: "Felhasználó neve",
       from_date: "Módosítva",
-      length: "Hossz",
+      length: "Időtartam",
       state: "Állapot",
       task: "Feladat",
     },
@@ -94,6 +94,9 @@ export const TRANSLATIONS_HU = {
         schedule: "Ütemterv törlése",
         issue: "Feladat törlése",
       },
+      detailsAction: {
+        schedule: "Karbantartás részletei",
+      },
     },
   },
   validation: {
@@ -115,6 +118,9 @@ export const TRANSLATIONS_HU = {
     mySchedule: "Beosztásom",
   },
   schedule: {
+    actions: {
+      detailsTitle: "Karbantartás részletei",
+    },
     user: {
       title: "Felhasználó",
       add: "Felhasználó hozzárendelése",

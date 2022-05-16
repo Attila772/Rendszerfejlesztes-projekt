@@ -9,7 +9,6 @@ export const LOGISTIC_PERMISSIONS = [
 
 export const OPERATOR_PERMISSIONS = [
   "EMPLOYEE_GET",
-  "EMPLOYEE_ADMIN",
   "ROLE_GET",
   "ISSUE_GET",
   "ISSUE_ADMIN",

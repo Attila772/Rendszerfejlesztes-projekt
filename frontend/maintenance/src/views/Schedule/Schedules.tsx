@@ -1,5 +1,5 @@
 import { Box, Container, IconButton, Tooltip } from "@material-ui/core";
-import { Check, Close, Delete, Edit } from "@mui/icons-material";
+import { Assignment, Check, Close, Delete, Edit } from "@mui/icons-material";
 import {
   GridColDef,
   GridRenderCellParams,
@@ -250,6 +250,17 @@ const Schedules = ({ token }: Props) => {
               style={{ margin: "0 8px" }}
             >
               <Edit style={{ color: COLORS.mainLight }} />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title={t("common.button.detailsAction.schedule").toString()}>
+            <IconButton
+              component={Link}
+              to={`/scheduleDetails?id=${row.id}`}
+              size="small"
+              color="primary"
+              style={{ margin: "0 8px" }}
+            >
+              <Assignment style={{ color: COLORS.mainLight }} />
             </IconButton>
           </Tooltip>
           <Tooltip title={t("common.button.deleteAction.schedule").toString()}>
