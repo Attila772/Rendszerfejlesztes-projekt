@@ -96,6 +96,9 @@ export const TRANSLATIONS_HU = {
       },
       detailsAction: {
         schedule: "Karbantartás részletei",
+        employee: "Dolgozó részletei",
+        tool: "Eszköz részletei",
+        category: "Kategória részletei",
       },
     },
   },
