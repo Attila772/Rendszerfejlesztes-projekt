@@ -394,8 +394,7 @@ def get_user_by_id(id):
         response_dict = {'id': _user.id,
                         'email': _user.email,
                         'trade': _user.trade,
-                        'level': _user.level,
-                        'admin': _user.admin}
+                        'level': _user.level}
         response =  jsonify({'Data': response_dict})
         response.headers.add('Access-Control-Allow-Origin', '*')
         return response
