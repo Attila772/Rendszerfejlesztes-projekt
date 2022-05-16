@@ -118,6 +118,11 @@ export const TRANSLATIONS_HU = {
     mySchedule: "Beosztásom",
   },
   schedule: {
+    details: {
+      title: "Karbantartás részletei",
+      toolDescription: "Eszköz leíársa",
+      categoryDescription: "Kategória leírása",
+    },
     actions: {
       detailsTitle: "Karbantartás részletei",
     },
