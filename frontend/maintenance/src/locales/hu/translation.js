@@ -149,6 +149,7 @@ export const TRANSLATIONS_HU = {
     declineFailure: {
       title: "Sikertelen elutasítás.",
     },
+    deleteFailure: { title: "Sikertelen ütemterv törlés." },
   },
   employee: {
     formLabels: {

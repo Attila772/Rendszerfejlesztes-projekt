@@ -263,12 +263,18 @@ const Schedules = ({ token }: Props) => {
           </Tooltip>
           <Tooltip title={t("common.button.deleteAction.schedule").toString()}>
             <IconButton
-              onClick={() => {
-                deleteSchedule(row.id);
-                enqueueSnackbar(t("schedule.deleteSuccess.title"), {
-                  variant: "success",
-                });
-                setToggleRefetch(!toggleRefetch);
+              onClick={async () => {
+                try {
+                  await deleteSchedule(row.id);
+                  enqueueSnackbar(t("schedule.deleteSuccess.title"), {
+                    variant: "success",
+                  });
+                  setToggleRefetch(!toggleRefetch);
+                } catch {
+                  enqueueSnackbar(t("schedule.deleteFailure.title"), {
+                    variant: "error",
+                  });
+                }
               }}
               size="small"
               color="primary"
