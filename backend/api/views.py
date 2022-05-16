@@ -392,7 +392,6 @@ def get_schedule(id):
 def get_user_by_id(id):
         _user = User.query.filter_by(id = id).first()
         response_dict = {'id': _user.id,
-                        'name': _user.name,
                         'email': _user.email,
                         'trade': _user.trade,
                         'level': _user.level,
