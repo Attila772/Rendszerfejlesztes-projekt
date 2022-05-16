@@ -43,7 +43,15 @@ export const modifyCategory = async (category: Category) => {
   const requestOptions = {
     method: "PUT",
     headers: { "Content-type": "application/json" },
-    body: JSON.stringify({ ...category }),
+    body: JSON.stringify({
+      id: category.id,
+      name: category.name,
+      norma_time: category.normaTimeInHours,
+      interval: category.intervalInDays,
+      descript: category.description,
+      qualifications: category.qualification?.id,
+      parent_id: category.parentCategory?.id ?? -1,
+    }),
   };
   const response = await fetch(`${SERVER_ADDRESS}/category`, requestOptions);
   return response.json();
