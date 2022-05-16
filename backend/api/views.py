@@ -223,7 +223,7 @@ def item_():
         response.headers.add('Access-Control-Allow-Origin', '*')
         return response
     pass
-@login_required
+
 @views.route('/task', methods=['GET','POST','PUT','DELETE'])
 def task_():
     if request.method == 'POST':
@@ -282,7 +282,7 @@ def task_():
     pass
 
 #basic functions for schedule model class
-@login_required
+
 @views.route('/schedule', methods=['GET','POST','PUT','DELETE'])
 def schedule_():
         if request.method == 'POST':
@@ -373,7 +373,7 @@ def get_task(id):
         return response
     
     # get schedule by id
-@login_required
+
 @views.route('/scheduleid/<int:id>', methods=['GET'])
 def get_schedule(id):
         _schedule = schedule.query.filter_by(id = id).first()
@@ -442,7 +442,7 @@ def log_():
             return response
  
  # Delete schedule by id
-@login_required
+
 @views.route('/delschedule/<int:id>', methods=['DELETE'])
 def delete_schedule(id):
         current_user = User.query.filter_by(id=int(request.get_json()["user_id"])).first()  
