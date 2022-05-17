@@ -52,12 +52,11 @@ export const deleteLocation = async (id: string | number) => {
 //get-by-id
 export const getLocationById = async (id: string) => {
   const requestOptions = {
-    method: "POST",
+    method: "GET",
     headers: { "Content-type": "application/json" },
-    body: JSON.stringify({ id: id }),
   };
   const response = await fetch(
-    `${SERVER_ADDRESS}/location-by-id`,
+    `${SERVER_ADDRESS}/locationid/${id}`,
     requestOptions
   );
   return response.json();

@@ -5,7 +5,6 @@ import {
   CheckCircleOutline,
   Close,
   Delete,
-  Edit,
   PlayArrow,
 } from "@mui/icons-material";
 import {

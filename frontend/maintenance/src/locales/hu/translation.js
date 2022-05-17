@@ -302,6 +302,7 @@ export const TRANSLATIONS_HU = {
     details: {
       title: "Kategória részletei",
       categoryDescription: "Kategória leíársa",
+      qualification: "Szükséges képesítés",
     },
   },
   log: {

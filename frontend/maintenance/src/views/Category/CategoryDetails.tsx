@@ -17,11 +17,14 @@ const CategoryDetails = () => {
   const query = new URLSearchParams(location.search);
   const id = query.get("id");
 
-  const categoryQuery = useQuery(["getCategoryIdForToolDetails", id], async () => {
-    const { data } = await getCategoryById(id ? parseInt(id) : 0);
-    return data;
-  });
-  
+  const categoryQuery = useQuery(
+    ["getCategoryIdForToolDetails", id],
+    async () => {
+      const data = await getCategoryById(id ? parseInt(id) : 0);
+      return data;
+    }
+  );
+
   const category = {
     id: categoryQuery.data?.Data?.id,
     name: categoryQuery.data?.Data?.name,
@@ -46,25 +49,32 @@ const CategoryDetails = () => {
           <DetailsCard
             title={t("category.details.title")}
             detailData={[
-              { 
-                name: t("common.table.user"), 
-                value: category?.name ? category.name : "-"
+              {
+                name: t("common.table.user"),
+                value: category?.name ? category.name : "-",
               },
-              { 
+              {
                 name: t("common.table.normaTimeInHours"),
-                value: category?.normaTimeInHours ? category?.normaTimeInHours.toString() : "-"
+                value: category?.normaTimeInHours
+                  ? category?.normaTimeInHours.toString()
+                  : "-",
               },
-              { 
+              {
                 name: t("common.table.interval"),
-                value: category?.intervalInDays ? category?.intervalInDays.toString() : "-"
+                value: category?.intervalInDays
+                  ? category?.intervalInDays.toString()
+                  : "-",
               },
-              { 
+              {
                 name: t("common.table.parentCategory"),
-                value: category?.parentCategory ? category?.parentCategory : "-"
+                value:
+                  category?.parentCategory !== -1
+                    ? category?.parentCategory
+                    : "-",
               },
-              { 
+              {
                 name: t("category.details.qualification"),
-                value: category?.qualification ? category?.qualification : "-"
+                value: category?.qualification ? category?.qualification : "-",
               },
             ]}
           />
@@ -72,7 +82,7 @@ const CategoryDetails = () => {
         <Grid item xs={12}>
           <DetailsCard
             title={t("category.details.categoryDescription")}
-            singleData= {category?.description ? category.description : "-"}
+            singleData={category?.description ? category.description : "-"}
           />
         </Grid>
       </Grid>
