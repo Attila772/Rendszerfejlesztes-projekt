@@ -186,7 +186,8 @@ def item_():
         new_task=item(name=item_name,
                       descript=item_descript, 
                       category=item_category,
-                      location= item_location)
+                      location= item_location,
+                      last_maintenance=date(2001,1,1))
         db.session.add(new_task)
         db.session.commit()
         response = jsonify({'Data':'Sikeres'})
